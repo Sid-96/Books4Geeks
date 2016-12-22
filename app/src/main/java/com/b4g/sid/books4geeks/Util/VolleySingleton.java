@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks;
+package com.b4g.sid.books4geeks.Util;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -6,6 +6,7 @@ import android.util.LruCache;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.b4g.sid.books4geeks.B4GAppClass;
 
 /**
  * Created by Sid on 22-Dec-16.

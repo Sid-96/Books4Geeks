@@ -1,6 +1,8 @@
-package com.b4g.sid.books4geeks;
+package com.b4g.sid.books4geeks.Util;
 
 import android.graphics.Typeface;
+
+import com.b4g.sid.books4geeks.B4GAppClass;
 
 import java.util.HashMap;
 

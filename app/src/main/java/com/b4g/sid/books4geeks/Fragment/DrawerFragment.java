@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks;
+package com.b4g.sid.books4geeks.Fragment;
 
 
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.b4g.sid.books4geeks.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

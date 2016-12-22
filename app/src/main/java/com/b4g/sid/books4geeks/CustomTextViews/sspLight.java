@@ -5,7 +5,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.b4g.sid.books4geeks.FontUtil;
+import com.b4g.sid.books4geeks.Util.FontUtil;
 
 /**
  * Created by Sid on 22-Dec-16.

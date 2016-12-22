@@ -1,7 +1,9 @@
-package com.b4g.sid.books4geeks;
+package com.b4g.sid.books4geeks.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.b4g.sid.books4geeks.R;
 
 public class MainActivity extends AppCompatActivity {
 
