@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/list_item_category_padding"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground">
+    
+    <ImageView
+        android:id="@+id/category_icon"
+        android:layout_width="@dimen/list_item_category_icon_size"
+        android:layout_height="@dimen/list_item_category_icon_size"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/category_temp"
+        tools:ignore="ContentDescription"/>
+
+    <com.b4g.sid.books4geeks.CustomTextViews.sspRegular
+        android:id="@+id/category_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        tools:text="Category Name"
+        android:textSize="@dimen/text_large"
+        android:layout_marginStart="@dimen/dist_large"
+        android:layout_marginLeft="@dimen/dist_large"/>
+
+</LinearLayout>
