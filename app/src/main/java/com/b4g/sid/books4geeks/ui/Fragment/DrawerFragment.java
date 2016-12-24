@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks.Fragment;
+package com.b4g.sid.books4geeks.ui.Fragment;
 
 
 import android.os.Bundle;
@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.b4g.sid.books4geeks.B4GAppClass;
-import com.b4g.sid.books4geeks.CategoryRecyclerFragment;
 import com.b4g.sid.books4geeks.R;
 
 import butterknife.BindView;

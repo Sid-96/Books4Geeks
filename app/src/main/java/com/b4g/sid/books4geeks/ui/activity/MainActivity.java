@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks.activity;
+package com.b4g.sid.books4geeks.ui.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

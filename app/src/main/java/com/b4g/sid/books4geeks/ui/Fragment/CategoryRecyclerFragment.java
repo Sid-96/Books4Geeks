@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks;
+package com.b4g.sid.books4geeks.ui.Fragment;
 
 
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.ui.adapter.CategoryAdapter;
 
 import butterknife.BindView;
