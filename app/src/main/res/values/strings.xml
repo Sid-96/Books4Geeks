@@ -11,4 +11,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="book_cover_desc">Book Cover</string>
+    <string name="book_author">Book Author</string>
+    <string name="book_name">Book Name</string>
+
+
 </resources>

@@ -18,4 +18,7 @@
 
     <dimen name="list_item_category_padding">8dp</dimen>
     <dimen name="list_item_category_icon_size">32dp</dimen>
+
+    <dimen name="book_card_height">200dp</dimen>
+    <dimen name="book_card_width">120dp</dimen>
 </resources>
