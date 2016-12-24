@@ -4,6 +4,7 @@ package com.b4g.sid.books4geeks.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.b4g.sid.books4geeks.CategoryRecyclerFragment;
 import com.b4g.sid.books4geeks.R;
 
 import butterknife.BindView;
@@ -61,6 +63,15 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        return false;
+        drawerLayout.closeDrawers();
+        toolbar.setTitle(item.getTitle());
+        item.setChecked(true);
+        if(item.getItemId()==R.id.item_bestsellers){
+            CategoryRecyclerFragment fragment = new CategoryRecyclerFragment();
+            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.content_fragment,fragment);
+            transaction.commit();
+        }
+        return true;
     }
 }
