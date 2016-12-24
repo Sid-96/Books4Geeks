@@ -11,6 +11,7 @@ public class B4GAppClass extends Application {
 
 
     public static final String TOOLBAR_TITLE = "toolbar_title";
+    public static final String LIST_NAME = "list_name";
 
     private static Context mContext;
     @Override

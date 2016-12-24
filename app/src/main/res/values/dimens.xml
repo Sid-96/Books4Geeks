@@ -21,4 +21,5 @@
 
     <dimen name="book_card_height">200dp</dimen>
     <dimen name="book_card_width">120dp</dimen>
+    <dimen name="padding_best_seller_recycler">16dp</dimen>
 </resources>

@@ -14,7 +14,7 @@ import com.b4g.sid.books4geeks.B4GAppClass;
 
 public class VolleySingleton {
 
-    public static VolleySingleton instance;
+    private static VolleySingleton instance;
 
     public static VolleySingleton getInstance() {
         if(instance==null)  instance = new VolleySingleton();

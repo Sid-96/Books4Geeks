@@ -41,7 +41,7 @@
             android:layout_marginLeft="@dimen/dist_large"
             android:layout_marginStart="@dimen/dist_large"/>
 
-        
+
     </RelativeLayout>
     
     
