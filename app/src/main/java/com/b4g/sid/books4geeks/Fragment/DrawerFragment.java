@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.CategoryRecyclerFragment;
 import com.b4g.sid.books4geeks.R;
 
@@ -58,7 +59,16 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         navigationView.setNavigationItemSelectedListener(this);
         actionBarDrawerToggle.syncState();
+        if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.TOOLBAR_TITLE)){
+            toolbar.setTitle(savedInstanceState.getString(B4GAppClass.TOOLBAR_TITLE));
+        }
         return  view;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(B4GAppClass.TOOLBAR_TITLE,toolbar.getTitle().toString());
     }
 
     @Override

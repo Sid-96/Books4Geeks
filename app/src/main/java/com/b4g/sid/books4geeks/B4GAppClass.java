@@ -10,6 +10,8 @@ import android.content.Context;
 public class B4GAppClass extends Application {
 
 
+    public static final String TOOLBAR_TITLE = "toolbar_title";
+
     private static Context mContext;
     @Override
     public void onCreate() {
