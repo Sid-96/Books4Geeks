@@ -16,6 +16,7 @@ import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BestSeller;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
+import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.ui.adapter.BestSellerAdapter;
 
@@ -47,8 +48,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         View v =  inflater.inflate(R.layout.fragment_best_seller, container, false);
         unbinder = ButterKnife.bind(this,v);
         listName = getArguments().getString(B4GAppClass.LIST_NAME);
-        //TODO Implement logic for dynamic number of columns in layout manager.
-        layoutManager = new GridLayoutManager(getContext(),3);
+        layoutManager = new GridLayoutManager(getContext(), DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
         bestSellerAdapter = new BestSellerAdapter(this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(bestSellerAdapter);
