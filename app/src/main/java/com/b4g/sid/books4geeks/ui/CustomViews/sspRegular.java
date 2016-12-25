@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks.ui.CustomTextViews;
+package com.b4g.sid.books4geeks.ui.CustomViews;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -12,31 +12,29 @@ import com.b4g.sid.books4geeks.Util.FontUtil;
  * Reference taken from https://futurestud.io/tutorials/custom-fonts-on-android-extending-textview ...
  */
 
-public class sspBoldTextView extends TextView {
-
-
-    public sspBoldTextView(Context context) {
+public class sspRegular extends TextView {
+    public sspRegular(Context context) {
         super(context);
         applyCustomFont();
     }
 
-    public sspBoldTextView(Context context, AttributeSet attrs) {
+    public sspRegular(Context context, AttributeSet attrs) {
         super(context, attrs);
         applyCustomFont();
     }
 
-    public sspBoldTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public sspRegular(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         applyCustomFont();
     }
 
-    public sspBoldTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public sspRegular(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         applyCustomFont();
     }
 
     private void applyCustomFont(){
-        Typeface customFont = FontUtil.getTypeFace(FontUtil.SSP_BOLD);
+        Typeface customFont = FontUtil.getTypeFace(FontUtil.SSP_REGULAR);
         setTypeface(customFont);
     }
 }

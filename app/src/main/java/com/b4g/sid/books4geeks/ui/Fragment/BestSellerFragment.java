@@ -18,6 +18,7 @@ import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
+import com.b4g.sid.books4geeks.ui.CustomViews.ItemDecorationView;
 import com.b4g.sid.books4geeks.ui.adapter.BestSellerAdapter;
 
 import org.json.JSONArray;
@@ -54,6 +55,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         layoutManager = new GridLayoutManager(getContext(), DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
         bestSellerAdapter = new BestSellerAdapter(this);
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
         recyclerView.setAdapter(bestSellerAdapter);
         recyclerView.setLayoutManager(layoutManager);
 

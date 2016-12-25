@@ -12,7 +12,7 @@
         android:src="@drawable/ic_error"
         android:contentDescription="@string/description_error_icon"/>
     
-    <com.b4g.sid.books4geeks.ui.CustomTextViews.sspRegular
+    <com.b4g.sid.books4geeks.ui.CustomViews.sspRegular
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_large"
@@ -20,7 +20,7 @@
         android:text="@string/error_message"
         android:layout_marginTop="@dimen/dist_large"/>
 
-    <com.b4g.sid.books4geeks.ui.CustomTextViews.sspLight
+    <com.b4g.sid.books4geeks.ui.CustomViews.sspLight
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/try_again"

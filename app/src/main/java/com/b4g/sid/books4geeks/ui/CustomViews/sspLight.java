@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks.ui.CustomTextViews;
+package com.b4g.sid.books4geeks.ui.CustomViews;
 
 import android.content.Context;
 import android.graphics.Typeface;

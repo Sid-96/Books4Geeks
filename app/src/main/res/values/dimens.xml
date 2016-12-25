@@ -25,4 +25,5 @@
     <dimen name="error_image_width">120dp</dimen>
     <dimen name="margin_error_msg">40dp</dimen>
     <dimen name="progress_circle_size">60dp</dimen>
+    <dimen name="recycler_item_padding">2dp</dimen>
 </resources>
