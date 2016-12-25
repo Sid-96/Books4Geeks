@@ -2,11 +2,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/layout_error_msg"
+        android:visibility="gone"/>
+
+
+    <include layout="@layout/layout_progress_circle"
+        android:visibility="visible"/>
+
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="@dimen/padding_best_seller_recycler"
         android:clipToPadding="false"
+        android:visibility="gone"
         android:id="@+id/best_seller_list"/>
 
 </RelativeLayout>

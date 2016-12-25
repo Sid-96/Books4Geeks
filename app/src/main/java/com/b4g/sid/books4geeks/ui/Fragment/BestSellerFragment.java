@@ -26,11 +26,14 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class BestSellerFragment extends Fragment implements BestSellerAdapter.OnBestSellerClickListener {
 
     @BindView(R.id.best_seller_list)    RecyclerView recyclerView;
+    @BindView(R.id.error_msg)           View errorMessage;
+    @BindView(R.id.progress_circle)     View progressCircle;
     Unbinder unbinder;
 
     private String listName;
@@ -104,12 +107,25 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     }
 
     private void onDownloadSuccessful(){
-        //TODO handle download success
+        errorMessage.setVisibility(View.GONE);
+        progressCircle.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
         bestSellerAdapter.notifyDataSetChanged();
     }
 
     private void onDownloadFailed(){
-        //TODO handle download fail
+        errorMessage.setVisibility(View.VISIBLE);
+        progressCircle.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+    }
+
+    @OnClick(R.id.try_again)
+    public void onTryAgainClicked(){
+        errorMessage.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.GONE);
+        progressCircle.setVisibility(View.VISIBLE);
+        bestSellerAdapter = null;
+        downloadBestSellerList();
     }
 
     @Override
