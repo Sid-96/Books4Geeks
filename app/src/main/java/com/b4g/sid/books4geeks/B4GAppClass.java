@@ -11,7 +11,12 @@ public class B4GAppClass extends Application {
 
 
     public static final String TOOLBAR_TITLE = "toolbar_title";
+    public static final String LIST_NAME = "list_name";
     public static final String TAG_BESTSELLER_FRAGMENT = "bestseller_fragment";
+    public static final String CURRENT_STATE = "current_state";
+    public static final int CURRENT_STATE_LOADING = 1;
+    public static final int CURRENT_STATE_LOADED = 2;
+    public static final int CURRENT_STATE_FAILED = 3;
 
 
     private static Context mContext;

@@ -13,6 +13,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BestSeller;
 import com.b4g.sid.books4geeks.Model.Category;
 import com.b4g.sid.books4geeks.R;
@@ -43,7 +44,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     private String listName;
     GridLayoutManager layoutManager;
     BestSellerAdapter bestSellerAdapter;
-
+    private static int currentState;
     public BestSellerFragment() {
         // Required empty public constructor
     }
@@ -60,7 +61,39 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         categoryList.setLayoutManager(linearLayoutManager);
         categoryList.setAdapter(categoryAdapter);
 
+        if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.CURRENT_STATE)){
+            currentState = savedInstanceState.getInt(B4GAppClass.CURRENT_STATE);
+            listName = savedInstanceState.getString(B4GAppClass.LIST_NAME);
+            if(currentState == B4GAppClass.CURRENT_STATE_LOADED){
+                //TODO Get arrayList of Best Sellers
+                layoutManager = new GridLayoutManager(getContext(), DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
+                bestSellerAdapter = new BestSellerAdapter(this);
+                bestSellerList.setHasFixedSize(true);
+                bestSellerList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
+                bestSellerList.setAdapter(bestSellerAdapter);
+                bestSellerList.setLayoutManager(layoutManager);
+                onDownloadSuccessful();
+            }
+
+            if (currentState == B4GAppClass.CURRENT_STATE_LOADING){
+                navigateToBestSellers();
+            }
+            else {
+                onDownloadFailed();
+            }
+        }
+
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(B4GAppClass.CURRENT_STATE,currentState);
+        outState.putString(B4GAppClass.LIST_NAME,listName);
+        if(bestSellerAdapter!=null){
+            //TODO Put parcelable array list;
+        }
     }
 
     @Override
@@ -89,6 +122,8 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     public void navigateToCategories(){
 
         back = false;
+        bestSellerAdapter = null;
+        layoutManager = null;
         VolleySingleton.getInstance().requestQueue.cancelAll(this.getClass().getName());
         bestSellerList.setVisibility(View.GONE);
         progressCircle.setVisibility(View.GONE);
@@ -100,8 +135,12 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
 
     private void downloadBestSellerList(){
         if(bestSellerAdapter==null){
+            layoutManager = new GridLayoutManager(getContext(), DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
             bestSellerAdapter = new BestSellerAdapter(this);
+            bestSellerList.setHasFixedSize(true);
+            bestSellerList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
             bestSellerList.setAdapter(bestSellerAdapter);
+            bestSellerList.setLayoutManager(layoutManager);
         }
         String urlToDownload = ApiUtil.getBestSellerList(listName);
         final JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, urlToDownload, null, new Response.Listener<JSONObject>() {
@@ -134,6 +173,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         });
         request.setTag(getClass().getName());
         VolleySingleton.getInstance().requestQueue.add(request);
+        currentState = B4GAppClass.CURRENT_STATE_LOADING;
     }
 
     private void onDownloadSuccessful(){
@@ -141,12 +181,14 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         progressCircle.setVisibility(View.GONE);
         bestSellerList.setVisibility(View.VISIBLE);
         bestSellerAdapter.notifyDataSetChanged();
+        currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
 
     private void onDownloadFailed(){
         errorMessage.setVisibility(View.VISIBLE);
         progressCircle.setVisibility(View.GONE);
         bestSellerList.setVisibility(View.GONE);
+        currentState = B4GAppClass.CURRENT_STATE_FAILED;
     }
 
     @OnClick(R.id.try_again)

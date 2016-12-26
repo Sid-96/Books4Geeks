@@ -33,9 +33,16 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
         this.bestSellersList = new ArrayList<>();
     }
 
+    public BestSellerAdapter(ArrayList<BestSeller> bestSellersList, OnBestSellerClickListener onBestSellerClickListener){
+        this.bestSellersList = bestSellersList;
+        this.onBestSellerClickListener = onBestSellerClickListener;
+    }
+
     public void addToList(BestSeller bestSeller){
         bestSellersList.add(bestSeller);
     }
+
+    public ArrayList<BestSeller> getBestSellersList(){return bestSellersList;}
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
