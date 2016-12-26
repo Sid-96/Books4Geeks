@@ -76,9 +76,9 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         toolbar.setTitle(item.getTitle());
         item.setChecked(true);
         if(item.getItemId()==R.id.item_bestsellers){
-            CategoryRecyclerFragment fragment = new CategoryRecyclerFragment();
+            BestSellerFragment fragment = new BestSellerFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.content_fragment,fragment);
+            transaction.replace(R.id.content_fragment,fragment,B4GAppClass.TAG_BESTSELLER_FRAGMENT);
             transaction.commit();
         }
         return true;

@@ -1,13 +1,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_bestseller">
+
+    <include layout="@layout/fragment_category_recycler"
+        android:visibility="visible"/>
 
     <include layout="@layout/layout_error_msg"
         android:visibility="gone"/>
 
 
     <include layout="@layout/layout_progress_circle"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"

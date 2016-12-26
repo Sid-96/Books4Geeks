@@ -11,13 +11,14 @@ public class B4GAppClass extends Application {
 
 
     public static final String TOOLBAR_TITLE = "toolbar_title";
-    public static final String LIST_NAME = "list_name";
+    public static final String TAG_BESTSELLER_FRAGMENT = "bestseller_fragment";
+
 
     private static Context mContext;
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext = getApplicationContext();
+        mContext = this;
     }
 
     public static Context getAppContext() {
