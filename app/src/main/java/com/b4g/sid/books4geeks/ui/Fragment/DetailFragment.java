@@ -122,13 +122,10 @@ public class DetailFragment extends Fragment {
                     sb.delete(sb.length()-2,sb.length());
                     String authorsName = sb.toString();
                     String description = volumeInfo.getString("description");
-                    String publisher;
-                    try{
-                        publisher = volumeInfo.getString("publisher");
-                    }
-                    catch (Exception e){
-                        publisher = "";
-                    }
+                    String publisher="";
+
+                    publisher = volumeInfo.getString("publisher");
+
                     String imgUrl = "";
 
                     JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
@@ -139,12 +136,12 @@ public class DetailFragment extends Fragment {
                     else if(imageLinks.has("smallThumbnail")){
                         imgUrl = imageLinks.getString("smallThumbnail");
                     }
-
-                    String publishDate = volumeInfo.getString("publishedDate");
-                    String avgRating = volumeInfo.getString("averageRating");
-                    String pageCount = volumeInfo.getString("pageCount");
-                    String ratingsCount = volumeInfo.getString("ratingsCount");
-                    String volumeId = object.getString("id");
+                    String publishDate = "",avgRating = "", pageCount = "", ratingsCount = "", volumeId = "";
+                    publishDate = volumeInfo.getString("publishedDate");
+                    avgRating = volumeInfo.getString("averageRating");
+                    pageCount = volumeInfo.getString("pageCount");
+                    ratingsCount = volumeInfo.getString("ratingsCount");
+                    volumeId = object.getString("id");
                     bookDetail = new BookDetail(title,authorsName,description,publisher,imgUrl,
                             publishDate,avgRating,pageCount,ratingsCount,volumeId);
                     onDownloadSuccessful();
@@ -200,9 +197,26 @@ public class DetailFragment extends Fragment {
     private void bindViews(){
         toolbar.setTitle(bookDetail.getTitle());
         detailBookTitle.setText(bookDetail.getTitle());
-        detailBookSubtitle.setText(getString(R.string.detail_book_subtitle,bookDetail.getAuthors(),bookDetail.getPageCount()));
-        detailBookRating.setText(bookDetail.getRating());
-        detailBookVoteCount.setText(getString(R.string.detail_book_ratings,bookDetail.getRating()));
+        if(bookDetail.getAuthors().length()!=0 && bookDetail.getPageCount().length()!=0){
+            detailBookSubtitle.setText(getString(R.string.detail_book_subtitle,bookDetail.getAuthors(),bookDetail.getPageCount()));
+        }
+        else if(bookDetail.getAuthors().length()!=0){
+            detailBookSubtitle.setText(getString(R.string.detail_book_subtitle_author,bookDetail.getAuthors()));
+        }
+        else if(bookDetail.getPageCount().length()!=0){
+            detailBookSubtitle.setText(getString(R.string.detail_book_subtitle_pages,bookDetail.getPageCount()));
+        }
+        else{
+            detailBookSubtitle.setVisibility(View.GONE);
+        }
+        if(detailBookRating.length()==0 || detailBookVoteCount.length()==0){
+            detailBookRatingView.setVisibility(View.GONE);
+        }
+        else {
+            detailBookRating.setText(bookDetail.getRating());
+            detailBookVoteCount.setText(getString(R.string.detail_book_ratings, bookDetail.getRating()));
+        }
+
         if(bookDetail.getPublisher().length()!=0 && bookDetail.getPublisherDate().length()!=0){
             detailBookPublisherName.setText(getString(R.string.detail_book_publication_name,bookDetail.getPublisher()));
             detailBookPublicationDate.setText(getString(R.string.detail_book_publish_date,bookDetail.getPublisherDate()));
