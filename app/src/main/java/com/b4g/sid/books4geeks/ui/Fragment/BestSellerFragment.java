@@ -125,6 +125,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
 
     public void navigateToCategories(){
 
+        ((DrawerFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_main)).toolbar.setTitle(getString(R.string.drawer_bestsellers));
         back = false;
         bestSellerAdapter = null;
         layoutManager = null;
@@ -214,6 +215,10 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     @Override
     public void onCategoryItemClicked(int position) {
         listName = Category.getCategoryList().get(position).getListName();
+        String displayName = Category.getCategoryList().get(position).getDisplayName();
+        ((DrawerFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_main)).toolbar.setTitle(displayName);
         navigateToBestSellers();
     }
+
+
 }
