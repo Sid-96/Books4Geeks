@@ -1,10 +1,13 @@
 package com.b4g.sid.books4geeks.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sid on 24-Dec-16.
  */
 
-public class BestSeller {
+public class BestSeller implements Parcelable{
 
     private String title;
     private String author;
@@ -21,6 +24,16 @@ public class BestSeller {
         this.isbn10 = isbn10;
         this.isbn13 = isbn13;
         this.urlImage = urlImage;
+    }
+
+    public BestSeller(Parcel source) {
+        this.title = source.readString();
+        this.author = source.readString();
+        this.desc = source.readString();
+        this.isbn10 = source.readString();
+        this.isbn13 = source.readString();
+        this.urlImage = source.readString();
+
     }
 
     public String getTitle() {
@@ -45,5 +58,33 @@ public class BestSeller {
 
     public String getUrlImage() {
         return urlImage;
+    }
+
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
+
+        @Override
+        public BestSeller createFromParcel(Parcel source) {
+            return new BestSeller(source);
+        }
+
+        @Override
+        public BestSeller[] newArray(int size) {
+            return new BestSeller[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(author);
+        dest.writeString(desc);
+        dest.writeString(isbn10);
+        dest.writeString(isbn13);
+        dest.writeString(urlImage);
     }
 }

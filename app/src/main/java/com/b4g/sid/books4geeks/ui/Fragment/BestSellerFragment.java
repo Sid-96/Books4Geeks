@@ -28,6 +28,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -44,7 +46,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     private String listName;
     GridLayoutManager layoutManager;
     BestSellerAdapter bestSellerAdapter;
-    private static int currentState;
+    private int currentState;
     public BestSellerFragment() {
         // Required empty public constructor
     }
@@ -64,10 +66,11 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.CURRENT_STATE)){
             currentState = savedInstanceState.getInt(B4GAppClass.CURRENT_STATE);
             listName = savedInstanceState.getString(B4GAppClass.LIST_NAME);
+            back = savedInstanceState.getBoolean(B4GAppClass.BESTSELLER_BACK);
             if(currentState == B4GAppClass.CURRENT_STATE_LOADED){
-                //TODO Get arrayList of Best Sellers
+                ArrayList<BestSeller> bestSellers = savedInstanceState.getParcelableArrayList(B4GAppClass.BESTSELLER_LIST);
                 layoutManager = new GridLayoutManager(getContext(), DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
-                bestSellerAdapter = new BestSellerAdapter(this);
+                bestSellerAdapter = new BestSellerAdapter(bestSellers,this);
                 bestSellerList.setHasFixedSize(true);
                 bestSellerList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
                 bestSellerList.setAdapter(bestSellerAdapter);
@@ -78,7 +81,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
             if (currentState == B4GAppClass.CURRENT_STATE_LOADING){
                 navigateToBestSellers();
             }
-            else {
+            else if(currentState==B4GAppClass.CURRENT_STATE_FAILED) {
                 onDownloadFailed();
             }
         }
@@ -91,8 +94,9 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         super.onSaveInstanceState(outState);
         outState.putInt(B4GAppClass.CURRENT_STATE,currentState);
         outState.putString(B4GAppClass.LIST_NAME,listName);
+        outState.putBoolean(B4GAppClass.BESTSELLER_BACK,back);
         if(bestSellerAdapter!=null){
-            //TODO Put parcelable array list;
+            outState.putParcelableArrayList(B4GAppClass.BESTSELLER_LIST,bestSellerAdapter.getBestSellersList());
         }
     }
 
@@ -177,6 +181,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     }
 
     private void onDownloadSuccessful(){
+        categoryList.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         progressCircle.setVisibility(View.GONE);
         bestSellerList.setVisibility(View.VISIBLE);
@@ -185,6 +190,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     }
 
     private void onDownloadFailed(){
+        categoryList.setVisibility(View.GONE);
         errorMessage.setVisibility(View.VISIBLE);
         progressCircle.setVisibility(View.GONE);
         bestSellerList.setVisibility(View.GONE);

@@ -5,4 +5,4 @@
     android:layout_width="match_parent"
     android:name="com.b4g.sid.books4geeks.ui.Fragment.DrawerFragment"
     android:layout_height="match_parent"
-    tools:layout="@layout/fragment_category_recycler"/>
+    tools:layout="@layout/fragment_drawer"/>
