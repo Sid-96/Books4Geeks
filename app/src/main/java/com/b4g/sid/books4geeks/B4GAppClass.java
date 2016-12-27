@@ -20,6 +20,7 @@ public class B4GAppClass extends Application {
     public static final int CURRENT_STATE_FAILED = 3;
     public static final String BESTSELLER_BACK = "back";
     public static final String ISBN_NO = "isbn_number";
+    public static final String TAG_BOOK_DETAIL_FRAGMENT = "book_detail";
 
     private static Context mContext;
     @Override

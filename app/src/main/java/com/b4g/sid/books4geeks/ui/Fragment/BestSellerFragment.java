@@ -78,7 +78,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
                 onDownloadSuccessful();
             }
 
-            if (currentState == B4GAppClass.CURRENT_STATE_LOADING){
+            else if (currentState == B4GAppClass.CURRENT_STATE_LOADING){
                 navigateToBestSellers();
             }
             else if(currentState==B4GAppClass.CURRENT_STATE_FAILED) {

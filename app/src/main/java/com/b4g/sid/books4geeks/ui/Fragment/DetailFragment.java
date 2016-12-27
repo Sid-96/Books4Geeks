@@ -3,6 +3,7 @@ package com.b4g.sid.books4geeks.ui.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -58,6 +59,7 @@ public class DetailFragment extends Fragment {
     private Unbinder unbinder;
     private String isbn;
     private BookDetail bookDetail;
+    private int currentState;
     public DetailFragment() {
         // Required empty public constructor
     }
@@ -70,8 +72,30 @@ public class DetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
         unbinder = ButterKnife.bind(this,v);
         isbn = getArguments().getString(B4GAppClass.ISBN_NO);
-        downloadBookDetails();
+        if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.CURRENT_STATE)){
+            currentState = savedInstanceState.getInt(B4GAppClass.CURRENT_STATE);
+            if(currentState==B4GAppClass.CURRENT_STATE_LOADED){
+                bookDetail = savedInstanceState.getParcelable(B4GAppClass.TAG_BOOK_DETAIL_FRAGMENT);
+                onDownloadSuccessful();
+            }
+            else if(currentState == B4GAppClass.CURRENT_STATE_LOADING){
+                downloadBookDetails();
+            }
+            else if(currentState == B4GAppClass.CURRENT_STATE_FAILED){
+                onDownloadFailed();
+            }
+            else    downloadBookDetails();
+        }
         return v;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(B4GAppClass.CURRENT_STATE,currentState);
+        if(bookDetail!=null){
+            outState.putParcelable(B4GAppClass.TAG_BOOK_DETAIL_FRAGMENT,bookDetail);
+        }
     }
 
     @Override
@@ -105,17 +129,17 @@ public class DetailFragment extends Fragment {
                     catch (Exception e){
                         publisher = "";
                     }
+                    String imgUrl = "";
+
                     JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
-                    String imgUrl;
+
                     if(imageLinks.has("thumbnail")){
                         imgUrl = imageLinks.getString("thumbnail");
                     }
                     else if(imageLinks.has("smallThumbnail")){
                         imgUrl = imageLinks.getString("smallThumbnail");
                     }
-                    else{
-                        imgUrl = "";
-                    }
+
                     String publishDate = volumeInfo.getString("publishedDate");
                     String avgRating = volumeInfo.getString("averageRating");
                     String pageCount = volumeInfo.getString("pageCount");
@@ -138,30 +162,39 @@ public class DetailFragment extends Fragment {
         });
         objectRequest.setTag(getClass().getName());
         VolleySingleton.getInstance().requestQueue.add(objectRequest);
+        currentState = B4GAppClass.CURRENT_STATE_LOADING;
     }
 
     private void onDownloadSuccessful(){
         progressCircle.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         fragmentDetailBookView.setVisibility(View.VISIBLE);
-        VolleySingleton.getInstance().imageLoader.get(bookDetail.getImageUrl(), new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                detailBookCover.setImageBitmap(response.getBitmap());
-            }
+        if(bookDetail.getImageUrl().length()==0){
+            detailBookCover.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.category_temp));
+        }
+        else {
+            VolleySingleton.getInstance().imageLoader.get(bookDetail.getImageUrl(), new ImageLoader.ImageListener() {
+                @Override
+                public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
+                    detailBookCover.setImageBitmap(response.getBitmap());
+                }
 
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                error.printStackTrace();
-            }
-        });
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    detailBookCover.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.category_temp));
+                }
+            });
+
+        }
         bindViews();
+        currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
 
     private void onDownloadFailed(){
         progressCircle.setVisibility(View.GONE);
         fragmentDetailBookView.setVisibility(View.GONE);
         errorMessage.setVisibility(View.VISIBLE);
+        currentState = B4GAppClass.CURRENT_STATE_FAILED;
     }
 
     private void bindViews(){
@@ -171,16 +204,16 @@ public class DetailFragment extends Fragment {
         detailBookRating.setText(bookDetail.getRating());
         detailBookVoteCount.setText(getString(R.string.detail_book_ratings,bookDetail.getRating()));
         if(bookDetail.getPublisher().length()!=0 && bookDetail.getPublisherDate().length()!=0){
-            detailBookPublisherName.setText(bookDetail.getPublisher());
-            detailBookPublicationDate.setText(bookDetail.getPublisherDate());
+            detailBookPublisherName.setText(getString(R.string.detail_book_publication_name,bookDetail.getPublisher()));
+            detailBookPublicationDate.setText(getString(R.string.detail_book_publish_date,bookDetail.getPublisherDate()));
         }
         else if(bookDetail.getPublisherDate().length()!=0){
             detailBookPublisherName.setVisibility(View.GONE);
-            detailBookPublicationDate.setText(bookDetail.getPublisherDate());
+            detailBookPublicationDate.setText(getString(R.string.detail_book_publish_date,bookDetail.getPublisherDate()));
         }
         else if(bookDetail.getPublisher().length()!=0){
             detailBookPublicationDate.setVisibility(View.GONE);
-            detailBookPublisherName.setText(bookDetail.getPublisher());
+            detailBookPublisherName.setText(getString(R.string.detail_book_publication_name,bookDetail.getPublisher()));
         }
         else{
             detailBookPublisherView.setVisibility(View.GONE);
