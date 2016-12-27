@@ -12,24 +12,21 @@ public class BookDetail implements Parcelable{
     private String title;
     private String authors;
     private String desc;
-    private String isbn10;
-    private String isbn13;
     private String publisher;
+    private String imageUrl;
     private String publisherDate;
     private String rating;
     private String pageCount;
     private String voteCount;
     private String volumeId;
 
-    public BookDetail(String title, String authors, String desc, String isbn10, String isbn13,
-                      String publisher, String publisherDate, String rating, String pageCount,
-                      String voteCount, String volumeId) {
+    public BookDetail(String title, String authors, String desc, String publisher, String imageUrl,
+                      String publisherDate,String rating, String pageCount, String voteCount, String volumeId) {
         this.title = title;
         this.authors = authors;
         this.desc = desc;
-        this.isbn10 = isbn10;
-        this.isbn13 = isbn13;
         this.publisher = publisher;
+        this.imageUrl = imageUrl;
         this.publisherDate = publisherDate;
         this.rating = rating;
         this.pageCount = pageCount;
@@ -41,9 +38,8 @@ public class BookDetail implements Parcelable{
         this.title = source.readString();
         this.authors = source.readString();
         this.desc = source.readString();
-        this.isbn10 = source.readString();
-        this.isbn13 = source.readString();
         this.publisher = source.readString();
+        this.imageUrl = source.readString();
         this.publisherDate = source.readString();
         this.rating = source.readString();
         this.pageCount = source.readString();
@@ -64,16 +60,12 @@ public class BookDetail implements Parcelable{
         return desc;
     }
 
-    public String getIsbn10() {
-        return isbn10;
-    }
-
-    public String getIsbn13() {
-        return isbn13;
-    }
-
     public String getPublisher() {
         return publisher;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
 
     public String getPublisherDate() {
@@ -120,9 +112,8 @@ public class BookDetail implements Parcelable{
         dest.writeString(title);
         dest.writeString(authors);
         dest.writeString(desc);
-        dest.writeString(isbn10);
-        dest.writeString(isbn13);
         dest.writeString(publisher);
+        dest.writeString(imageUrl);
         dest.writeString(publisherDate);
         dest.writeString(rating);
         dest.writeString(pageCount);

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dist_large"
-    android:id="@+id/book_publisher_view"
+    android:id="@+id/detail_book_publisher_view"
     android:layout_marginTop="@dimen/dist_medium"
     tools:showIn="@layout/fragment_detail">
 
@@ -32,7 +32,7 @@
 
     </LinearLayout>
     <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
-        android:id="@+id/publisher_name"
+        android:id="@+id/detail_book_publisher_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dist_medium"
@@ -40,6 +40,7 @@
         tools:text="Publisher Name"/>
 
     <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+        android:id="@+id/detail_book_publication_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dist_medium"

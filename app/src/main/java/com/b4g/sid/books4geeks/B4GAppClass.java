@@ -19,6 +19,7 @@ public class B4GAppClass extends Application {
     public static final int CURRENT_STATE_LOADED = 2;
     public static final int CURRENT_STATE_FAILED = 3;
     public static final String BESTSELLER_BACK = "back";
+    public static final String ISBN_NO = "isbn_number";
 
     private static Context mContext;
     @Override

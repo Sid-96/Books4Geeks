@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/detail_main_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +8,7 @@
     tools:showIn="@layout/fragment_detail">
 
     <ImageView
-        android:id="@+id/book_cover"
+        android:id="@+id/detail_book_cover"
         android:layout_width="@dimen/detail_cover_width"
         android:layout_height="@dimen/detail_cover_height"
         android:scaleType="centerCrop"
@@ -20,39 +21,34 @@
         android:layout_marginStart="@dimen/dist_large"
         android:orientation="vertical">
 
-        <!-- Book Title -->
         <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
-            android:id="@+id/book_title"
+            android:id="@+id/detail_book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_xxlarge"
             tools:text="Book Title"/>
 
-        <!-- Author and Page Count -->
         <com.b4g.sid.books4geeks.ui.CustomViews.sspLight
-            android:id="@+id/book_subtitle"
+            android:id="@+id/detail_book_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dist_small"
             tools:text="Author"/>
 
-        <!-- Rating Area -->
-        <LinearLayout android:id="@+id/book_rating_view"
+        <LinearLayout android:id="@+id/detail_book_rating_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dist_large"
             android:orientation="horizontal">
 
-            <!-- Average Rating -->
             <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
-                android:id="@+id/book_rating"
+                android:id="@+id/detail_book_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
-            <!-- Vote Count -->
             <com.b4g.sid.books4geeks.ui.CustomViews.sspRegular
-                android:id="@+id/book_vote_count"
+                android:id="@+id/detail_book_vote_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dist_medium"
