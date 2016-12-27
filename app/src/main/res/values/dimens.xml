@@ -26,4 +26,6 @@
     <dimen name="margin_error_msg">40dp</dimen>
     <dimen name="progress_circle_size">80dp</dimen>
     <dimen name="recycler_item_padding">2dp</dimen>
+    <dimen name="detail_cover_height">150dp</dimen>
+    <dimen name="detail_cover_width">120dp</dimen>
 </resources>

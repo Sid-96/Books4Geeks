@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="@dimen/dist_large"
+    tools:showIn="@layout/fragment_detail">
+
+    <ImageView
+        android:id="@+id/book_cover"
+        android:layout_width="@dimen/detail_cover_width"
+        android:layout_height="@dimen/detail_cover_height"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/detail_cover"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dist_large"
+        android:layout_marginStart="@dimen/dist_large"
+        android:orientation="vertical">
+
+        <!-- Book Title -->
+        <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+            android:id="@+id/book_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_xxlarge"
+            tools:text="Book Title"/>
+
+        <!-- Author and Page Count -->
+        <com.b4g.sid.books4geeks.ui.CustomViews.sspLight
+            android:id="@+id/book_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dist_small"
+            tools:text="Author"/>
+
+        <!-- Rating Area -->
+        <LinearLayout android:id="@+id/book_rating_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dist_large"
+            android:orientation="horizontal">
+
+            <!-- Average Rating -->
+            <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+                android:id="@+id/book_rating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold" />
+
+            <!-- Vote Count -->
+            <com.b4g.sid.books4geeks.ui.CustomViews.sspRegular
+                android:id="@+id/book_vote_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dist_medium"
+                android:layout_marginStart="@dimen/dist_medium"
+                android:gravity="center_vertical"
+                android:includeFontPadding="false"
+                android:drawableLeft="@drawable/category_temp"
+                android:drawableStart="@drawable/category_temp"
+                android:drawablePadding="@dimen/dist_small"
+                tools:text="Votes"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

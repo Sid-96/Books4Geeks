@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/book_description_view"
+    android:padding="@dimen/dist_large"
+    tools:showIn="@layout/fragment_detail">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+        
+        <ImageView
+            android:layout_width="@dimen/dist_large"
+            android:layout_height="@dimen/dist_large"
+            android:scaleType="fitCenter"
+            android:src="@drawable/detail_ic_description"/>
+
+        <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dist_medium"
+            android:textSize="@dimen/text_medium"
+            android:text="Description"/>
+
+    </LinearLayout>
+
+    <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dist_medium"
+        android:textSize="@dimen/text_medium"
+        tools:text="Description blah blah blah!"/>
+
+</LinearLayout>
