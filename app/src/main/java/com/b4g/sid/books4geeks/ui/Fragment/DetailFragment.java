@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -36,7 +38,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends Fragment {
+public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickListener {
 
 
     @BindView(R.id.toolbar)     Toolbar toolbar;
@@ -49,7 +51,7 @@ public class DetailFragment extends Fragment {
     @BindView(R.id.detail_book_vote_count)  TextView detailBookVoteCount;
     @BindView(R.id.detail_book_description_view)    View detailBookDescriptionView;
     @BindView(R.id.detail_book_description) TextView detailBookDescription;
-    @BindView(R.id.detail_book_publisher_view)  TextView detailBookPublisherView;
+    @BindView(R.id.detail_book_publisher_view)  View detailBookPublisherView;
     @BindView(R.id.detail_book_publisher_name)  TextView detailBookPublisherName;
     @BindView(R.id.detail_book_publication_date)    TextView detailBookPublicationDate;
     @BindView(R.id.fragment_detail_book_view)   NestedScrollView fragmentDetailBookView;
@@ -71,6 +73,15 @@ public class DetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_detail, container, false);
         unbinder = ButterKnife.bind(this,v);
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_back));
+        toolbar.inflateMenu(R.menu.menu_detail);
+        toolbar.setOnMenuItemClickListener(this);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         isbn = getArguments().getString(B4GAppClass.ISBN_NO);
         if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.CURRENT_STATE)){
             currentState = savedInstanceState.getInt(B4GAppClass.CURRENT_STATE);
@@ -84,8 +95,10 @@ public class DetailFragment extends Fragment {
             else if(currentState == B4GAppClass.CURRENT_STATE_FAILED){
                 onDownloadFailed();
             }
-            else    downloadBookDetails();
+            else
+                downloadBookDetails();
         }
+        else    downloadBookDetails();
         return v;
     }
 
@@ -146,6 +159,7 @@ public class DetailFragment extends Fragment {
                             publishDate,avgRating,pageCount,ratingsCount,volumeId);
                     onDownloadSuccessful();
                 } catch (JSONException e) {
+                    Log.d("Sid","Internet error");
                     onDownloadFailed();
                     e.printStackTrace();
                 }
@@ -245,5 +259,10 @@ public class DetailFragment extends Fragment {
         fragmentDetailBookView.setVisibility(View.GONE);
         progressCircle.setVisibility(View.VISIBLE);
         downloadBookDetails();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
     }
 }
