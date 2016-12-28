@@ -26,5 +26,6 @@
     <string name="detail_book_publish_date">Publish date: %1$s</string>
     <string name="share">Share</string>
     <string name="search_books">Search books</string>
+    <string name="desc_no_result">No results found</string>
 
 </resources>
