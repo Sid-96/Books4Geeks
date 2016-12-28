@@ -25,5 +25,6 @@
     <string name="detail_book_publication_name">Publisher: %1$s</string>
     <string name="detail_book_publish_date">Publish date: %1$s</string>
     <string name="share">Share</string>
+    <string name="search_books">Search books</string>
 
 </resources>

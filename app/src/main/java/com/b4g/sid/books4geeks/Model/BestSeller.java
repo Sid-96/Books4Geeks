@@ -17,6 +17,7 @@ public class BestSeller implements Parcelable{
     private String urlImage;
 
 
+
     public BestSeller(String title, String author, String desc, String isbn10, String isbn13, String urlImage) {
         this.title = title;
         this.author = author;
