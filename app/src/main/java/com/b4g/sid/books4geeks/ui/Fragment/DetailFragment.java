@@ -1,6 +1,7 @@
 package com.b4g.sid.books4geeks.ui.Fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -266,6 +267,17 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.item_share){
+                String shareSubject = getString(R.string.action_share_subject,bookDetail.getTitle());
+                String shareText = getString(R.string.action_share_text,bookDetail.getTitle(),bookDetail.getAuthors(),bookDetail.getInfoLink());
+                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareText);
+                startActivity(Intent.createChooser(sharingIntent, getString(R.string.action_share_title)));
+                return true;
+        }
         return false;
     }
 }

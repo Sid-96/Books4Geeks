@@ -28,4 +28,8 @@
     <string name="search_books">Search books</string>
     <string name="desc_no_result">No results found</string>
 
+    <string name="action_share_subject">Check out %1$s</string>
+    <string name="action_share_text">%1$s by %2$s\n%3$s</string>
+    <string name="action_share_title">Share book&#8230;</string>
+
 </resources>
