@@ -224,6 +224,17 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
         currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
 
+    public void performSearchFor(String searchQuery){
+        query = searchQuery;
+        searchBar.setText(query);
+        searchList.setVisibility(View.GONE);
+        errorMessage.setVisibility(View.GONE);
+        searchNoResults.setVisibility(View.GONE);
+        progressCircle.setVisibility(View.VISIBLE);
+        adapter = null;
+        downloadSearchDetails();
+    }
+
     @OnClick(R.id.try_again)
     public void onTryAgainClicked(){
         errorMessage.setVisibility(View.GONE);

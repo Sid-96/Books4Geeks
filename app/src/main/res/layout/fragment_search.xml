@@ -23,6 +23,8 @@
             android:id="@+id/search_toolbar"
             android:gravity="center_vertical"
             android:imeOptions="actionSearch"
+            android:background="@null"
+            android:maxLines="1"
             android:textSize="@dimen/text_large"
             android:hint="@string/search_books"/>
 
