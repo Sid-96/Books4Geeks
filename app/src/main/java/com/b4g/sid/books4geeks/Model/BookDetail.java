@@ -14,6 +14,7 @@ public class BookDetail implements Parcelable{
     private String desc;
     private String publisher;
     private String imageUrl;
+    private String infoLink;
     private String publisherDate;
     private String rating;
     private String pageCount;
@@ -21,12 +22,13 @@ public class BookDetail implements Parcelable{
     private String volumeId;
 
     public BookDetail(String title, String authors, String desc, String publisher, String imageUrl,
-                      String publisherDate,String rating, String pageCount, String voteCount, String volumeId) {
+                      String infoLink, String publisherDate, String rating, String pageCount, String voteCount, String volumeId) {
         this.title = title;
         this.authors = authors;
         this.desc = desc;
         this.publisher = publisher;
         this.imageUrl = imageUrl;
+        this.infoLink = infoLink;
         this.publisherDate = publisherDate;
         this.rating = rating;
         this.pageCount = pageCount;
@@ -40,6 +42,7 @@ public class BookDetail implements Parcelable{
         this.desc = source.readString();
         this.publisher = source.readString();
         this.imageUrl = source.readString();
+        this.infoLink = source.readString();
         this.publisherDate = source.readString();
         this.rating = source.readString();
         this.pageCount = source.readString();
@@ -66,6 +69,10 @@ public class BookDetail implements Parcelable{
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getInfoLink() {
+        return infoLink;
     }
 
     public String getPublisherDate() {
@@ -114,6 +121,7 @@ public class BookDetail implements Parcelable{
         dest.writeString(desc);
         dest.writeString(publisher);
         dest.writeString(imageUrl);
+        dest.writeString(infoLink);
         dest.writeString(publisherDate);
         dest.writeString(rating);
         dest.writeString(pageCount);

@@ -1,5 +1,7 @@
 package com.b4g.sid.books4geeks.Util;
 
+import android.net.Uri;
+
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.R;
 
@@ -27,5 +29,12 @@ public class ApiUtil {
 
     public static String getBookDetailsString(String isbn){
         return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn + "&key=" + getGoogleBooksApiKey();
+    }
+
+    public static String getBookSearchString(String query){
+        return Uri.parse("https://www.googleapis.com/books/v1/volumes").buildUpon()
+                .appendQueryParameter("q",query)
+                .appendQueryParameter("key",getGoogleBooksApiKey())
+                .build().toString();
     }
 }

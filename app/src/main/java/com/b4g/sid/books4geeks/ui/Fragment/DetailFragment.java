@@ -136,6 +136,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
                     String authorsName = sb.toString();
                     String description = volumeInfo.getString("description");
                     String publisher="";
+                    String infoLink = "";
 
                     publisher = volumeInfo.getString("publisher");
 
@@ -152,11 +153,12 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
                     String publishDate = "",avgRating = "", pageCount = "", ratingsCount = "", volumeId = "";
                     publishDate = volumeInfo.getString("publishedDate");
                     avgRating = volumeInfo.getString("averageRating");
+                    infoLink= volumeInfo.getString("infoLink");
                     pageCount = volumeInfo.getString("pageCount");
                     ratingsCount = volumeInfo.getString("ratingsCount");
                     volumeId = object.getString("id");
                     bookDetail = new BookDetail(title,authorsName,description,publisher,imgUrl,
-                            publishDate,avgRating,pageCount,ratingsCount,volumeId);
+                            infoLink, publishDate,avgRating,pageCount,ratingsCount,volumeId);
                     onDownloadSuccessful();
                 } catch (JSONException e) {
                     Log.d("Sid","Internet error");
