@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.b4g.sid.books4geeks.B4GAppClass;
-import com.b4g.sid.books4geeks.Model.BestSeller;
+import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 
@@ -27,14 +27,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
 
     private OnSearchBookClickListener onSearchBookClickListener;
-    private ArrayList<BestSeller> bestSellersList;
+    private ArrayList<BookDetail> bestSellersList;
 
     public SearchAdapter(OnSearchBookClickListener onSearchBookClickListener){
         this.onSearchBookClickListener = onSearchBookClickListener;
         this.bestSellersList = new ArrayList<>();
     }
 
-    public SearchAdapter(ArrayList<BestSeller> bestSellersList, OnSearchBookClickListener onSearchBookClickListener){
+    public SearchAdapter(ArrayList<BookDetail> bestSellersList, OnSearchBookClickListener onSearchBookClickListener){
         this.onSearchBookClickListener = onSearchBookClickListener;
         this.bestSellersList = bestSellersList;
     }
@@ -47,19 +47,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position) {
-        BestSeller bestSeller = bestSellersList.get(position);
-        if(bestSeller.getUrlImage().length()==0){
+        BookDetail bestSeller = bestSellersList.get(position);
+        if(bestSeller.getImageUrl().length()==0){
             holder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
         }
         else {
-            holder.bookImage.setImageUrl(bestSeller.getUrlImage(), VolleySingleton.getInstance().imageLoader);
+            holder.bookImage.setImageUrl(bestSeller.getImageUrl(), VolleySingleton.getInstance().imageLoader);
         }
         holder.bookTitle.setText(bestSeller.getTitle());
-        if(bestSeller.getAuthor().length()==0){
+        if(bestSeller.getAuthors().length()==0){
             holder.author.setVisibility(View.GONE);
         }
         else{
-            holder.author.setText(bestSeller.getAuthor());
+            holder.author.setText(bestSeller.getAuthors());
         }
     }
 
@@ -68,12 +68,16 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         return bestSellersList.size();
     }
 
-    public ArrayList<BestSeller> getBestSellersList(){
+    public ArrayList<BookDetail> getBestSellersList(){
         return  bestSellersList;
     }
 
-    public void addToList(BestSeller bestSeller){
+    public void addToList(BookDetail bestSeller){
         bestSellersList.add(bestSeller);
+    }
+
+    public void setBestSellersList(ArrayList<BookDetail> bestSellersList) {
+        this.bestSellersList = bestSellersList;
     }
 
     public class SearchViewHolder extends RecyclerView.ViewHolder{

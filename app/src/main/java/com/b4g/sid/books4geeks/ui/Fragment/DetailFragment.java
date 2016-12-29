@@ -260,6 +260,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         errorMessage.setVisibility(View.GONE);
         fragmentDetailBookView.setVisibility(View.GONE);
         progressCircle.setVisibility(View.VISIBLE);
+
         downloadBookDetails();
     }
 

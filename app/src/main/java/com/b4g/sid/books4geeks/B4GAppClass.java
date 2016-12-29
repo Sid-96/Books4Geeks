@@ -21,8 +21,11 @@ public class B4GAppClass extends Application {
     public static final String BESTSELLER_BACK = "back";
     public static final String ISBN_NO = "isbn_number";
     public static final String TAG_BOOK_DETAIL_FRAGMENT = "book_detail";
+    public static final String SEARCH_QUERY = "search_query";
+    public static final String SEARCH_LIST = "search_list";
 
     private static Context mContext;
+
     @Override
     public void onCreate() {
         super.onCreate();
