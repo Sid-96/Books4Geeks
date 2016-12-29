@@ -133,7 +133,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
 
     private void downloadSearchDetails(){
         if(adapter==null){
-
+            adapter = new SearchAdapter(this);
+            searchList.swapAdapter(adapter,true);
         }
         String url = ApiUtil.getBookSearchString(query);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -167,15 +168,15 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                     String description = volumeInfo.getString("description");
                                     String infoLink="",publisher="";
                                     publisher = volumeInfo.getString("publisher");
-                                    String publishDate = "",avgRating = "", pageCount = "", ratingsCount = "", volumeId = "";
+                                    String publishDate = "",avgRating = "", pageCount = "", ratingsCount = "", uniqueId = "";
                                     publishDate = volumeInfo.getString("publishedDate");
                                     avgRating = volumeInfo.getString("averageRating");
                                     infoLink= volumeInfo.getString("infoLink");
                                     pageCount = volumeInfo.getString("pageCount");
                                     ratingsCount = volumeInfo.getString("ratingsCount");
-                                    volumeId = bookObject.getString("id");
+                                    uniqueId = "gbid:"+bookObject.getString("id");
                                     bookDetail = new BookDetail(title,authorsName,description,publisher,imgUrl,
-                                            infoLink, publishDate,avgRating,pageCount,ratingsCount,volumeId);
+                                            infoLink, publishDate,avgRating,pageCount,ratingsCount,uniqueId);
                                     adapter.addToList(bookDetail);
                                 }
 

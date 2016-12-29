@@ -225,7 +225,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         else{
             detailBookSubtitle.setVisibility(View.GONE);
         }
-        if(detailBookRating.length()==0 || detailBookVoteCount.length()==0){
+        if(bookDetail.getRating().length()==0 || bookDetail.getVoteCount().length()==0){
             detailBookRatingView.setVisibility(View.GONE);
         }
         else {

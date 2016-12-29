@@ -19,10 +19,10 @@ public class BookDetail implements Parcelable{
     private String rating;
     private String pageCount;
     private String voteCount;
-    private String volumeId;
+    private String uniqueId;
 
     public BookDetail(String title, String authors, String desc, String publisher, String imageUrl,
-                      String infoLink, String publisherDate, String rating, String pageCount, String voteCount, String volumeId) {
+                      String infoLink, String publisherDate, String rating, String pageCount, String voteCount, String uniqueId) {
         this.title = title;
         this.authors = authors;
         this.desc = desc;
@@ -33,7 +33,7 @@ public class BookDetail implements Parcelable{
         this.rating = rating;
         this.pageCount = pageCount;
         this.voteCount = voteCount;
-        this.volumeId = volumeId;
+        this.uniqueId = uniqueId;
     }
 
     public BookDetail(Parcel source) {
@@ -47,8 +47,22 @@ public class BookDetail implements Parcelable{
         this.rating = source.readString();
         this.pageCount = source.readString();
         this.voteCount = source.readString();
-        this.volumeId = source.readString();
+        this.uniqueId = source.readString();
 
+    }
+
+    public BookDetail(BestSeller bestSeller){
+        this.title = bestSeller.getTitle();
+        this.authors = bestSeller.getAuthor();
+        this.desc = bestSeller.getDesc();
+        this.publisher = "";
+        this.imageUrl = bestSeller.getUrlImage();
+        this.infoLink = bestSeller.getItemUrl();
+        this.publisherDate = "";
+        this.rating = "";
+        this.pageCount = "";
+        this.voteCount = "";
+        this.uniqueId = "";
     }
 
     public String getTitle() {
@@ -91,8 +105,8 @@ public class BookDetail implements Parcelable{
         return voteCount;
     }
 
-    public String getVolumeId() {
-        return volumeId;
+    public String getUniqueId() {
+        return uniqueId;
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
@@ -126,6 +140,6 @@ public class BookDetail implements Parcelable{
         dest.writeString(rating);
         dest.writeString(pageCount);
         dest.writeString(voteCount);
-        dest.writeString(volumeId);
+        dest.writeString(uniqueId);
     }
 }

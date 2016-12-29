@@ -15,16 +15,18 @@ public class BestSeller implements Parcelable{
     private String isbn10;
     private String isbn13;
     private String urlImage;
+    private String itemUrl;
 
 
 
-    public BestSeller(String title, String author, String desc, String isbn10, String isbn13, String urlImage) {
+    public BestSeller(String title, String author, String desc, String isbn10, String isbn13, String urlImage, String itemUrl) {
         this.title = title;
         this.author = author;
         this.desc = desc;
         this.isbn10 = isbn10;
         this.isbn13 = isbn13;
         this.urlImage = urlImage;
+        this.itemUrl = itemUrl;
     }
 
     public BestSeller(Parcel source) {
@@ -34,7 +36,7 @@ public class BestSeller implements Parcelable{
         this.isbn10 = source.readString();
         this.isbn13 = source.readString();
         this.urlImage = source.readString();
-
+        this.itemUrl = source.readString();
     }
 
     public String getTitle() {
@@ -59,6 +61,23 @@ public class BestSeller implements Parcelable{
 
     public String getUrlImage() {
         return urlImage;
+    }
+
+    public String getItemUrl() {
+        return itemUrl;
+    }
+
+
+    public String getUniqueId() {
+        if (isbn10.length() > 0) {
+            return "nyt1:" + isbn10;
+        }
+        else if (isbn13.length() > 0) {
+            return "nyt2:" + isbn13;
+        }
+        else {
+            return "nyt3" + title + author;
+        }
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator(){
@@ -87,5 +106,6 @@ public class BestSeller implements Parcelable{
         dest.writeString(isbn10);
         dest.writeString(isbn13);
         dest.writeString(urlImage);
+        dest.writeString(itemUrl);
     }
 }

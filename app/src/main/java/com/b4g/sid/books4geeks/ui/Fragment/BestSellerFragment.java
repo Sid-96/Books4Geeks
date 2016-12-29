@@ -164,7 +164,8 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
                         String isbn10 = book.getString("primary_isbn10");
                         String isbn13 = book.getString("primary_isbn13");
                         String urlImage = book.getString("book_image");
-                        BestSeller bestSeller = new BestSeller(title,author,description,isbn10,isbn13,urlImage);
+                        String itemUrl = book.getString("amazon_product_url");
+                        BestSeller bestSeller = new BestSeller(title,author,description,isbn10,isbn13,urlImage,itemUrl);
                         bestSellerAdapter.addToList(bestSeller);
                     }
                     onDownloadSuccessful();
