@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.b4g.sid.books4geeks.Model.BestSeller;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
@@ -55,17 +53,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
         BestSeller bestSeller = bestSellersList.get(position);
         holder.bookTitle.setText(bestSeller.getTitle());
         holder.bookAuthor.setText(bestSeller.getAuthor());
-        VolleySingleton.getInstance().imageLoader.get(bestSeller.getUrlImage(), new ImageLoader.ImageListener() {
-            @Override
-            public void onResponse(ImageLoader.ImageContainer response, boolean isImmediate) {
-                holder.bookImage.setImageBitmap(response.getBitmap());
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // load default
-            }
-        });
+        holder.bookImage.setImageUrl(bestSeller.getUrlImage(), VolleySingleton.getInstance().imageLoader);
     }
 
     @Override
@@ -78,7 +66,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
         @BindView(R.id.book_card)       CardView cardView;
         @BindView(R.id.book_title)      TextView bookTitle;
         @BindView(R.id.book_author)     TextView bookAuthor;
-        @BindView(R.id.book_image)      ImageView bookImage;
+        @BindView(R.id.book_image)      NetworkImageView bookImage;
 
         public MyViewHolder(View itemView, final OnBestSellerClickListener onBestSellerClickListener) {
             super(itemView);

@@ -31,6 +31,7 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.android.support:support-v4:23.4.0'
+    compile 'me.dm7.barcodescanner:zxing:1.9'
     compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'

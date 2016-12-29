@@ -19,11 +19,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:descendantFocusability="blocksDescendants"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/fragment_detail_book_view"
@@ -31,8 +26,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/dist_medium"
             app:layout_scrollFlags="scroll"
-            android:visibility="gone"
-            tools:visibility="visible">
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -49,19 +43,6 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/detail_error">
 
-            <include layout="@layout/layout_error_msg"
-                android:visibility="gone"/>
-
-            <include layout="@layout/layout_progress_circle"
-                android:visibility="visible"/>
-
-        </FrameLayout>
-
-    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

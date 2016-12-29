@@ -23,6 +23,7 @@ public class B4GAppClass extends Application {
     public static final String TAG_BOOK_DETAIL_FRAGMENT = "book_detail";
     public static final String SEARCH_QUERY = "search_query";
     public static final String SEARCH_LIST = "search_list";
+    public static final String BOOK_DETAIL = "book_detail";
 
     private static Context mContext;
 

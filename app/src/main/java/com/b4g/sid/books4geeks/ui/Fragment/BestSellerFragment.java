@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BestSeller;
+import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.Model.Category;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
@@ -215,7 +217,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     @Override
     public void onBestSellerClicked(int position) {
         Intent intent = new Intent(getContext(),DetailBookActivity.class);
-        intent.putExtra(B4GAppClass.ISBN_NO,bestSellerAdapter.getBestSellersList().get(position).getIsbn10());
+        intent.putExtra(B4GAppClass.BOOK_DETAIL,new BookDetail(bestSellerAdapter.getBestSellersList().get(position)));
         startActivity(intent);
     }
 

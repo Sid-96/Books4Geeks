@@ -1,5 +1,6 @@
 package com.b4g.sid.books4geeks.ui.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -23,6 +24,7 @@ import com.b4g.sid.books4geeks.Util.ApiUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.ui.CustomViews.ItemDecorationView;
+import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
 import com.b4g.sid.books4geeks.ui.adapter.SearchAdapter;
 
 import org.json.JSONArray;
@@ -234,6 +236,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
 
     @Override
     public void onBookClicked(int position) {
-
+        Intent intent = new Intent(getContext(), DetailBookActivity.class);
+        intent.putExtra(B4GAppClass.BOOK_DETAIL,adapter.getBestSellersList().get(position));
+        startActivity(intent);
     }
 }
