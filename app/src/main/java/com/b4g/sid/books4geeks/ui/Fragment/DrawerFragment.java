@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.R;
+import com.b4g.sid.books4geeks.ui.activity.BarCodeScannerActivity;
 import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
 
 import butterknife.BindView;
@@ -82,9 +83,16 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content_fragment,fragment,B4GAppClass.TAG_BESTSELLER_FRAGMENT);
             transaction.commit();
+            return false;
         }
         else if(item.getItemId()==R.id.item_search){
             startActivity(new Intent(getContext(), SearchActivity.class));
+            return false;
+        }
+
+        else if(item.getItemId()==R.id.item_barcode){
+            startActivity(new Intent(getContext(), BarCodeScannerActivity.class));
+            return false;
         }
         return true;
     }

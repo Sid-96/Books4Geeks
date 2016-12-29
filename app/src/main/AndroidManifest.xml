@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".B4GAppClass"
@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.DetailBookActivity" />
-        <activity android:name=".ui.activity.SearchActivity"></activity>
+        <activity android:name=".ui.activity.SearchActivity" />
+        <activity android:name=".ui.activity.BarCodeScannerActivity"></activity>
     </application>
 
 </manifest>
