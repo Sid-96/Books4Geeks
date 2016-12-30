@@ -18,6 +18,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
+import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 
 import butterknife.BindView;
@@ -64,15 +65,17 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             Log.d("Sid","Book null");
             return v;
         }
-        toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_back));
-        toolbar.inflateMenu(R.menu.menu_detail);
-        toolbar.setOnMenuItemClickListener(this);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        if(!DimensionUtil.isTablet()) {
+            toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_back));
+            toolbar.inflateMenu(R.menu.menu_detail);
+            toolbar.setOnMenuItemClickListener(this);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                }
+            });
+        }
         bindViews();
         return v;
     }

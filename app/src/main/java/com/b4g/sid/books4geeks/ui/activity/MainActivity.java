@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.b4g.sid.books4geeks.B4GAppClass;
+import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.ui.Fragment.BestSellerFragment;
+import com.b4g.sid.books4geeks.ui.Fragment.DetailFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -25,5 +27,13 @@ public class MainActivity extends AppCompatActivity {
         else{
             super.onBackPressed();
         }
+    }
+
+    public void loadDetailFragmentforTablet(BookDetail bookDetail){
+        DetailFragment detailFragment = new DetailFragment();
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(B4GAppClass.BOOK_DETAIL,bookDetail);
+        detailFragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment,detailFragment);
     }
 }
