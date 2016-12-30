@@ -1,11 +1,13 @@
 package com.b4g.sid.books4geeks.ui.activity;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
+import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.ui.Fragment.BestSellerFragment;
 import com.b4g.sid.books4geeks.ui.Fragment.DetailFragment;
 
@@ -15,6 +17,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(savedInstanceState==null && DimensionUtil.isTablet()){
+            loadDetailFragmentforTablet(null);
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
     }
 
     @Override
@@ -34,6 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = new Bundle();
         bundle.putParcelable(B4GAppClass.BOOK_DETAIL,bookDetail);
         detailFragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment,detailFragment);
+        getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment,detailFragment).commit();
     }
 }

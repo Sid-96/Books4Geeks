@@ -25,6 +25,7 @@ import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.ui.CustomViews.ItemDecorationView;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
+import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
 import com.b4g.sid.books4geeks.ui.adapter.SearchAdapter;
 
 import org.json.JSONArray;
@@ -210,17 +211,21 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     }
 
     private void onDownloadSuccessful(){
+        BookDetail bookDetail;
         progressCircle.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         if(adapter.getBestSellersList().size()>0) {
             searchList.setVisibility(View.VISIBLE);
             searchNoResults.setVisibility(View.GONE);
             adapter.notifyDataSetChanged();
+            bookDetail = adapter.getBestSellersList().get(0);
         }
         else{
             searchList.setVisibility(View.GONE);
             searchNoResults.setVisibility(View.VISIBLE);
+            bookDetail = null;
         }
+        ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
         currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
 
@@ -247,6 +252,10 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
 
     @Override
     public void onBookClicked(int position) {
+        if(DimensionUtil.isTablet()){
+            BookDetail bookDetail = adapter.getBestSellersList().get(position);
+            ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
+        }
         Intent intent = new Intent(getContext(), DetailBookActivity.class);
         intent.putExtra(B4GAppClass.BOOK_DETAIL,adapter.getBestSellersList().get(position));
         startActivity(intent);
