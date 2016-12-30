@@ -19,6 +19,8 @@ import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -50,6 +52,11 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     @BindView(R.id.detail_book_publication_isbn)    TextView detailBookPublicationIsbn;
     @BindView(R.id.fragment_detail_book_view)   NestedScrollView fragmentDetailBookView;
     @BindView(R.id.category_msg_holder)     View categoryMsgHolder;
+    @BindView(R.id.fab_menu)                FloatingActionMenu fabMenu;
+    @BindView(R.id.fab_to_read)             FloatingActionButton fabToRead;
+    @BindView(R.id.fab_reading)             FloatingActionButton fabReading;
+    @BindView(R.id.fab_finished)            FloatingActionButton fabFinished;
+
 
     private Unbinder unbinder;
     private BookDetail bookDetail;
@@ -72,6 +79,16 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             }
             return v;
         }
+        fragmentDetailBookView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (oldScrollY < scrollY) {
+                    fabMenu.hideMenuButton(true);
+                } else {
+                    fabMenu.showMenuButton(true);
+                }
+            }
+        });
         if (bookDetail.getSubtitle().length() == 0) {
             toolbarLayoutHolder.setVisibility(View.GONE);
             toolbar.setTitle(bookDetail.getTitle());

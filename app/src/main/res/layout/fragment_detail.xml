@@ -46,6 +46,8 @@
 
                 <include layout="@layout/layout_category_msg"/>
 
+                <include layout="@layout/layout_fab" />
+
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
