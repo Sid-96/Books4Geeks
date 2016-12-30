@@ -12,6 +12,8 @@ public class BestSeller implements Parcelable{
     private String title;
     private String author;
     private String desc;
+    private String currentRank;
+    private String weeksOnList;
     private String isbn10;
     private String isbn13;
     private String urlImage;
@@ -19,10 +21,13 @@ public class BestSeller implements Parcelable{
 
 
 
-    public BestSeller(String title, String author, String desc, String isbn10, String isbn13, String urlImage, String itemUrl) {
+    public BestSeller(String title, String author, String desc, String currentRank,
+                      String weeksOnList, String isbn10, String isbn13, String urlImage, String itemUrl) {
         this.title = title;
         this.author = author;
         this.desc = desc;
+        this.currentRank = currentRank;
+        this.weeksOnList = weeksOnList;
         this.isbn10 = isbn10;
         this.isbn13 = isbn13;
         this.urlImage = urlImage;
@@ -33,6 +38,8 @@ public class BestSeller implements Parcelable{
         this.title = source.readString();
         this.author = source.readString();
         this.desc = source.readString();
+        this.currentRank = source.readString();
+        this.weeksOnList = source.readString();
         this.isbn10 = source.readString();
         this.isbn13 = source.readString();
         this.urlImage = source.readString();
@@ -67,12 +74,19 @@ public class BestSeller implements Parcelable{
         return itemUrl;
     }
 
+    public String getCurrentRank() {
+        return currentRank;
+    }
+
+    public String getWeeksOnList() {
+        return weeksOnList;
+    }
 
     public String getUniqueId() {
-        if (isbn10.length() > 0) {
+        if (isbn10!=null && isbn10.length()>0) {
             return "nyt1:" + isbn10;
         }
-        else if (isbn13.length() > 0) {
+        else if (isbn13!=null && isbn13.length() > 0) {
             return "nyt2:" + isbn13;
         }
         else {
@@ -103,6 +117,8 @@ public class BestSeller implements Parcelable{
         dest.writeString(title);
         dest.writeString(author);
         dest.writeString(desc);
+        dest.writeString(currentRank);
+        dest.writeString(weeksOnList);
         dest.writeString(isbn10);
         dest.writeString(isbn13);
         dest.writeString(urlImage);

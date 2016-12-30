@@ -126,6 +126,9 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         bestSellerList.setAdapter(bestSellerAdapter);
         bestSellerList.setLayoutManager(layoutManager);
         downloadBestSellerList();
+        if(DimensionUtil.isTablet()){
+            ((MainActivity)getActivity()).loadDetailFragmentforTablet(null,false);
+        }
     }
 
     public void navigateToCategories(){
@@ -139,7 +142,6 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         progressCircle.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         categoryList.setVisibility(View.VISIBLE);
-
     }
 
 
@@ -163,11 +165,13 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
                         String title = book.getString("title");
                         String author = book.getString("author");
                         String description = book.getString("description");
+                        String currentRank = book.getString("rank");
+                        String weeksOnList = book.getString("weeks_on_list");
                         String isbn10 = book.getString("primary_isbn10");
                         String isbn13 = book.getString("primary_isbn13");
                         String urlImage = book.getString("book_image");
                         String itemUrl = book.getString("amazon_product_url");
-                        BestSeller bestSeller = new BestSeller(title,author,description,isbn10,isbn13,urlImage,itemUrl);
+                        BestSeller bestSeller = new BestSeller(title,author,description, currentRank, weeksOnList, isbn10,isbn13,urlImage,itemUrl);
                         bestSellerAdapter.addToList(bestSeller);
                     }
                     onDownloadSuccessful();
@@ -196,7 +200,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         bestSellerAdapter.notifyDataSetChanged();
         if(DimensionUtil.isTablet()){
             BookDetail bookDetail = new BookDetail(bestSellerAdapter.getBestSellersList().get(0));
-            ((MainActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
+            ((MainActivity)getActivity()).loadDetailFragmentforTablet(bookDetail,false);
         }
         currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
@@ -223,7 +227,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
 
         if(DimensionUtil.isTablet()){
             BookDetail bookDetail = new BookDetail(bestSellerAdapter.getBestSellersList().get(position));
-            ((MainActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
+            ((MainActivity)getActivity()).loadDetailFragmentforTablet(bookDetail,false);
         }
 
         Intent intent = new Intent(getContext(),DetailBookActivity.class);

@@ -151,6 +151,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                     JSONObject bookObject = object.getJSONObject(i);
                                     JSONObject volumeInfo = bookObject.getJSONObject("volumeInfo");
                                     String title = volumeInfo.getString("title");
+                                    String subtitle = volumeInfo.getString("subtitle");
                                     JSONArray authors = volumeInfo.getJSONArray("authors");
                                     StringBuilder sb = new StringBuilder();
                                     for(int j=0 ; j<authors.length() ; j++){
@@ -158,7 +159,16 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                     }
                                     sb.delete(sb.length()-2,sb.length());
                                     String authorsName = sb.toString();
-                                    String imgUrl = "";
+                                    String imgUrl = "",isbn10="",isbn13="";
+
+                                    if(volumeInfo.has("industryIdentifiers")){
+                                        JSONArray identifierArray = volumeInfo.getJSONArray("industryIdentifiers");
+                                        for(int j=0 ;  j<identifierArray.length() ; j++){
+                                            JSONObject identifier = identifierArray.getJSONObject(j);
+                                            if(identifier.getString("type").equals("ISBN_10"))  isbn10 = identifier.getString("identifier");
+                                            if(identifier.getString("type").equals("ISBN_13"))  isbn13 = identifier.getString("identifier");
+                                        }
+                                    }
 
                                     JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
 
@@ -178,8 +188,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                     pageCount = volumeInfo.getString("pageCount");
                                     ratingsCount = volumeInfo.getString("ratingsCount");
                                     uniqueId = "gbid:"+bookObject.getString("id");
-                                    bookDetail = new BookDetail(title,authorsName,description,publisher,imgUrl,
-                                            infoLink, publishDate,avgRating,pageCount,ratingsCount,uniqueId);
+                                    bookDetail = new BookDetail(title, subtitle, authorsName,description,publisher, isbn10, isbn13, imgUrl,
+                                            infoLink, publishDate, pageCount, ratingsCount, uniqueId, avgRating);
                                     adapter.addToList(bookDetail);
                                 }
 

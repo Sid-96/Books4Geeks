@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if(savedInstanceState==null && DimensionUtil.isTablet()){
-            loadDetailFragmentforTablet(null);
+            loadDetailFragmentforTablet(null,false);
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
     }
@@ -29,16 +29,20 @@ public class MainActivity extends AppCompatActivity {
         BestSellerFragment fragment = (BestSellerFragment) getSupportFragmentManager().findFragmentByTag(B4GAppClass.TAG_BESTSELLER_FRAGMENT);
         if(fragment!=null && fragment.back){
             fragment.navigateToCategories();
+            if(DimensionUtil.isTablet()){
+                loadDetailFragmentforTablet(null,true);
+            }
         }
         else{
             super.onBackPressed();
         }
     }
 
-    public void loadDetailFragmentforTablet(BookDetail bookDetail){
+    public void loadDetailFragmentforTablet(BookDetail bookDetail, boolean isMsgVisible){
         DetailFragment detailFragment = new DetailFragment();
         Bundle bundle = new Bundle();
         bundle.putParcelable(B4GAppClass.BOOK_DETAIL,bookDetail);
+        bundle.putBoolean(B4GAppClass.MSG_VISIBILITY,isMsgVisible);
         detailFragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().replace(R.id.detail_fragment,detailFragment).commit();
     }

@@ -47,4 +47,13 @@
         android:textSize="@dimen/text_medium"
         tools:text="Publish Date"/>
 
+    <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+        android:id="@+id/detail_book_publication_isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dist_medium"
+        android:textSize="@dimen/text_medium"
+        tools:text="Book ISBN"/>
+
+
 </LinearLayout>

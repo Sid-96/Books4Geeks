@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone"
+    android:id="@+id/category_msg_holder">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category_msg"
+        android:layout_gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/no_result_icon_height"
+            android:layout_gravity="center"
+            android:src="@drawable/category_temp"
+            android:contentDescription="@string/category_msg"/>
+
+        <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dist_large"
+            android:gravity="center"
+            android:textSize="@dimen/dist_large"
+            android:text="@string/category_msg"/>
+
+
+    </LinearLayout>
+
+
+
+</FrameLayout>

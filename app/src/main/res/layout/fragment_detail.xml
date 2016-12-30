@@ -14,7 +14,12 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"/>
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme.PopupOverlay">
+
+            <include layout="@layout/layout_toolbar_subtitle"/>
+
+        </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
@@ -40,6 +45,7 @@
                 <include layout="@layout/layout_detail_description"/>
 
             </LinearLayout>
+            <include layout="@layout/layout_category_msg"/>
 
         </android.support.v4.widget.NestedScrollView>
 

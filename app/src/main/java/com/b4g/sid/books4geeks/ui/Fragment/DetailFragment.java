@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +32,9 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
 
 
     @BindView(R.id.toolbar)     Toolbar toolbar;
+    @BindView(R.id.toolbar_layout_holder)   View toolbarLayoutHolder;
+    @BindView(R.id.toolbar_title)       TextView toolbarTitle;
+    @BindView(R.id.toolbar_subtitle)    TextView toolbarSubtitle;
     @BindView(R.id.detail_main_view)    View detailMainView;
     @BindView(R.id.detail_book_cover)   NetworkImageView detailBookCover;
     @BindView(R.id.detail_book_title)   TextView detailBookTitle;
@@ -45,7 +47,9 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     @BindView(R.id.detail_book_publisher_view)  View detailBookPublisherView;
     @BindView(R.id.detail_book_publisher_name)  TextView detailBookPublisherName;
     @BindView(R.id.detail_book_publication_date)    TextView detailBookPublicationDate;
+    @BindView(R.id.detail_book_publication_isbn)    TextView detailBookPublicationIsbn;
     @BindView(R.id.fragment_detail_book_view)   NestedScrollView fragmentDetailBookView;
+    @BindView(R.id.category_msg_holder)     View categoryMsgHolder;
 
     private Unbinder unbinder;
     private BookDetail bookDetail;
@@ -62,13 +66,24 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         unbinder = ButterKnife.bind(this,v);
         bookDetail = getArguments().getParcelable(B4GAppClass.BOOK_DETAIL);
         if(bookDetail==null)   {
-            Log.d("Sid","Book null");
+            fragmentDetailBookView.setVisibility(View.GONE);
+            if (getArguments().getBoolean(B4GAppClass.MSG_VISIBILITY, false)) {
+                categoryMsgHolder.setVisibility(View.VISIBLE);
+            }
             return v;
         }
+        if (bookDetail.getSubtitle().length() == 0) {
+            toolbarLayoutHolder.setVisibility(View.GONE);
+            toolbar.setTitle(bookDetail.getTitle());
+        } else {
+            toolbarTitle.setText(bookDetail.getTitle());
+            toolbarSubtitle.setText(bookDetail.getSubtitle());
+        }
+        toolbar.setOnMenuItemClickListener(this);
+        toolbar.inflateMenu(R.menu.menu_detail);
+
         if(!DimensionUtil.isTablet()) {
             toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_back));
-            toolbar.inflateMenu(R.menu.menu_detail);
-            toolbar.setOnMenuItemClickListener(this);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -119,22 +134,31 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             detailBookVoteCount.setText(getString(R.string.detail_book_ratings, bookDetail.getRating()));
         }
 
-        if(bookDetail.getPublisher().length()!=0 && bookDetail.getPublisherDate().length()!=0){
-            detailBookPublisherName.setText(getString(R.string.detail_book_publication_name,bookDetail.getPublisher()));
-            detailBookPublicationDate.setText(getString(R.string.detail_book_publish_date,bookDetail.getPublisherDate()));
-        }
-        else if(bookDetail.getPublisherDate().length()!=0){
-            detailBookPublisherName.setVisibility(View.GONE);
-            detailBookPublicationDate.setText(getString(R.string.detail_book_publish_date,bookDetail.getPublisherDate()));
-        }
-        else if(bookDetail.getPublisher().length()!=0){
-            detailBookPublicationDate.setVisibility(View.GONE);
-            detailBookPublisherName.setText(getString(R.string.detail_book_publication_name,bookDetail.getPublisher()));
-        }
-        else{
+        String publisher = bookDetail.getPublisher();
+        String publishDate = bookDetail.getPublisherDate();
+        String identifiers = bookDetail.getUniqueIdentifier();
+        if (publisher.length() == 0 && publishDate.length() == 0 && identifiers.length() == 0) {
             detailBookPublisherView.setVisibility(View.GONE);
+        } else {
+            // Publisher
+            if (publisher.length() == 0) {
+                detailBookPublisherName.setVisibility(View.GONE);
+            } else {
+                detailBookPublisherName.setText(getString(R.string.detail_book_publication_name, publisher));
+            }
+            // Publish date
+            if (publishDate.length() == 0) {
+                detailBookPublicationDate.setVisibility(View.GONE);
+            } else {
+                detailBookPublicationDate.setText(getString(R.string.detail_book_publish_date, publishDate));
+            }
+            // Identifiers
+            if (identifiers.length() == 0) {
+                detailBookPublicationIsbn.setVisibility(View.GONE);
+            } else {
+                detailBookPublicationIsbn.setText(getString(R.string.detail_book_publication_isbn, identifiers));
+            }
         }
-
         if(bookDetail.getDesc().length()!=0){
             detailBookDescription.setText(bookDetail.getDesc());
         }
