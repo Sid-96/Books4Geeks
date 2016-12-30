@@ -1,4 +1,7 @@
 <resources>
+
+    <bool name="is_tablet">false</bool>
+
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="dist_xlarge">32dp</dimen>
     <dimen name="dist_large">16dp</dimen>
