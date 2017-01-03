@@ -38,4 +38,5 @@
     <dimen name="dist_xxlarge">64dp</dimen>
     <dimen name="progress_bar_small_size">40dp</dimen>
     <dimen name="progress_circle_small_stoke">3dp</dimen>
+    <dimen name="about_icon_size">120dp</dimen>
 </resources>

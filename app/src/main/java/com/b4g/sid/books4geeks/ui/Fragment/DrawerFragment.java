@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -163,6 +164,11 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             return true;
         }
 
+        else if(item.getItemId()==R.id.item_about){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setView(getActivity().getLayoutInflater().inflate(R.layout.layout_about,null));
+            builder.show();
+        }
         return false;
     }
 }

@@ -43,5 +43,8 @@
     <string name="desc_book">Book</string>
     <string name="no_book_found">No book found in the list</string>
     <string name="camera_permission_denied">Camera permission not granted</string>
+    <string name="version_1_0">Version 1.0</string>
+    <string name="about_made_by">Made by</string>
+    <string name="about_name">Siddharthsinh Rana</string>
 
 </resources>

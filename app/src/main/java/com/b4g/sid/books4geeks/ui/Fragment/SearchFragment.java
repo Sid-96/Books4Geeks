@@ -272,7 +272,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             searchNoResults.setVisibility(View.VISIBLE);
             bookDetail = null;
         }
-        if(DimensionUtil.isTablet()&&startIndex==0){
+        if(DimensionUtil.isTablet()&&startIndex==10){
             ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
         }
         currentState = B4GAppClass.CURRENT_STATE_LOADED;

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dist_large"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_xlarge"
+            android:text="@string/app_name"
+            />
+
+
+        <com.b4g.sid.books4geeks.CustomViews.sspLight
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/version_1_0"
+            android:textSize="@dimen/text_large"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+
+        <ImageView
+            android:layout_width="@dimen/about_icon_size"
+            android:layout_height="@dimen/about_icon_size"
+            android:layout_margin="@dimen/dist_medium"
+            android:src="@drawable/category_temp"
+            tools:ignore="ContentDescription"
+            android:layout_gravity="center" />
+
+        <com.b4g.sid.books4geeks.CustomViews.sspLight
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_made_by"
+            android:textSize="@dimen/text_large"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/about_name"
+            android:textSize="@dimen/text_large"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</ScrollView>

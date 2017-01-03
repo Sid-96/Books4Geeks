@@ -135,8 +135,10 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
 
         ((DrawerFragment)getActivity().getSupportFragmentManager().findFragmentById(R.id.fragment_main)).toolbar.setTitle(getString(R.string.drawer_bestsellers));
         back = false;
+        currentState = 0;
         bestSellerAdapter = null;
         layoutManager = null;
+        
         VolleySingleton.getInstance().requestQueue.cancelAll(this.getClass().getName());
         bestSellerList.setVisibility(View.GONE);
         progressCircle.setVisibility(View.GONE);
