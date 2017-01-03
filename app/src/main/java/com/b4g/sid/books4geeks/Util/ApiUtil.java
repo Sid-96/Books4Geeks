@@ -31,10 +31,11 @@ public class ApiUtil {
         return "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn + "&key=" + getGoogleBooksApiKey();
     }
 
-    public static String getBookSearchString(String query){
+    public static String getBookSearchString(String query, int startIndex){
         return Uri.parse("https://www.googleapis.com/books/v1/volumes").buildUpon()
                 .appendQueryParameter("q",query)
                 .appendQueryParameter("key",getGoogleBooksApiKey())
+                .appendQueryParameter("startIndex",startIndex+"")
                 .build().toString();
     }
 }

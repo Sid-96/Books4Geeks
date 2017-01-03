@@ -46,6 +46,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     private SearchAdapter adapter;
     private int currentState;
     private BookDetail bookDetail;
+    private int startIndex;
+    private int totalItems;
+    private GridLayoutManager gridLayoutManager;
 
     @BindView(R.id.toolbar)             Toolbar toolbar;
     @BindView(R.id.search_toolbar)      EditText searchBar;
@@ -53,6 +56,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     @BindView(R.id.progress_circle)     View progressCircle;
     @BindView(R.id.search_no_results)   View searchNoResults;
     @BindView(R.id.search_list)         RecyclerView searchList;
+    @BindView(R.id.loading_secondary)   View loadingSecondary;
 
 
     @Override
@@ -61,6 +65,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_search, container, false);
         unbinder = ButterKnife.bind(this,v);
+        startIndex = 0;
+        totalItems = 0;
         toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +82,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                     String q = searchBar.getText().toString().trim();
                     if(q.length()>0){
                         query = q;
+                        startIndex = 0;
+                        totalItems = 0;
                         searchList.setVisibility(View.GONE);
                         searchNoResults.setVisibility(View.GONE);
                         errorMessage.setVisibility(View.GONE);
@@ -88,25 +96,42 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                 return false;
             }
         });
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),
+        gridLayoutManager = new GridLayoutManager(getContext(),
                 DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
         searchList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
         searchList.setLayoutManager(gridLayoutManager);
-
+        searchList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if(adapter.getBestSellersList().size()>0 &&
+                        gridLayoutManager.findLastVisibleItemPosition() == adapter.getBestSellersList().size()-1 &&
+                        currentState!=B4GAppClass.CURRENT_STATE_LOADING && currentState!=B4GAppClass.CURRENT_STATE_LOCKED){
+                    if(startIndex<totalItems){
+                        loadingSecondary.setVisibility(View.VISIBLE);
+                        downloadSearchDetails();
+                    }
+                }
+            }
+        });
         if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.CURRENT_STATE)){
             currentState = savedInstanceState.getInt(B4GAppClass.CURRENT_STATE);
-
-            if(currentState == B4GAppClass.CURRENT_STATE_LOADED){
-                query = savedInstanceState.getString(B4GAppClass.SEARCH_QUERY);
+            query = savedInstanceState.getString(B4GAppClass.SEARCH_QUERY);
+            startIndex = savedInstanceState.getInt(B4GAppClass.START_INDEX,0);
+            totalItems = savedInstanceState.getInt(B4GAppClass.TOTAL_ITEMS,0);
+            if(currentState == B4GAppClass.CURRENT_STATE_LOADED||currentState==B4GAppClass.CURRENT_STATE_LOCKED
+                    ||(currentState==B4GAppClass.CURRENT_STATE_LOADING && savedInstanceState.containsKey(B4GAppClass.SEARCH_LIST))){
                 ArrayList<BookDetail> bestSellersList = savedInstanceState.getParcelableArrayList(B4GAppClass.SEARCH_LIST);
                 adapter = new SearchAdapter(this);
                 adapter.setBestSellersList(bestSellersList);
                 searchList.swapAdapter(adapter,true);
                 onDownloadSuccessful();
+                if(currentState==B4GAppClass.CURRENT_STATE_LOADING){
+                    loadingSecondary.setVisibility(View.VISIBLE);
+                    downloadSearchDetails();
+                }
             }
             else if(currentState == B4GAppClass.CURRENT_STATE_LOADING){
-                query = savedInstanceState.getString(B4GAppClass.SEARCH_QUERY);
                 progressCircle.setVisibility(View.VISIBLE);
                 downloadSearchDetails();
             }
@@ -128,8 +153,10 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(B4GAppClass.CURRENT_STATE,currentState);
-        if(query!=null){
-            outState.putString(B4GAppClass.SEARCH_QUERY,query);
+        outState.putString(B4GAppClass.SEARCH_QUERY,query);
+        outState.putInt(B4GAppClass.TOTAL_ITEMS,totalItems);
+        outState.putInt(B4GAppClass.START_INDEX,startIndex);
+        if(adapter!=null){
             outState.putParcelableArrayList(B4GAppClass.SEARCH_LIST,adapter.getBestSellersList());
         }
     }
@@ -139,7 +166,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             adapter = new SearchAdapter(this);
             searchList.swapAdapter(adapter,true);
         }
-        String url = ApiUtil.getBookSearchString(query);
+        String url = ApiUtil.getBookSearchString(query,startIndex);
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -147,6 +174,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                         try {
                             if(response.has("items")){
                                 JSONArray object = response.getJSONArray("items");
+                                totalItems = response.getInt("totalItems");
                                 for(int i=0 ; i<object.length() ; i++){
                                     JSONObject bookObject = object.getJSONObject(i);
                                     JSONObject volumeInfo = bookObject.getJSONObject("volumeInfo");
@@ -194,6 +222,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                 }
 
                             }
+                            startIndex += 10;
                             onDownloadSuccessful();
                         } catch (JSONException e) {
                             onDownloadFailed();
@@ -214,10 +243,18 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
 
     private void onDownloadFailed(){
         progressCircle.setVisibility(View.GONE);
-        searchList.setVisibility(View.GONE);
+        loadingSecondary.setVisibility(View.GONE);
         searchNoResults.setVisibility(View.GONE);
-        errorMessage.setVisibility(View.VISIBLE);
-        currentState = B4GAppClass.CURRENT_STATE_FAILED;
+        if(startIndex==0){
+            searchList.setVisibility(View.GONE);
+            errorMessage.setVisibility(View.VISIBLE);
+            currentState = B4GAppClass.CURRENT_STATE_FAILED;
+        }
+        else {
+            errorMessage.setVisibility(View.GONE);
+            searchList.setVisibility(View.VISIBLE);
+            currentState = B4GAppClass.CURRENT_STATE_LOCKED;
+        }
     }
 
     private void onDownloadSuccessful(){
@@ -225,8 +262,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
         progressCircle.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         if(adapter.getBestSellersList().size()>0) {
-            searchList.setVisibility(View.VISIBLE);
             searchNoResults.setVisibility(View.GONE);
+            searchList.setVisibility(View.VISIBLE);
             adapter.notifyDataSetChanged();
             bookDetail = adapter.getBestSellersList().get(0);
         }
@@ -235,12 +272,16 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             searchNoResults.setVisibility(View.VISIBLE);
             bookDetail = null;
         }
-        ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
+        if(DimensionUtil.isTablet()&&startIndex==0){
+            ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
+        }
         currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
 
     public void performSearchFor(String searchQuery){
         query = searchQuery;
+        startIndex = 0;
+        totalItems = 0;
         searchBar.setText(query);
         searchList.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
