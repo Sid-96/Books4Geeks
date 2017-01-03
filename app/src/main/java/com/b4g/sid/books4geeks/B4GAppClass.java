@@ -25,6 +25,7 @@ public class B4GAppClass extends Application {
     public static final String SEARCH_LIST = "search_list";
     public static final String BOOK_DETAIL = "book_detail";
     public static final String MSG_VISIBILITY = "msg_visible";
+    public static final String BOOK_SHELF = "book_shelf";
 
     private static Context mContext;
 

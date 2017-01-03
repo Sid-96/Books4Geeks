@@ -27,31 +27,14 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
 
     private OnBookClickListener onBookClickListener;
 
-    public BookCursorAdapter(OnBookClickListener onBookClickListener, Cursor cursor) {
-        super(B4GAppClass.getAppContext(), cursor);
+    public BookCursorAdapter(OnBookClickListener onBookClickListener) {
+        super(B4GAppClass.getAppContext(), null);
         this.onBookClickListener = onBookClickListener;
     }
 
     @Override
     public void onBindViewHolder(BookCursorViewHolder viewHolder, Cursor cursor) {
-        String title = cursor.getString(cursor.getColumnIndex(BookColumns.TITLE));
-        String subtitle = cursor.getString(cursor.getColumnIndex(BookColumns.SUBTITLE));
-        String authors = cursor.getString(cursor.getColumnIndex(BookColumns.AUTHORS));
-        String desc = cursor.getString(cursor.getColumnIndex(BookColumns.DESCRIPTION));
-        String publisher = cursor.getString(cursor.getColumnIndex(BookColumns.PUBLISHER));
-        String isbn10 = cursor.getString(cursor.getColumnIndex(BookColumns.ISBN_10));
-        String isbn13 = cursor.getString(cursor.getColumnIndex(BookColumns.ISBN_13));
-        String imageUrl = cursor.getString(cursor.getColumnIndex(BookColumns.IMAGE_URL));
-        String infoLink = cursor.getString(cursor.getColumnIndex(BookColumns.INFO_LINK));
-        String publishDate = cursor.getString(cursor.getColumnIndex(BookColumns.PUBLISH_DATE));
-        String pageCount = cursor.getString(cursor.getColumnIndex(BookColumns.PAGE_COUNT));
-        String voteCount = cursor.getString(cursor.getColumnIndex(BookColumns.VOTE_COUNT));
-        String uniqueId = cursor.getString(cursor.getColumnIndex(BookColumns.BOOK_ID));
-        String avgRating = cursor.getString(cursor.getColumnIndex(BookColumns.AVG_RATING));
-
-        BookDetail bookDetail = new BookDetail(title,subtitle,authors,desc,publisher,isbn10,isbn13,imageUrl,
-                infoLink,publishDate,pageCount,voteCount,uniqueId,avgRating);
-
+        BookDetail bookDetail = getBookDetailFromCursor(cursor);
         if(bookDetail.getImageUrl().length()==0){
             viewHolder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
         }
@@ -71,6 +54,36 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
     @Override
     public int getItemCount() {
         return super.getItemCount();
+    }
+
+    public BookDetail getBookDetailFromCursor(Cursor cursor){
+        String title = cursor.getString(cursor.getColumnIndex(BookColumns.TITLE));
+        String subtitle = cursor.getString(cursor.getColumnIndex(BookColumns.SUBTITLE));
+        String authors = cursor.getString(cursor.getColumnIndex(BookColumns.AUTHORS));
+        String desc = cursor.getString(cursor.getColumnIndex(BookColumns.DESCRIPTION));
+        String publisher = cursor.getString(cursor.getColumnIndex(BookColumns.PUBLISHER));
+        String isbn10 = cursor.getString(cursor.getColumnIndex(BookColumns.ISBN_10));
+        String isbn13 = cursor.getString(cursor.getColumnIndex(BookColumns.ISBN_13));
+        String imageUrl = cursor.getString(cursor.getColumnIndex(BookColumns.IMAGE_URL));
+        String infoLink = cursor.getString(cursor.getColumnIndex(BookColumns.INFO_LINK));
+        String publishDate = cursor.getString(cursor.getColumnIndex(BookColumns.PUBLISH_DATE));
+        String pageCount = cursor.getString(cursor.getColumnIndex(BookColumns.PAGE_COUNT));
+        String voteCount = cursor.getString(cursor.getColumnIndex(BookColumns.VOTE_COUNT));
+        String uniqueId = cursor.getString(cursor.getColumnIndex(BookColumns.BOOK_ID));
+        String avgRating = cursor.getString(cursor.getColumnIndex(BookColumns.AVG_RATING));
+
+        BookDetail bookDetail = new BookDetail(title,subtitle,authors,desc,publisher,isbn10,isbn13,imageUrl,
+                infoLink,publishDate,pageCount,voteCount,uniqueId,avgRating);
+        return bookDetail;
+    }
+
+    public BookDetail getItem(int position){
+        Cursor cursor = getCursor();
+        if(cursor !=null || !(cursor.isClosed()) || cursor.getCount()>0){
+            cursor.moveToPosition(position);
+            return getBookDetailFromCursor(cursor);
+        }
+        return null;
     }
 
     public class BookCursorViewHolder extends RecyclerView.ViewHolder {
