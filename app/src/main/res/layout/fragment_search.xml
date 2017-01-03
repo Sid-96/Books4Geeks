@@ -37,6 +37,12 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/recycler_item_padding"
+            android:visibility="gone"/>
         <include layout="@layout/layout_error_msg"
             android:visibility="gone"/>
 
@@ -46,14 +52,8 @@
         <include layout="@layout/layout_search_no_results"
             android:visibility="gone"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/recycler_item_padding"
-            android:visibility="gone">
-
-        </android.support.v7.widget.RecyclerView>
+        <include layout="@layout/layout_progress_circle_secondary"
+            android:visibility="gone"/>
 
     </RelativeLayout>
     

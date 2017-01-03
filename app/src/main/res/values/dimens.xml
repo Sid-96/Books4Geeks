@@ -36,4 +36,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="no_result_icon_height">120dp</dimen>
     <dimen name="dist_xxlarge">64dp</dimen>
+    <dimen name="progress_bar_small_size">40dp</dimen>
+    <dimen name="progress_circle_small_stoke">3dp</dimen>
 </resources>
