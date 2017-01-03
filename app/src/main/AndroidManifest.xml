@@ -6,6 +6,10 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <supports-screens
+        android:largeScreens="true"
+        android:xlargeScreens="true" />
+
     <application
         android:name=".B4GAppClass"
         android:allowBackup="true"
@@ -29,6 +33,11 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.activity.BarCodeScannerActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        
+        <provider
+            android:authorities="com.b4g.sid.books4geeks.data.BookProvider"
+            android:name=".data.generated.BookProvider"
+            android:exported="false"/>
     </application>
 
 </manifest>

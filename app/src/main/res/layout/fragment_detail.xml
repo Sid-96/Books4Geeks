@@ -29,7 +29,7 @@
             android:id="@+id/fragment_detail_book_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/dist_medium"
+            android:paddingBottom="@dimen/dist_xxlarge"
             app:layout_scrollFlags="scroll"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
