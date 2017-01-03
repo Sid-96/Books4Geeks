@@ -42,5 +42,6 @@
     <string name="category_msg">Click on category</string>
     <string name="desc_book">Book</string>
     <string name="no_book_found">No book found in the list</string>
+    <string name="camera_permission_denied">Camera permission not granted</string>
 
 </resources>

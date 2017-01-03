@@ -1,11 +1,16 @@
 package com.b4g.sid.books4geeks.ui.Fragment;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.R;
@@ -33,6 +39,7 @@ import butterknife.Unbinder;
 public class DrawerFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener{
 
     Unbinder unbinder;
+    private static final int CAMERA_REQUEST_CODE = 9;
     @BindView(R.id.toolbar)         Toolbar toolbar;
     @BindView(R.id.nav_view)        NavigationView navigationView;
     @BindView(R.id.drawer_layout)   DrawerLayout drawerLayout;
@@ -64,7 +71,14 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         navigationView.setNavigationItemSelectedListener(this);
         actionBarDrawerToggle.syncState();
-        if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.TOOLBAR_TITLE)){
+        if(savedInstanceState==null){
+            toolbar.setTitle(R.string.drawer_bestsellers);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,new BestSellerFragment(),B4GAppClass.TAG_BESTSELLER_FRAGMENT).commit();
+            if(DimensionUtil.isTablet()){
+                ((MainActivity)getActivity()).loadDetailFragmentforTablet(null,true);
+            }
+        }
+        else if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.TOOLBAR_TITLE)){
             toolbar.setTitle(savedInstanceState.getString(B4GAppClass.TOOLBAR_TITLE));
         }
         return  view;
@@ -74,6 +88,22 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(B4GAppClass.TOOLBAR_TITLE,toolbar.getTitle().toString());
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case CAMERA_REQUEST_CODE:{
+                if(grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                    startActivity(new Intent(getContext(),BarCodeScannerActivity.class));
+                }
+                else {
+                    Toast.makeText(getContext(), R.string.camera_permission_denied,Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+        }
     }
 
     @Override
@@ -97,7 +127,12 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         }
 
         else if(item.getItemId()==R.id.item_barcode){
-            startActivity(new Intent(getContext(), BarCodeScannerActivity.class));
+            if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA},CAMERA_REQUEST_CODE);
+            }
+            else{
+                startActivity(new Intent(getContext(), BarCodeScannerActivity.class));
+            }
             return true;
         }
         else if(item.getItemId()==R.id.item_to_read){

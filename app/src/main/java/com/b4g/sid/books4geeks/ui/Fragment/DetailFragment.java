@@ -286,6 +286,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         }
         updateFabMenu();
     }
+
     @OnClick(R.id.fab_reading)
     public void onReadingButtonClicked() {
         if (shelf == BookColumns.SHELF_TO_READ) {
