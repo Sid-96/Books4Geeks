@@ -40,5 +40,7 @@
     <string name="action_share_text">%1$s by %2$s\n%3$s</string>
     <string name="action_share_title">Share book&#8230;</string>
     <string name="category_msg">Click on category</string>
+    <string name="desc_book">Book</string>
+    <string name="no_book_found">No book found in the list</string>
 
 </resources>
