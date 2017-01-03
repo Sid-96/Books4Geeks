@@ -8,6 +8,7 @@
     android:id="@+id/fab_menu"
     android:layout_marginRight="@dimen/dist_large"
     android:layout_marginEnd="@dimen/dist_large"
+    app:layout_behavior="com.b4g.sid.books4geeks.CustomViews.ScrollFAMBehavior"
     android:layout_gravity="bottom|end"
     app:menu_icon="@drawable/fab_add"
     app:menu_colorNormal="@color/colorAccent">
