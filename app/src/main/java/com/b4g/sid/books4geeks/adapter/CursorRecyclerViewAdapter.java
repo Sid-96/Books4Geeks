@@ -5,7 +5,7 @@ package com.b4g.sid.books4geeks.adapter;
 
 /**
  * Created by Sid on 03-Jan-17.
- * Reference code snippet by skyfish https://gist.github.com/skyfishjy/443b7448f59be978bc59
+ * Reference code snippet by skyfishjy https://gist.github.com/skyfishjy/443b7448f59be978bc59
  */
 
 /*

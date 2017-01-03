@@ -250,7 +250,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         values.put(BookColumns.AVG_RATING, bookDetail.getRating());
         values.put(BookColumns.RATING_COUNT, bookDetail.getVoteCount());
         values.put(BookColumns.IMAGE_URL, bookDetail.getImageUrl());
-        values.put(BookColumns.ITEM_URL, bookDetail.getInfoLink());
+        values.put(BookColumns.INFO_LINK, bookDetail.getInfoLink());
         values.put(BookColumns.SHELF, shelf);
         return values;
     }

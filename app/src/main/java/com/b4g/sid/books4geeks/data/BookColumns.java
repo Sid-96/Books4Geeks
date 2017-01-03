@@ -21,12 +21,12 @@ public interface BookColumns {
     @DataType(TEXT) @NotNull String AUTHORS = "authors";
     @DataType(TEXT) @NotNull String PAGE_COUNT = "page_count";
     @DataType(TEXT) @NotNull String AVG_RATING = "avg_rating";
-    @DataType(TEXT) @NotNull String RATING_COUNT = "rating_count";
+    @DataType(TEXT) @NotNull String VOTE_COUNT = "vote_count";
     @DataType(TEXT) @NotNull String IMAGE_URL = "image_url";
     @DataType(TEXT) @NotNull String PUBLISHER = "publisher";
     @DataType(TEXT) @NotNull String PUBLISH_DATE = "publish_date";
     @DataType(TEXT) @NotNull String DESCRIPTION = "description";
-    @DataType(TEXT) @NotNull String ITEM_URL = "item_url";
+    @DataType(TEXT) @NotNull String INFO_LINK = "info_link";
     @DataType(INTEGER) @NotNull String SHELF = "shelf";
 
 
