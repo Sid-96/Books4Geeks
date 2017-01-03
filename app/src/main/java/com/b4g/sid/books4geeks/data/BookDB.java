@@ -9,7 +9,7 @@ import net.simonvt.schematic.annotation.Table;
 
 @Database(version = BookDB.VERSION)
 public final class BookDB {
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
     @Table(BookColumns.class) public static final String BOOKS = "books";
 }

@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
+import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.ui.activity.BarCodeScannerActivity;
 import com.b4g.sid.books4geeks.ui.activity.MainActivity;
 import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
@@ -88,17 +89,45 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             if(DimensionUtil.isTablet()){
                 ((MainActivity)getActivity()).loadDetailFragmentforTablet(null,true);
             }
-            return false;
+            return true;
         }
         else if(item.getItemId()==R.id.item_search){
             startActivity(new Intent(getContext(), SearchActivity.class));
-            return false;
+            return true;
         }
 
         else if(item.getItemId()==R.id.item_barcode){
             startActivity(new Intent(getContext(), BarCodeScannerActivity.class));
-            return false;
+            return true;
         }
-        return true;
+        else if(item.getItemId()==R.id.item_to_read){
+            toolbar.setTitle(R.string.drawer_to_read);
+            CatalogFragment toReadFragment = new CatalogFragment();
+            Bundle args = new Bundle();
+            args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_TO_READ);
+            toReadFragment.setArguments(args);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,toReadFragment).commit();
+            return true;
+        }
+        else if(item.getItemId()==R.id.item_reading){
+            toolbar.setTitle(R.string.drawer_reading);
+            CatalogFragment readingFragment = new CatalogFragment();
+            Bundle args = new Bundle();
+            args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_READING);
+            readingFragment.setArguments(args);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,readingFragment).commit();
+            return true;
+        }
+        else if(item.getItemId()==R.id.item_completed){
+            toolbar.setTitle(R.string.drawer_completed);
+            CatalogFragment completedFragment = new CatalogFragment();
+            Bundle args = new Bundle();
+            args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_FINISHED);
+            completedFragment.setArguments(args);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,completedFragment).commit();
+            return true;
+        }
+
+        return false;
     }
 }

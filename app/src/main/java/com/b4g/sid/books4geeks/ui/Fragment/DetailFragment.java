@@ -248,7 +248,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         values.put(BookColumns.ISBN_13, bookDetail.getIsbn13());
         values.put(BookColumns.PAGE_COUNT, bookDetail.getPageCount());
         values.put(BookColumns.AVG_RATING, bookDetail.getRating());
-        values.put(BookColumns.RATING_COUNT, bookDetail.getVoteCount());
+        values.put(BookColumns.VOTE_COUNT, bookDetail.getVoteCount());
         values.put(BookColumns.IMAGE_URL, bookDetail.getImageUrl());
         values.put(BookColumns.INFO_LINK, bookDetail.getInfoLink());
         values.put(BookColumns.SHELF, shelf);
