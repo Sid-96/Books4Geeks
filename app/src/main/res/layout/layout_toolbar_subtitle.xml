@@ -9,7 +9,7 @@
     android:id="@+id/toolbar_layout_holder"
     android:gravity="center_vertical">
 
-    <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+    <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar_title"
@@ -17,7 +17,7 @@
         android:textSize="@dimen/text_xlarge"
         tools:text="Book Title"/>
 
-    <com.b4g.sid.books4geeks.ui.CustomViews.sspRegular
+    <com.b4g.sid.books4geeks.CustomViews.sspRegular
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar_subtitle"

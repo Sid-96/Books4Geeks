@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks.ui.CustomViews;
+package com.b4g.sid.books4geeks.CustomViews;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;

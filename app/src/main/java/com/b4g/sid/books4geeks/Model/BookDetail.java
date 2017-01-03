@@ -106,14 +106,17 @@ public class BookDetail implements Parcelable{
     }
 
     public String getUniqueIdentifier() {
-        if (isbn13!=null && isbn13.length()>0) {
-            return  isbn10;
+        if((isbn10==null || isbn10.length()==0) && (isbn13==null || isbn13.length()==0)){
+            return "";
         }
         else if (isbn10!=null && isbn10.length() > 0) {
             return  isbn13;
         }
+        else if (isbn13!=null && isbn13.length()>0) {
+            return  isbn10;
+        }
         else {
-            return  "";
+            return  isbn10+", "+isbn13;
         }
     }
 

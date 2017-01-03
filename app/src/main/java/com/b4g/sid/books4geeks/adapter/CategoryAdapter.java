@@ -1,4 +1,4 @@
-package com.b4g.sid.books4geeks.ui.adapter;
+package com.b4g.sid.books4geeks.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

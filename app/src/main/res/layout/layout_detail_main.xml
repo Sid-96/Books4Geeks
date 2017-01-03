@@ -21,14 +21,14 @@
         android:layout_marginStart="@dimen/dist_large"
         android:orientation="vertical">
 
-        <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+        <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
             android:id="@+id/detail_book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_xxlarge"
             tools:text="Book Title"/>
 
-        <com.b4g.sid.books4geeks.ui.CustomViews.sspLight
+        <com.b4g.sid.books4geeks.CustomViews.sspLight
             android:id="@+id/detail_book_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,13 +41,13 @@
             android:layout_marginTop="@dimen/dist_large"
             android:orientation="horizontal">
 
-            <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+            <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
                 android:id="@+id/detail_book_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textStyle="bold" />
 
-            <com.b4g.sid.books4geeks.ui.CustomViews.sspRegular
+            <com.b4g.sid.books4geeks.CustomViews.sspRegular
                 android:id="@+id/detail_book_vote_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

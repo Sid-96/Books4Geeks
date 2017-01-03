@@ -18,7 +18,7 @@
             android:layout_margin="@dimen/dist_medium"
             android:contentDescription="@string/book_cover_desc" />
 
-        <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+        <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
             android:id="@+id/book_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_marginBottom="@dimen/dist_small"
             android:contentDescription="@string/book_name"/>
 
-        <com.b4g.sid.books4geeks.ui.CustomViews.sspLight
+        <com.b4g.sid.books4geeks.CustomViews.sspLight
             android:id="@+id/book_author"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

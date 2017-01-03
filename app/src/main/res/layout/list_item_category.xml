@@ -17,7 +17,7 @@
         android:src="@drawable/category_temp"
         tools:ignore="ContentDescription"/>
 
-    <com.b4g.sid.books4geeks.ui.CustomViews.sspRegular
+    <com.b4g.sid.books4geeks.CustomViews.sspRegular
         android:id="@+id/category_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

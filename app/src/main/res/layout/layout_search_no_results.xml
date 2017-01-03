@@ -13,7 +13,7 @@
         android:src="@drawable/ic_search_no_results"
         android:contentDescription="@string/desc_no_result"/>
     
-    <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+    <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/dist_large"

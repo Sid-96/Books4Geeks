@@ -22,7 +22,7 @@
             android:src="@drawable/detail_ic_publication"
             android:scaleType="fitCenter"/>
         
-        <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+        <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dist_medium"
@@ -31,7 +31,7 @@
 
 
     </LinearLayout>
-    <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+    <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
         android:id="@+id/detail_book_publisher_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
         android:textSize="@dimen/text_medium"
         tools:text="Publisher Name"/>
 
-    <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+    <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
         android:id="@+id/detail_book_publication_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         android:textSize="@dimen/text_medium"
         tools:text="Publish Date"/>
 
-    <com.b4g.sid.books4geeks.ui.CustomViews.sspBoldTextView
+    <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
         android:id="@+id/detail_book_publication_isbn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

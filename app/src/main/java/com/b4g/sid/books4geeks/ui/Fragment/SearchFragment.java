@@ -23,10 +23,10 @@ import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
-import com.b4g.sid.books4geeks.ui.CustomViews.ItemDecorationView;
+import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
 import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
-import com.b4g.sid.books4geeks.ui.adapter.SearchAdapter;
+import com.b4g.sid.books4geeks.adapter.SearchAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

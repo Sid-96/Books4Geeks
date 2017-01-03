@@ -23,11 +23,11 @@ import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
-import com.b4g.sid.books4geeks.ui.CustomViews.ItemDecorationView;
+import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
 import com.b4g.sid.books4geeks.ui.activity.MainActivity;
-import com.b4g.sid.books4geeks.ui.adapter.BestSellerAdapter;
-import com.b4g.sid.books4geeks.ui.adapter.CategoryAdapter;
+import com.b4g.sid.books4geeks.adapter.BestSellerAdapter;
+import com.b4g.sid.books4geeks.adapter.CategoryAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
