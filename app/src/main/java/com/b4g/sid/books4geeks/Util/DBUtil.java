@@ -109,22 +109,21 @@ public class DBUtil {
 
     public static void onToReadButtonClicked(BookDetail bookDetail , int shelf) {
         if (shelf == BookColumns.SHELF_TO_READ) {
-            // Remove from "To Read"
             B4GAppClass.getAppContext().getContentResolver().
                     delete(BookProvider.Books.CONTENT_URI,
                             BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             null);
+            ImageUtil.deleteImageFromStorage(bookDetail.getUniqueIdentifier());
         } else {
-            // Insert into "To Read"
             B4GAppClass.getAppContext().getContentResolver().
                     insert(BookProvider.Books.CONTENT_URI,
                             getContentValues(bookDetail,BookColumns.SHELF_TO_READ));
+            ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
         }
     }
 
     public static void onReadingButtonClicked(BookDetail bookDetail, int shelf) {
         if (shelf == BookColumns.SHELF_TO_READ) {
-            // Move from "To Read" to "Reading"
             ContentValues values = new ContentValues();
             values.put(BookColumns.SHELF, BookColumns.SHELF_READING);
             B4GAppClass.getAppContext().getContentResolver().
@@ -132,22 +131,22 @@ public class DBUtil {
                             BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             new String[]{});
         } else if (shelf == BookColumns.SHELF_READING) {
-            // Remove from "Reading"
             B4GAppClass.getAppContext().getContentResolver().
                     delete(BookProvider.Books.CONTENT_URI,
                             BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             null);
+            ImageUtil.deleteImageFromStorage(bookDetail.getUniqueIdentifier());
         } else {
-            // Insert into "Reading"
             B4GAppClass.getAppContext().getContentResolver().
                     insert(BookProvider.Books.CONTENT_URI,
                             getContentValues(bookDetail,BookColumns.SHELF_READING));
+            ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
+
         }
     }
 
     public static void onFinishedButtonClicked(BookDetail bookDetail, int shelf) {
         if (shelf == BookColumns.SHELF_TO_READ || shelf == BookColumns.SHELF_READING) {
-            // Move from "To Read" or "Reading" to "Finished"
             ContentValues values = new ContentValues();
             values.put(BookColumns.SHELF, BookColumns.SHELF_FINISHED);
             B4GAppClass.getAppContext().getContentResolver().
@@ -155,16 +154,17 @@ public class DBUtil {
                             BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             new String[]{});
         } else if (shelf == BookColumns.SHELF_FINISHED) {
-            // Remove from "Finished"
             B4GAppClass.getAppContext().getContentResolver().
                     delete(BookProvider.Books.CONTENT_URI,
                             BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             null);
+            ImageUtil.deleteImageFromStorage(bookDetail.getUniqueIdentifier());
         } else {
-            // Insert into "Finished"
             B4GAppClass.getAppContext().getContentResolver().
                     insert(BookProvider.Books.CONTENT_URI,
                             getContentValues(bookDetail,BookColumns.SHELF_FINISHED));
+            ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
+
         }
     }
 
