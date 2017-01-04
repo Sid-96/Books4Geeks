@@ -42,6 +42,19 @@
             android:gravity="center_horizontal"
             android:layout_marginLeft="@dimen/dist_large"
             android:layout_marginStart="@dimen/dist_large"/>
+        
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/book_options"
+            android:src="@drawable/ic_options"
+            android:layout_alignBottom="@id/book_author"
+            android:background="?attr/selectableItemBackground"
+            android:contentDescription="@string/book_options"
+            android:layout_marginRight="@dimen/dist_small"
+            android:layout_marginEnd="@dimen/dist_small"/>
 
 
     </RelativeLayout>
