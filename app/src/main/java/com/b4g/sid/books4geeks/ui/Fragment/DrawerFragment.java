@@ -116,6 +116,8 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         toolbar.setTitle(item.getTitle());
         item.setChecked(true);
         if(item.getItemId()==R.id.item_bestsellers){
+            toolbar.setTitle(R.string.drawer_bestsellers);
+            toolbar.getMenu().findItem(R.id.item_sort).setVisible(false);
             BestSellerFragment fragment = new BestSellerFragment();
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content_fragment,fragment,B4GAppClass.TAG_BESTSELLER_FRAGMENT);
@@ -141,6 +143,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         }
         else if(item.getItemId()==R.id.item_to_read){
             toolbar.setTitle(R.string.drawer_to_read);
+            toolbar.getMenu().findItem(R.id.item_sort).setVisible(true);
             CatalogFragment toReadFragment = new CatalogFragment();
             Bundle args = new Bundle();
             args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_TO_READ);
@@ -150,6 +153,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         }
         else if(item.getItemId()==R.id.item_reading){
             toolbar.setTitle(R.string.drawer_reading);
+            toolbar.getMenu().findItem(R.id.item_sort).setVisible(true);
             CatalogFragment readingFragment = new CatalogFragment();
             Bundle args = new Bundle();
             args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_READING);
@@ -159,6 +163,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         }
         else if(item.getItemId()==R.id.item_completed){
             toolbar.setTitle(R.string.drawer_completed);
+            toolbar.getMenu().findItem(R.id.item_sort).setVisible(true);
             CatalogFragment completedFragment = new CatalogFragment();
             Bundle args = new Bundle();
             args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_FINISHED);

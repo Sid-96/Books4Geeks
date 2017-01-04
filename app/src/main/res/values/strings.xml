@@ -50,5 +50,6 @@
     <string name="email">Send Email using&#8230;</string>
     <string name="email_error">Unable to send email</string>
     <string name="book_options">Book options</string>
+    <string name="sort">Sort by</string>
 
 </resources>
