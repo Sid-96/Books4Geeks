@@ -198,7 +198,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
 
     private ContentValues getContentValues(int shelf) {
         ContentValues values = new ContentValues();
-        values.put(BookColumns.BOOK_ID, bookDetail.getUniqueId());
+        values.put(BookColumns.BOOK_ID, bookDetail.getUniqueIdentifier());
         values.put(BookColumns.TITLE, bookDetail.getTitle());
         values.put(BookColumns.SUBTITLE, bookDetail.getSubtitle());
         values.put(BookColumns.DESCRIPTION, bookDetail.getDesc());
@@ -237,7 +237,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             // Remove from "To Read"
             getContext().getContentResolver().
                     delete(BookProvider.Books.CONTENT_URI,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueId() + "'",
+                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             null);
         } else {
             // Insert into "To Read"
@@ -256,13 +256,13 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             values.put(BookColumns.SHELF, BookColumns.SHELF_READING);
             getContext().getContentResolver().
                     update(BookProvider.Books.CONTENT_URI, values,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueId() + "'",
+                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             new String[]{});
         } else if (shelf == BookColumns.SHELF_READING) {
             // Remove from "Reading"
             getContext().getContentResolver().
                     delete(BookProvider.Books.CONTENT_URI,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueId() + "'",
+                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             null);
         } else {
             // Insert into "Reading"
@@ -280,13 +280,13 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             values.put(BookColumns.SHELF, BookColumns.SHELF_FINISHED);
             getContext().getContentResolver().
                     update(BookProvider.Books.CONTENT_URI, values,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueId() + "'",
+                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             new String[]{});
         } else if (shelf == BookColumns.SHELF_FINISHED) {
             // Remove from "Finished"
             getContext().getContentResolver().
                     delete(BookProvider.Books.CONTENT_URI,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueId() + "'",
+                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
                             null);
         } else {
             // Insert into "Finished"
@@ -301,7 +301,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
 
         @Override
         protected Cursor doInBackground(Void... params) {
-            String selectionQuery = BookColumns.BOOK_ID + "= '" + bookDetail.getUniqueId() + "'";
+            String selectionQuery = BookColumns.BOOK_ID + "= '" + bookDetail.getUniqueIdentifier() + "'";
             Cursor data = getContext().getContentResolver().query(BookProvider.Books.CONTENT_URI, new String[]{BookColumns.SHELF},selectionQuery,null,null);
             return data;
         }
