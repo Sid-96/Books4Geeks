@@ -13,8 +13,11 @@ import android.widget.TextView;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
+import com.b4g.sid.books4geeks.Util.ImageUtil;
 import com.b4g.sid.books4geeks.data.BookColumns;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,8 +38,13 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
     @Override
     public void onBindViewHolder(BookCursorViewHolder viewHolder, Cursor cursor) {
         BookDetail bookDetail = getBookDetailFromCursor(cursor);
-        if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
-            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).into(viewHolder.bookImage);
+        File file = ImageUtil.loadImageFromStorage(bookDetail.getUniqueIdentifier());
+        if(file.exists()){
+            Picasso.with(B4GAppClass.getAppContext()).load(file).fit().into(viewHolder.bookImage);
+        }
+        else if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
+            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).fit().into(viewHolder.bookImage);
+            ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
         }
         else {
             viewHolder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));

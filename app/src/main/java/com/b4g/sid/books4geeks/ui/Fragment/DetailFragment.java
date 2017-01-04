@@ -21,12 +21,15 @@ import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
+import com.b4g.sid.books4geeks.Util.ImageUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.data.BookProvider;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -139,8 +142,15 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         toolbar.setTitle(bookDetail.getTitle());
         detailBookTitle.setText(bookDetail.getTitle());
 
-        if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
-            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).into(detailBookCover);
+        File file = ImageUtil.loadImageFromStorage(bookDetail.getUniqueIdentifier());
+
+        if(file.exists()){
+            Picasso.with(B4GAppClass.getAppContext()).load(file).fit().into(detailBookCover);
+        }
+
+        else if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
+            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).fit().into(detailBookCover);
+            ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
         }
         else {
             detailBookCover.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
