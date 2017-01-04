@@ -4,6 +4,7 @@ package com.b4g.sid.books4geeks.ui.Fragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -37,7 +38,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DrawerFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener{
+public class DrawerFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
 
     Unbinder unbinder;
     private static final int CAMERA_REQUEST_CODE = 9;
@@ -57,6 +58,8 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         View view = inflater.inflate(R.layout.fragment_drawer, container, false);
         unbinder = ButterKnife.bind(this,view);
         toolbar.setTitle(R.string.app_name);
+        toolbar.inflateMenu(R.menu.menu_drawer_extra);
+        toolbar.setOnMenuItemClickListener(this);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(getActivity(),drawerLayout,
                 toolbar,R.string.app_name,R.string.app_name){
             @Override
@@ -168,6 +171,22 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setView(getActivity().getLayoutInflater().inflate(R.layout.layout_about,null));
             builder.show();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        if(item.getItemId() == R.id.item_email){
+            Intent intent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","sidsinh2011@gmail.com",null));
+            intent.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.app_name));
+            try {
+                startActivity(Intent.createChooser(intent,getString(R.string.email)));
+            }
+            catch (Exception e){
+                Toast.makeText(getContext(),getString(R.string.email_error),Toast.LENGTH_SHORT).show();
+            }
+            return true;
         }
         return false;
     }

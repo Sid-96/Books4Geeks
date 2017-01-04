@@ -46,5 +46,8 @@
     <string name="version_1_0">Version 1.0</string>
     <string name="about_made_by">Made by</string>
     <string name="about_name">Siddharthsinh Rana</string>
+    <string name="feedback_email">Send Feedback</string>
+    <string name="email">Send Email using&#8230;</string>
+    <string name="email_error">Unable to send email</string>
 
 </resources>
