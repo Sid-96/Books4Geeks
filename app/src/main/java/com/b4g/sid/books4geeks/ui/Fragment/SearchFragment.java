@@ -223,7 +223,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                 }
 
                             }
-                            startIndex += 10;
+                            startIndex += 11;
                             onDownloadSuccessful();
                         } catch (JSONException e) {
                             onDownloadFailed();
