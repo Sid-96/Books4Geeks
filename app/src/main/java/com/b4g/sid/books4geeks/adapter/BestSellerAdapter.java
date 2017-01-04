@@ -1,17 +1,19 @@
 package com.b4g.sid.books4geeks.adapter;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
+import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BestSeller;
 import com.b4g.sid.books4geeks.R;
-import com.b4g.sid.books4geeks.Util.VolleySingleton;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -26,8 +28,10 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
 
     private OnBestSellerClickListener onBestSellerClickListener;
     private ArrayList<BestSeller> bestSellersList;
+    private Context context;
 
     public BestSellerAdapter(OnBestSellerClickListener onBestSellerClickListener){
+        this.context = B4GAppClass.getAppContext();
         this.onBestSellerClickListener = onBestSellerClickListener;
         this.bestSellersList = new ArrayList<>();
     }
@@ -54,7 +58,12 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
         BestSeller bestSeller = bestSellersList.get(position);
         holder.bookTitle.setText(bestSeller.getTitle());
         holder.bookAuthor.setText(bestSeller.getAuthor());
-        holder.bookImage.setImageUrl(bestSeller.getUrlImage(), VolleySingleton.getInstance().imageLoader);
+        if(bestSeller.getUrlImage()!=null && bestSeller.getUrlImage().length()>0){
+            Picasso.with(context).load(bestSeller.getUrlImage()).into(holder.bookImage);
+        }
+        else {
+            holder.bookImage.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.category_temp));
+        }
     }
 
     @Override
@@ -67,8 +76,8 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
         @BindView(R.id.book_card)       CardView cardView;
         @BindView(R.id.book_title)      TextView bookTitle;
         @BindView(R.id.book_author)     TextView bookAuthor;
-        @BindView(R.id.book_image)      NetworkImageView bookImage;
-        @BindView(R.id.book_options)    ImageButton bookOptions;
+        @BindView(R.id.book_image)      ImageView bookImage;
+        @BindView(R.id.book_options)    View bookOptions;
 
         public MyViewHolder(View itemView, final OnBestSellerClickListener onBestSellerClickListener) {
             super(itemView);

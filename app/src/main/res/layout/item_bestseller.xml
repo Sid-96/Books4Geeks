@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.android.volley.toolbox.NetworkImageView
+        <ImageView
             android:id="@+id/book_image"
             android:layout_width="match_parent"
             android:layout_height="@dimen/book_card_height"
@@ -43,19 +43,25 @@
             android:layout_marginLeft="@dimen/dist_large"
             android:layout_marginStart="@dimen/dist_large"/>
         
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <FrameLayout
+            android:id="@+id/book_options"
+            android:layout_width="@dimen/book_options_menu_size"
+            android:layout_height="@dimen/book_options_menu_size"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:id="@+id/book_options"
-            android:src="@drawable/ic_options"
-            android:layout_alignBottom="@id/book_author"
-            android:background="?attr/selectableItemBackground"
-            android:contentDescription="@string/book_options"
-            android:layout_marginRight="@dimen/dist_small"
-            android:layout_marginEnd="@dimen/dist_small"/>
+            android:layout_below="@id/book_image"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true">
 
+            <ImageView
+                android:layout_width="@dimen/options_menu_icon_size"
+                android:layout_height="@dimen/options_menu_icon_size"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_options"
+                android:scaleType="centerInside"
+                android:contentDescription="@string/book_options"/>
+
+        </FrameLayout>
 
     </RelativeLayout>
     

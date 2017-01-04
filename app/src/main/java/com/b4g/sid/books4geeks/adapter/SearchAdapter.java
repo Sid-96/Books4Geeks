@@ -6,14 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
-import com.b4g.sid.books4geeks.Util.VolleySingleton;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,11 +48,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     @Override
     public void onBindViewHolder(SearchViewHolder holder, int position) {
         BookDetail bestSeller = bestSellersList.get(position);
-        if(bestSeller.getImageUrl().length()==0){
-            holder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
+        if(bestSeller.getImageUrl()!=null && bestSeller.getImageUrl().length()>0){
+            Picasso.with(B4GAppClass.getAppContext()).load(bestSeller.getImageUrl()).into(holder.bookImage);
         }
         else {
-            holder.bookImage.setImageUrl(bestSeller.getImageUrl(), VolleySingleton.getInstance().imageLoader);
+            holder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
         }
         holder.bookTitle.setText(bestSeller.getTitle());
         if(bestSeller.getAuthors().length()==0){
@@ -84,10 +83,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public class SearchViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.book_card)   CardView bookCard;
-        @BindView(R.id.book_image)  NetworkImageView bookImage;
+        @BindView(R.id.book_image)  ImageView bookImage;
         @BindView(R.id.book_title)  TextView bookTitle;
         @BindView(R.id.book_author) TextView author;
-        @BindView(R.id.book_options) ImageButton bookOptions;
+        @BindView(R.id.book_options) View bookOptions;
 
 
         public SearchViewHolder(final View itemView, final OnSearchBookClickListener onSearchBookClickListener) {

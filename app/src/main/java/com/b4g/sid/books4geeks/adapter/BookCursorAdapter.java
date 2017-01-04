@@ -7,15 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
-import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.data.BookColumns;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,11 +35,11 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
     @Override
     public void onBindViewHolder(BookCursorViewHolder viewHolder, Cursor cursor) {
         BookDetail bookDetail = getBookDetailFromCursor(cursor);
-        if(bookDetail.getImageUrl().length()==0){
-            viewHolder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
+        if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
+            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).into(viewHolder.bookImage);
         }
         else {
-            viewHolder.bookImage.setImageUrl(bookDetail.getImageUrl(), VolleySingleton.getInstance().imageLoader);
+            viewHolder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
         }
         viewHolder.bookTitle.setText(bookDetail.getTitle());
         viewHolder.bookAuthor.setText(bookDetail.getAuthors());
@@ -92,8 +91,8 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
         @BindView(R.id.book_card)       CardView cardView;
         @BindView(R.id.book_title)      TextView bookTitle;
         @BindView(R.id.book_author)     TextView bookAuthor;
-        @BindView(R.id.book_image)      NetworkImageView bookImage;
-        @BindView(R.id.book_options)    ImageButton bookOptions;
+        @BindView(R.id.book_image)      ImageView bookImage;
+        @BindView(R.id.book_options)    View bookOptions;
 
 
         public BookCursorViewHolder(View itemView, final OnBookClickListener onBookClickListener) {

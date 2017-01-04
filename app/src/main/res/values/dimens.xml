@@ -39,4 +39,6 @@
     <dimen name="progress_bar_small_size">40dp</dimen>
     <dimen name="progress_circle_small_stoke">3dp</dimen>
     <dimen name="about_icon_size">120dp</dimen>
+    <dimen name="book_options_menu_size">50dp</dimen>
+    <dimen name="options_menu_icon_size">20dp</dimen>
 </resources>

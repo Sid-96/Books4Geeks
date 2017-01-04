@@ -13,9 +13,9 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.NetworkImageView;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
@@ -26,6 +26,7 @@ import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.data.BookProvider;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,7 +45,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     @BindView(R.id.toolbar_title)       TextView toolbarTitle;
     @BindView(R.id.toolbar_subtitle)    TextView toolbarSubtitle;
     @BindView(R.id.detail_main_view)    View detailMainView;
-    @BindView(R.id.detail_book_cover)   NetworkImageView detailBookCover;
+    @BindView(R.id.detail_book_cover)   ImageView detailBookCover;
     @BindView(R.id.detail_book_title)   TextView detailBookTitle;
     @BindView(R.id.detail_book_subtitle)    TextView detailBookSubtitle;
     @BindView(R.id.detail_book_rating_view) View detailBookRatingView;
@@ -138,11 +139,11 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         toolbar.setTitle(bookDetail.getTitle());
         detailBookTitle.setText(bookDetail.getTitle());
 
-        if(bookDetail.getImageUrl().length()==0){
-            detailBookCover.setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.category_temp));
+        if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
+            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).into(detailBookCover);
         }
-        else{
-            detailBookCover.setImageUrl(bookDetail.getImageUrl(),VolleySingleton.getInstance().imageLoader);
+        else {
+            detailBookCover.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
         }
         if(bookDetail.getAuthors().length()!=0 && bookDetail.getPageCount().length()!=0){
             detailBookSubtitle.setText(getString(R.string.detail_book_subtitle,bookDetail.getAuthors(),bookDetail.getPageCount()));
