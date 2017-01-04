@@ -18,6 +18,7 @@ import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
+import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.adapter.BookCursorAdapter;
 import com.b4g.sid.books4geeks.data.BookColumns;
@@ -83,6 +84,13 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
             startActivity(intent);
         }
 
+    }
+
+    @Override
+    public void onBookMenuClicked(int position, View view) {
+        BookDetail bookDetail = cursorAdapter.getItem(position);
+        int shelf = DBUtil.getCurrentShelf(bookDetail);
+        DBUtil.getPopupMenu(getActivity(),bookDetail,shelf,view).show();
     }
 
     @Override

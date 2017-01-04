@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -92,6 +93,7 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
         @BindView(R.id.book_title)      TextView bookTitle;
         @BindView(R.id.book_author)     TextView bookAuthor;
         @BindView(R.id.book_image)      NetworkImageView bookImage;
+        @BindView(R.id.book_options)    ImageButton bookOptions;
 
 
         public BookCursorViewHolder(View itemView, final OnBookClickListener onBookClickListener) {
@@ -103,10 +105,17 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
                     onBookClickListener.onBookClicked(getAdapterPosition());
                 }
             });
+            bookOptions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBookClickListener.onBookMenuClicked(getAdapterPosition(),bookOptions);
+                }
+            });
         }
     }
 
     public interface OnBookClickListener{
         void onBookClicked(final int position);
+        void onBookMenuClicked(final int position, View view);
     }
 }

@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -86,9 +87,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         @BindView(R.id.book_image)  NetworkImageView bookImage;
         @BindView(R.id.book_title)  TextView bookTitle;
         @BindView(R.id.book_author) TextView author;
+        @BindView(R.id.book_options) ImageButton bookOptions;
 
 
-        public SearchViewHolder(View itemView, final OnSearchBookClickListener onSearchBookClickListener) {
+        public SearchViewHolder(final View itemView, final OnSearchBookClickListener onSearchBookClickListener) {
             super(itemView);
             ButterKnife.bind(this,itemView);
             bookCard.setOnClickListener(new View.OnClickListener() {
@@ -97,10 +99,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     onSearchBookClickListener.onBookClicked(getAdapterPosition());
                 }
             });
+            bookOptions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onSearchBookClickListener.onBookMenuClicked(getAdapterPosition(),bookOptions);
+                }
+            });
         }
     }
 
     public interface OnSearchBookClickListener{
-        void onBookClicked(int position);
+        void onBookClicked(final int position);
+        void onBookMenuClicked(final int position,View view);
     }
 }

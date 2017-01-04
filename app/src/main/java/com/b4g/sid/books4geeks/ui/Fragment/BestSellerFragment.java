@@ -21,6 +21,7 @@ import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.Model.Category;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
+import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
@@ -235,6 +236,13 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         Intent intent = new Intent(getContext(),DetailBookActivity.class);
         intent.putExtra(B4GAppClass.BOOK_DETAIL,new BookDetail(bestSellerAdapter.getBestSellersList().get(position)));
         startActivity(intent);
+    }
+
+    @Override
+    public void onBestSellerMenuClicked(int position, View view) {
+        BookDetail bookDetail = new BookDetail(bestSellerAdapter.getBestSellersList().get(position));
+        int shelf = DBUtil.getCurrentShelf(bookDetail);
+        DBUtil.getPopupMenu(getActivity(),bookDetail,shelf,view).show();
     }
 
     @Override

@@ -21,6 +21,7 @@ import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
+import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
@@ -310,5 +311,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
         Intent intent = new Intent(getContext(), DetailBookActivity.class);
         intent.putExtra(B4GAppClass.BOOK_DETAIL,adapter.getBestSellersList().get(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onBookMenuClicked(int position, View view) {
+        BookDetail bookDetail = adapter.getBestSellersList().get(position);
+        int shelf = DBUtil.getCurrentShelf(bookDetail);
+        DBUtil.getPopupMenu(getActivity(),bookDetail,shelf,view).show();
     }
 }

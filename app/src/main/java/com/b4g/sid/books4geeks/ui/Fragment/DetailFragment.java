@@ -1,7 +1,6 @@
 package com.b4g.sid.books4geeks.ui.Fragment;
 
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
@@ -20,6 +19,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
+import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.data.BookColumns;
@@ -196,25 +196,6 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     }
 
 
-    private ContentValues getContentValues(int shelf) {
-        ContentValues values = new ContentValues();
-        values.put(BookColumns.BOOK_ID, bookDetail.getUniqueIdentifier());
-        values.put(BookColumns.TITLE, bookDetail.getTitle());
-        values.put(BookColumns.SUBTITLE, bookDetail.getSubtitle());
-        values.put(BookColumns.DESCRIPTION, bookDetail.getDesc());
-        values.put(BookColumns.AUTHORS, bookDetail.getAuthors());
-        values.put(BookColumns.PUBLISHER, bookDetail.getPublisher());
-        values.put(BookColumns.PUBLISH_DATE, bookDetail.getPublisherDate());
-        values.put(BookColumns.ISBN_10, bookDetail.getIsbn10());
-        values.put(BookColumns.ISBN_13, bookDetail.getIsbn13());
-        values.put(BookColumns.PAGE_COUNT, bookDetail.getPageCount());
-        values.put(BookColumns.AVG_RATING, bookDetail.getRating());
-        values.put(BookColumns.VOTE_COUNT, bookDetail.getVoteCount());
-        values.put(BookColumns.IMAGE_URL, bookDetail.getImageUrl());
-        values.put(BookColumns.INFO_LINK, bookDetail.getInfoLink());
-        values.put(BookColumns.SHELF, shelf);
-        return values;
-    }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
@@ -233,67 +214,18 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     }
     @OnClick(R.id.fab_to_read)
     public void onToReadButtonClicked() {
-        if (shelf == BookColumns.SHELF_TO_READ) {
-            // Remove from "To Read"
-            getContext().getContentResolver().
-                    delete(BookProvider.Books.CONTENT_URI,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
-                            null);
-        } else {
-            // Insert into "To Read"
-            getContext().getContentResolver().
-                    insert(BookProvider.Books.CONTENT_URI,
-                            getContentValues(BookColumns.SHELF_TO_READ));
-        }
+        DBUtil.onToReadButtonClicked(bookDetail,shelf);
         updateFabMenu();
     }
 
     @OnClick(R.id.fab_reading)
     public void onReadingButtonClicked() {
-        if (shelf == BookColumns.SHELF_TO_READ) {
-            // Move from "To Read" to "Reading"
-            ContentValues values = new ContentValues();
-            values.put(BookColumns.SHELF, BookColumns.SHELF_READING);
-            getContext().getContentResolver().
-                    update(BookProvider.Books.CONTENT_URI, values,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
-                            new String[]{});
-        } else if (shelf == BookColumns.SHELF_READING) {
-            // Remove from "Reading"
-            getContext().getContentResolver().
-                    delete(BookProvider.Books.CONTENT_URI,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
-                            null);
-        } else {
-            // Insert into "Reading"
-            getContext().getContentResolver().
-                    insert(BookProvider.Books.CONTENT_URI,
-                            getContentValues(BookColumns.SHELF_READING));
-        }
+        DBUtil.onReadingButtonClicked(bookDetail,shelf);
         updateFabMenu();
     }
     @OnClick(R.id.fab_finished)
     public void onFinishedButtonClicked() {
-        if (shelf == BookColumns.SHELF_TO_READ || shelf == BookColumns.SHELF_READING) {
-            // Move from "To Read" or "Reading" to "Finished"
-            ContentValues values = new ContentValues();
-            values.put(BookColumns.SHELF, BookColumns.SHELF_FINISHED);
-            getContext().getContentResolver().
-                    update(BookProvider.Books.CONTENT_URI, values,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
-                            new String[]{});
-        } else if (shelf == BookColumns.SHELF_FINISHED) {
-            // Remove from "Finished"
-            getContext().getContentResolver().
-                    delete(BookProvider.Books.CONTENT_URI,
-                            BookColumns.BOOK_ID + " = '" + bookDetail.getUniqueIdentifier() + "'",
-                            null);
-        } else {
-            // Insert into "Finished"
-            getContext().getContentResolver().
-                    insert(BookProvider.Books.CONTENT_URI,
-                            getContentValues(BookColumns.SHELF_FINISHED));
-        }
+        DBUtil.onFinishedButtonClicked(bookDetail,shelf);
         updateFabMenu();
     }
 
