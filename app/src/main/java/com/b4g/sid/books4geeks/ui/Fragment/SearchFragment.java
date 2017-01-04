@@ -216,7 +216,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                     infoLink= volumeInfo.getString("infoLink");
                                     pageCount = volumeInfo.getString("pageCount");
                                     ratingsCount = volumeInfo.getString("ratingsCount");
-                                    uniqueId = "gbid:"+bookObject.getString("id");
+                                    uniqueId = "gbid_"+bookObject.getString("id");
                                     bookDetail = new BookDetail(title, subtitle, authorsName,description,publisher, isbn10, isbn13, imgUrl,
                                             infoLink, publishDate, pageCount, ratingsCount, uniqueId, avgRating);
                                     adapter.addToList(bookDetail);

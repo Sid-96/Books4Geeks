@@ -84,13 +84,13 @@ public class BestSeller implements Parcelable{
 
     public String getUniqueId() {
         if (isbn10!=null && isbn10.length()>0) {
-            return "nyt1:" + isbn10;
+            return "nyt1_" + isbn10;
         }
         else if (isbn13!=null && isbn13.length() > 0) {
-            return "nyt2:" + isbn13;
+            return "nyt2_" + isbn13;
         }
         else {
-            return "nyt3" + title + author;
+            return "nyt3_" + title.toLowerCase().replaceAll("[^A-Za-z0-9]","") + author.toLowerCase().replaceAll("[^A-Za-z0-9]","");
         }
     }
 
