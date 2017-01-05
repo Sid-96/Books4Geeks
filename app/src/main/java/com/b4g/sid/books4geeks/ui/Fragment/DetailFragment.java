@@ -145,11 +145,11 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         File file = ImageUtil.loadImageFromStorage(bookDetail.getUniqueIdentifier());
 
         if(file.exists()){
-            Picasso.with(B4GAppClass.getAppContext()).load(file).fit().into(detailBookCover);
+            Picasso.with(B4GAppClass.getAppContext()).load(file).fit().centerCrop().into(detailBookCover);
         }
 
         else if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
-            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).fit().into(detailBookCover);
+            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).fit().centerCrop().into(detailBookCover);
             ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
         }
         else {

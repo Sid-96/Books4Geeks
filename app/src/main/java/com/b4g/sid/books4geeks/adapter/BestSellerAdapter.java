@@ -59,7 +59,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
         holder.bookTitle.setText(bestSeller.getTitle());
         holder.bookAuthor.setText(bestSeller.getAuthor());
         if(bestSeller.getUrlImage()!=null && bestSeller.getUrlImage().length()>0){
-            Picasso.with(context).load(bestSeller.getUrlImage()).fit().into(holder.bookImage);
+            Picasso.with(context).load(bestSeller.getUrlImage()).fit().centerCrop().into(holder.bookImage);
         }
         else {
             holder.bookImage.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.category_temp));

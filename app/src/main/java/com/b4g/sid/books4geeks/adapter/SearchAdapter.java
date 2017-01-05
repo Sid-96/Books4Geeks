@@ -49,7 +49,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public void onBindViewHolder(SearchViewHolder holder, int position) {
         BookDetail bestSeller = bestSellersList.get(position);
         if(bestSeller.getImageUrl()!=null && bestSeller.getImageUrl().length()>0){
-            Picasso.with(B4GAppClass.getAppContext()).load(bestSeller.getImageUrl()).fit().into(holder.bookImage);
+            Picasso.with(B4GAppClass.getAppContext()).load(bestSeller.getImageUrl()).fit().centerCrop().into(holder.bookImage);
         }
         else {
             holder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));

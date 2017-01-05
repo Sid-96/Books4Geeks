@@ -40,10 +40,10 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
         BookDetail bookDetail = getBookDetailFromCursor(cursor);
         File file = ImageUtil.loadImageFromStorage(bookDetail.getUniqueIdentifier());
         if(file.exists()){
-            Picasso.with(B4GAppClass.getAppContext()).load(file).fit().into(viewHolder.bookImage);
+            Picasso.with(B4GAppClass.getAppContext()).load(file).fit().centerCrop().into(viewHolder.bookImage);
         }
         else if(bookDetail.getImageUrl()!=null && bookDetail.getImageUrl().length()>0){
-            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).fit().into(viewHolder.bookImage);
+            Picasso.with(B4GAppClass.getAppContext()).load(bookDetail.getImageUrl()).fit().centerCrop().into(viewHolder.bookImage);
             ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
         }
         else {
