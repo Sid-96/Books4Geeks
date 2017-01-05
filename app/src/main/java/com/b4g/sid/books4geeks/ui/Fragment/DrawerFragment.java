@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.b4g.sid.books4geeks.B4GAppClass;
@@ -41,6 +42,7 @@ import butterknife.Unbinder;
 public class DrawerFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener, Toolbar.OnMenuItemClickListener {
 
     Unbinder unbinder;
+    View view;
     private static final int CAMERA_REQUEST_CODE = 9;
     @BindView(R.id.toolbar)         Toolbar toolbar;
     @BindView(R.id.nav_view)        NavigationView navigationView;
@@ -55,7 +57,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_drawer, container, false);
+        view = inflater.inflate(R.layout.fragment_drawer, container, false);
         unbinder = ButterKnife.bind(this,view);
         toolbar.setTitle(R.string.app_name);
         toolbar.inflateMenu(R.menu.menu_drawer_extra);
@@ -148,7 +150,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             Bundle args = new Bundle();
             args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_TO_READ);
             toReadFragment.setArguments(args);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,toReadFragment).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,toReadFragment,B4GAppClass.TAG_CATALOG_FRAGMENT).commit();
             return true;
         }
         else if(item.getItemId()==R.id.item_reading){
@@ -158,7 +160,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             Bundle args = new Bundle();
             args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_READING);
             readingFragment.setArguments(args);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,readingFragment).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,readingFragment,B4GAppClass.TAG_CATALOG_FRAGMENT).commit();
             return true;
         }
         else if(item.getItemId()==R.id.item_completed){
@@ -168,7 +170,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             Bundle args = new Bundle();
             args.putInt(B4GAppClass.BOOK_SHELF, BookColumns.SHELF_FINISHED);
             completedFragment.setArguments(args);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,completedFragment).commit();
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,completedFragment,B4GAppClass.TAG_CATALOG_FRAGMENT).commit();
             return true;
         }
 
@@ -191,6 +193,33 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             catch (Exception e){
                 Toast.makeText(getContext(),getString(R.string.email_error),Toast.LENGTH_SHORT).show();
             }
+            return true;
+        }
+
+        else if(item.getItemId() == R.id.item_sort){
+            PopupMenu popupMenu = new PopupMenu(getContext(),view.findViewById(R.id.item_sort));
+            popupMenu.inflate(R.menu.menu_sort);
+            popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    if(item.getItemId()==R.id.sort_title){
+                        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(B4GAppClass.TAG_CATALOG_FRAGMENT);
+                        if(fragment!=null){
+                            ((CatalogFragment)fragment).loadBooks(B4GAppClass.SORT_TITLE);
+                        }
+                        return true;
+                    }
+                    else if(item.getItemId()==R.id.sort_author){
+                        Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(B4GAppClass.TAG_CATALOG_FRAGMENT);
+                        if(fragment!=null){
+                            ((CatalogFragment)fragment).loadBooks(B4GAppClass.SORT_AUTHOR);
+                        }
+                        return  true;
+                    }
+                    return false;
+                }
+            });
+            popupMenu.show();
             return true;
         }
         return false;

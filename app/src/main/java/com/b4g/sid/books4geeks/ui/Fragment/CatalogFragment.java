@@ -43,7 +43,7 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
     private Unbinder unbinder;
     private int shelf;
     private BookCursorAdapter cursorAdapter;
-    private static final int CURSOR_LOADER_ID = 42;
+    private static final int CURSOR_LOADER_ID = 9;
     public CatalogFragment() {
         // Required empty public constructor
     }
@@ -63,7 +63,7 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
         catalogList.setLayoutManager(layoutManager);
         catalogList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
         catalogList.setAdapter(cursorAdapter);
-        getLoaderManager().initLoader(CURSOR_LOADER_ID,null,this);
+        loadBooks(B4GAppClass.SORT_TITLE);
         return view;
     }
 
@@ -93,11 +93,18 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
         DBUtil.getPopupMenu(getActivity(),bookDetail,shelf,view).show();
     }
 
+    public void loadBooks(int sortOrder){
+        Bundle bundle = new Bundle();
+        if(sortOrder==B4GAppClass.SORT_TITLE)   bundle.putString(B4GAppClass.SORT,BookColumns.TITLE + " ASC");
+        else if(sortOrder == B4GAppClass.SORT_AUTHOR)   bundle.putString(B4GAppClass.SORT,BookColumns.AUTHORS + " ASC");
+        getLoaderManager().initLoader(CURSOR_LOADER_ID,bundle,this);
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         if(id == CURSOR_LOADER_ID){
             return new CursorLoader(getContext(), BookProvider.Books.CONTENT_URI,new String[]{ },
-                    BookColumns.SHELF + " = '" + shelf + "'",null,null);
+                    BookColumns.SHELF + " = '" + shelf + "'",null,args.getString(B4GAppClass.SORT));
         }
         return null;
     }
