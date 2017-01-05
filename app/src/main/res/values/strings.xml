@@ -54,5 +54,20 @@
     <string name="sort_by_title">Sort by Title</string>
     <string name="sort_author">Sort by Author</string>
     <string name="sort_by_rating">Sort by Rating</string>
+    <string name="pref_category_title">App Data</string>
+    <string name="pref_key_backup" translatable="false">backup_data</string>
+    <string name="pref_title_backup">Backup Data</string>
+    <string name="pref_sum_backup">Export to Storage</string>
+    <string name="pref_key_restore">restore_data</string>
+    <string name="pref_title_restore">Restore Data</string>
+    <string name="pref_sum_restore">Import from Storage</string>
+
+    <string name="backup_select">Select location&#8230;</string>
+    <string name="backup_complete">Backup completed successfully</string>
+    <string name="backup_failed">Error! Unable to save backup</string>
+    <string name="restore_select">Select backup file&#8230;</string>
+    <string name="restore_complete">Restore completed successfully</string>
+    <string name="restore_failed">Error! Unable to restore backup</string>
+    <string name="restore_invalid">The file you selected is invalid</string>
 
 </resources>
