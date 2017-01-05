@@ -34,6 +34,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nononsenseapps:filepicker:3.1.0'
+    compile 'com.google.firebase:firebase-ads:10.0.1'
     compile 'net.simonvt.schematic:schematic:0.7.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'me.dm7.barcodescanner:zbar:1.9'
@@ -42,3 +43,5 @@ dependencies {
     apt 'net.simonvt.schematic:schematic-compiler:0.7.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
+apply plugin: 'com.google.gms.google-services'
+
