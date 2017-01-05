@@ -20,6 +20,7 @@ import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
+import com.b4g.sid.books4geeks.Util.PreferenceUtil;
 import com.b4g.sid.books4geeks.adapter.BookCursorAdapter;
 import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.data.BookProvider;
@@ -63,7 +64,7 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
         catalogList.setLayoutManager(layoutManager);
         catalogList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
         catalogList.setAdapter(cursorAdapter);
-        loadBooks(B4GAppClass.SORT_TITLE);
+        loadBooks();
         return view;
     }
 
@@ -93,7 +94,8 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
         DBUtil.getPopupMenu(getActivity(),bookDetail,shelf,view).show();
     }
 
-    public void loadBooks(int sortOrder){
+    public void loadBooks(){
+        int sortOrder = PreferenceUtil.getSortType();
         Bundle bundle = new Bundle();
         if(sortOrder==B4GAppClass.SORT_TITLE)   bundle.putString(B4GAppClass.SORT,BookColumns.TITLE + " ASC");
         else if(sortOrder == B4GAppClass.SORT_AUTHOR)   bundle.putString(B4GAppClass.SORT,BookColumns.AUTHORS + " ASC");

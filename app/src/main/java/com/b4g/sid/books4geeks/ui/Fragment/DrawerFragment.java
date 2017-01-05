@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
+import com.b4g.sid.books4geeks.Util.PreferenceUtil;
 import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.ui.activity.BarCodeScannerActivity;
 import com.b4g.sid.books4geeks.ui.activity.MainActivity;
@@ -204,15 +205,17 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
                 public boolean onMenuItemClick(MenuItem item) {
                     if(item.getItemId()==R.id.sort_title){
                         Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(B4GAppClass.TAG_CATALOG_FRAGMENT);
+                        PreferenceUtil.setSortType(B4GAppClass.SORT_TITLE);
                         if(fragment!=null){
-                            ((CatalogFragment)fragment).loadBooks(B4GAppClass.SORT_TITLE);
+                            ((CatalogFragment)fragment).loadBooks();
                         }
                         return true;
                     }
                     else if(item.getItemId()==R.id.sort_author){
+                        PreferenceUtil.setSortType(B4GAppClass.SORT_AUTHOR);
                         Fragment fragment = getActivity().getSupportFragmentManager().findFragmentByTag(B4GAppClass.TAG_CATALOG_FRAGMENT);
                         if(fragment!=null){
-                            ((CatalogFragment)fragment).loadBooks(B4GAppClass.SORT_AUTHOR);
+                            ((CatalogFragment)fragment).loadBooks();
                         }
                         return  true;
                     }
