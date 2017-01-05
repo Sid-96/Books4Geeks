@@ -31,6 +31,7 @@ import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.ui.activity.BarCodeScannerActivity;
 import com.b4g.sid.books4geeks.ui.activity.MainActivity;
 import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
+import com.b4g.sid.books4geeks.ui.activity.SettingsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -179,6 +180,12 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setView(getActivity().getLayoutInflater().inflate(R.layout.layout_about,null));
             builder.show();
+            return true;
+        }
+        else if(item.getItemId()==R.id.item_settings){
+            Intent intent = new Intent(getContext(), SettingsActivity.class);
+            startActivity(intent);
+            return true;
         }
         return false;
     }

@@ -1,6 +1,7 @@
 package com.b4g.sid.books4geeks.ui.Fragment;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -73,7 +74,7 @@ public class SettingsFragment extends PreferenceFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(requestCode==BACKUP_KEY && requestCode == getActivity().RESULT_OK){
+        if(requestCode==BACKUP_KEY && resultCode == Activity.RESULT_OK){
             File fromFile = getActivity().getDatabasePath(DB_NAME);
             File toFile = new File(data.getData().getPath()+ File.separator + "Books4Geeks" + (System.currentTimeMillis()/1000) + ".bak");
             try {
@@ -84,7 +85,7 @@ public class SettingsFragment extends PreferenceFragment {
                 Toast.makeText(getActivity(),R.string.backup_failed,Toast.LENGTH_SHORT).show();
             }
         }
-        else if(requestCode==RESTORE_KEY && requestCode == getActivity().RESULT_OK){
+        else if(requestCode==RESTORE_KEY && resultCode == Activity.RESULT_OK){
             File fromFile = new File(data.getData().getPath());
             if(FileUtil.isValidDbFile(fromFile)){
                 try {
