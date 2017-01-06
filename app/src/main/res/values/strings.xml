@@ -70,4 +70,9 @@
     <string name="restore_failed">Error! Unable to restore backup</string>
     <string name="restore_invalid">The file you selected is invalid</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-4231449519885336/4621303001</string>
+    <string name="ad_app_id">ca-app-pub-4231449519885336~9191103404</string>
+    <string name="ad_test_device_id">0CC5E42D8645FF9F085776DEA85D5281</string>
+    <string name="search_ad_unit_id">ca-app-pub-4231449519885336/9278501807</string>
+
 </resources>

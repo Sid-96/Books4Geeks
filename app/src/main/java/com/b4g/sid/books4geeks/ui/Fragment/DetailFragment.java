@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
@@ -27,6 +28,8 @@ import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.data.BookProvider;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -66,11 +69,14 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     @BindView(R.id.fab_to_read)             FloatingActionButton fabToRead;
     @BindView(R.id.fab_reading)             FloatingActionButton fabReading;
     @BindView(R.id.fab_finished)            FloatingActionButton fabFinished;
+    @BindView(R.id.ad_view)                 AdView adView;
 
 
     private Unbinder unbinder;
     private BookDetail bookDetail;
     private int shelf;
+    private Runnable runnable;
+    private Handler handler;
     public DetailFragment() {
         // Required empty public constructor
     }
@@ -122,6 +128,16 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             });
         }
         bindViews();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.ad_test_device_id)).build();
+                adView.loadAd(adRequest);
+            }
+        };
+        handler = new Handler();
+        handler.postDelayed(runnable,1000);
+
         return v;
     }
 
@@ -130,6 +146,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     public void onDestroyView() {
         super.onDestroyView();
         VolleySingleton.getInstance().requestQueue.cancelAll(this.getClass().getName());
+        if(handler!=null)   handler.removeCallbacks(runnable);
         unbinder.unbind();
     }
 

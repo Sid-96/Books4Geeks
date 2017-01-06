@@ -3,6 +3,8 @@ package com.b4g.sid.books4geeks;
 import android.app.Application;
 import android.content.Context;
 
+import com.google.android.gms.ads.MobileAds;
+
 /**
  * Created by Sid on 22-Dec-16.
  */
@@ -39,6 +41,7 @@ public class B4GAppClass extends Application {
     public void onCreate() {
         super.onCreate();
         mContext = this;
+        MobileAds.initialize(mContext,getString(R.string.ad_app_id));
     }
 
     public static Context getAppContext() {

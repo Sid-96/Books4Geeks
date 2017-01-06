@@ -2,6 +2,7 @@ package com.b4g.sid.books4geeks.ui.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,16 +19,18 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b4g.sid.books4geeks.B4GAppClass;
+import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.ApiUtil;
 import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
-import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
+import com.b4g.sid.books4geeks.adapter.SearchAdapter;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
 import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
-import com.b4g.sid.books4geeks.adapter.SearchAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,6 +52,8 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     private BookDetail bookDetail;
     private int startIndex;
     private int totalItems;
+    private Handler handler;
+    private Runnable runnable;
     private GridLayoutManager gridLayoutManager;
 
     @BindView(R.id.toolbar)             Toolbar toolbar;
@@ -58,6 +63,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     @BindView(R.id.search_no_results)   View searchNoResults;
     @BindView(R.id.search_list)         RecyclerView searchList;
     @BindView(R.id.loading_secondary)   View loadingSecondary;
+    @BindView(R.id.ad_view)             AdView adView;
 
 
     @Override
@@ -140,6 +146,21 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                 onDownloadFailed();
             }
         }
+        if (!DimensionUtil.isTablet()) {
+
+            runnable = new Runnable() {
+                @Override
+                public void run() {
+                    AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.ad_test_device_id)).build();
+                    adView.loadAd(adRequest);
+                }
+            };
+            handler = new Handler();
+            handler.postDelayed(runnable,1000);
+        }
+        else {
+            adView.setVisibility(View.GONE);
+        }
         return v;
     }
 
@@ -147,6 +168,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     public void onDestroyView() {
         super.onDestroyView();
         VolleySingleton.getInstance().requestQueue.cancelAll(getClass().getName());
+        if(handler!=null)   handler.removeCallbacks(runnable);
         unbinder.unbind();
     }
 
@@ -273,7 +295,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             searchNoResults.setVisibility(View.VISIBLE);
             bookDetail = null;
         }
-        if(DimensionUtil.isTablet()&&startIndex==10){
+        if(DimensionUtil.isTablet()&&startIndex==11){
             ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
         }
         currentState = B4GAppClass.CURRENT_STATE_LOADED;
