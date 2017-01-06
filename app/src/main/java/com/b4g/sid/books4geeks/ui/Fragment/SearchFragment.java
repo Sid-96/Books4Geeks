@@ -63,7 +63,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     @BindView(R.id.search_no_results)   View searchNoResults;
     @BindView(R.id.search_list)         RecyclerView searchList;
     @BindView(R.id.loading_secondary)   View loadingSecondary;
-    @BindView(R.id.ad_view)             AdView adView;
+    @BindView(R.id.search_fragment_ad)             AdView adView;
 
 
     @Override
