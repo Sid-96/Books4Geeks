@@ -8,7 +8,7 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
@@ -24,48 +24,15 @@
             android:id="@+id/search_toolbar"
             android:gravity="center_vertical"
             android:imeOptions="actionSearch"
+            android:inputType="text"
             android:background="@null"
-            android:maxLines="1"
             android:textSize="@dimen/text_large"
-            android:hint="@string/search_books"/>
+            android:hint="@string/search_books"
+            android:maxLines="1" />
 
-        </android.support.v7.widget.Toolbar>/
+        </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="@dimen/recycler_item_padding"
-            android:visibility="gone"/>
-        <include layout="@layout/layout_error_msg"
-            android:visibility="gone"/>
-
-        <include layout="@layout/layout_progress_circle"
-            android:visibility="gone"/>
-
-        <include layout="@layout/layout_search_no_results"
-            android:visibility="gone"/>
-
-        <include layout="@layout/layout_progress_circle_secondary"
-            android:visibility="gone"/>
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/search_fragment_ad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            ads:adSize="SMART_BANNER"
-            app:adUnitId="@string/search_ad_unit_id"/>
-
-
-    </RelativeLayout>
-    
+    <include layout="@layout/content_search"/>
 </android.support.design.widget.CoordinatorLayout>

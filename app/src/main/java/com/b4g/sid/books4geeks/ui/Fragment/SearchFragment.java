@@ -8,11 +8,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -63,7 +66,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
     @BindView(R.id.search_no_results)   View searchNoResults;
     @BindView(R.id.search_list)         RecyclerView searchList;
     @BindView(R.id.loading_secondary)   View loadingSecondary;
-    @BindView(R.id.search_fragment_ad)             AdView adView;
+    @BindView(R.id.search_fragment_ad)  AdView adView;
 
 
     @Override
@@ -74,7 +77,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
         unbinder = ButterKnife.bind(this,v);
         startIndex = 0;
         totalItems = 0;
-        toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(),R.drawable.ic_back));
+        toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_back));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,7 +85,21 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             }
         });
 
-        searchBar.setOnKeyListener(new View.OnKeyListener() {
+        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId== EditorInfo.IME_ACTION_SEARCH){
+                    String q = searchBar.getText().toString().trim();
+                    if(q.length()>0){
+                        performSearchFor(q);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        /*searchBar.setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if(event.getAction()==KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
@@ -103,7 +120,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                 return false;
             }
         });
-        gridLayoutManager = new GridLayoutManager(getContext(),
+        */gridLayoutManager = new GridLayoutManager(getContext(),
                 DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
         searchList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
         searchList.setLayoutManager(gridLayoutManager);
@@ -202,7 +219,9 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                     JSONObject bookObject = object.getJSONObject(i);
                                     JSONObject volumeInfo = bookObject.getJSONObject("volumeInfo");
                                     String title = volumeInfo.getString("title");
-                                    String subtitle = volumeInfo.getString("subtitle");
+                                    String subtitle="";
+                                    if(volumeInfo.has("subtitle"))
+                                        subtitle = volumeInfo.getString("subtitle");
                                     JSONArray authors = volumeInfo.getJSONArray("authors");
                                     StringBuilder sb = new StringBuilder();
                                     for(int j=0 ; j<authors.length() ; j++){
@@ -221,23 +240,34 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                                         }
                                     }
 
-                                    JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                                    if(volumeInfo.has("imageLinks")){
+                                        JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
 
-                                    if(imageLinks.has("thumbnail")){
-                                        imgUrl = imageLinks.getString("thumbnail");
+                                        if(imageLinks.has("thumbnail")){
+                                            imgUrl = imageLinks.getString("thumbnail");
+                                        }
+                                        else if(imageLinks.has("smallThumbnail")){
+                                            imgUrl = imageLinks.getString("smallThumbnail");
+                                        }
+
                                     }
-                                    else if(imageLinks.has("smallThumbnail")){
-                                        imgUrl = imageLinks.getString("smallThumbnail");
-                                    }
-                                    String description = volumeInfo.getString("description");
+
+                                    String description = "";
+                                    if(volumeInfo.has("description"))
+                                        volumeInfo.getString("description");
                                     String infoLink="",publisher="";
                                     publisher = volumeInfo.getString("publisher");
                                     String publishDate = "",avgRating = "", pageCount = "", ratingsCount = "", uniqueId = "";
-                                    publishDate = volumeInfo.getString("publishedDate");
-                                    avgRating = volumeInfo.getString("averageRating");
-                                    infoLink= volumeInfo.getString("infoLink");
-                                    pageCount = volumeInfo.getString("pageCount");
-                                    ratingsCount = volumeInfo.getString("ratingsCount");
+                                    if(volumeInfo.has("publishedDate"))
+                                        publishDate = volumeInfo.getString("publishedDate");
+                                    if(volumeInfo.has("averageRating"))
+                                        avgRating = volumeInfo.getString("averageRating");
+                                    if(volumeInfo.has("infoLink"))
+                                        infoLink= volumeInfo.getString("infoLink");
+                                    if(volumeInfo.has("pageCount"))
+                                        pageCount = volumeInfo.getString("pageCount");
+                                    if(volumeInfo.has("ratingsCount"))
+                                        ratingsCount = volumeInfo.getString("ratingsCount");
                                     uniqueId = "gbid_"+bookObject.getString("id");
                                     bookDetail = new BookDetail(title, subtitle, authorsName,description,publisher, isbn10, isbn13, imgUrl,
                                             infoLink, publishDate, pageCount, ratingsCount, uniqueId, avgRating);
@@ -246,10 +276,12 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
 
                             }
                             startIndex += 11;
+                            Log.d("Sid","Download Success");
                             onDownloadSuccessful();
                         } catch (JSONException e) {
                             onDownloadFailed();
                             e.printStackTrace();
+                            Log.d("Sid","Download Fail"+e.toString());
                         }
                     }
                 }, new Response.ErrorListener() {
