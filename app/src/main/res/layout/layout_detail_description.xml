@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/detail_book_description_view"
+    android:background="@android:color/white"
+    android:layout_marginTop="@dimen/dist_medium"
     android:padding="@dimen/dist_large"
     tools:showIn="@layout/fragment_detail">
     <LinearLayout
@@ -16,14 +18,15 @@
             android:layout_width="@dimen/dist_large"
             android:layout_height="@dimen/dist_large"
             android:scaleType="fitCenter"
-            android:src="@drawable/detail_ic_description"/>
+            android:src="@drawable/detail_ic_description"
+            tools:ignore="ContentDescription"/>
 
         <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dist_medium"
             android:textSize="@dimen/text_medium"
-            android:text="Description"/>
+            android:text="@string/detail_description"/>
 
     </LinearLayout>
 

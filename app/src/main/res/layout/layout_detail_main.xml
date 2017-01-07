@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     android:padding="@dimen/dist_large"
+    android:background="@android:color/white"
     tools:showIn="@layout/fragment_detail">
 
     <ImageView
@@ -12,6 +13,7 @@
         android:layout_width="@dimen/detail_cover_width"
         android:layout_height="@dimen/detail_cover_height"
         android:scaleType="centerCrop"
+        android:background="@color/imageBackground"
         android:contentDescription="@string/detail_cover"/>
 
     <LinearLayout
@@ -35,17 +37,25 @@
             android:layout_marginTop="@dimen/dist_small"
             tools:text="Author"/>
 
+        <com.b4g.sid.books4geeks.CustomViews.sspLight
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            tools:text="Page count"/>
+
         <LinearLayout android:id="@+id/detail_book_rating_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dist_large"
-            android:orientation="horizontal">
+            android:layout_marginTop="@dimen/dist_large">
 
             <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
                 android:id="@+id/detail_book_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/rating_background"/>
 
             <com.b4g.sid.books4geeks.CustomViews.sspRegular
                 android:id="@+id/detail_book_vote_count"
@@ -55,8 +65,8 @@
                 android:layout_marginStart="@dimen/dist_medium"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
-                android:drawableLeft="@drawable/category_temp"
-                android:drawableStart="@drawable/category_temp"
+                android:drawableLeft="@drawable/ic_vote_count"
+                android:drawableStart="@drawable/ic_vote_count"
                 android:drawablePadding="@dimen/dist_small"
                 tools:text="Votes"/>
 

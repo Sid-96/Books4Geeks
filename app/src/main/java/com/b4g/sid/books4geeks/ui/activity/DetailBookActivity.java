@@ -9,6 +9,8 @@ import com.b4g.sid.books4geeks.ui.Fragment.DetailFragment;
 
 public class DetailBookActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

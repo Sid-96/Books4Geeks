@@ -23,14 +23,18 @@
         <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/dist_large"
+            android:layout_marginLeft="@dimen/dist_large"
+            android:layout_marginRight="@dimen/dist_xlarge"
+            android:textSize="@dimen/text_large"
             android:gravity="center"
-            android:textSize="@dimen/dist_large"
             android:text="@string/category_msg"/>
 
 
     </LinearLayout>
 
-
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorAccent"/>
 
 </FrameLayout>

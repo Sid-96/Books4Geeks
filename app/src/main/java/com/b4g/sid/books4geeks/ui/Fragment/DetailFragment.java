@@ -98,7 +98,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             return v;
         }
         updateFabMenu();
-        /*fragmentDetailBookView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+        fragmentDetailBookView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 if (oldScrollY < scrollY) {
@@ -108,7 +108,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
                 }
             }
         });
-        */if (bookDetail.getSubtitle().length() == 0) {
+        if (bookDetail.getSubtitle().length() == 0) {
             toolbarLayoutHolder.setVisibility(View.GONE);
             toolbar.setTitle(bookDetail.getTitle());
         } else {

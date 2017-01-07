@@ -3,6 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorBackground">#ebebeb</color>
+    <color name="imageBackground">#40808080</color>
+    <color name="colorTextPrimary">#000000</color>
+    <color name="colorTextSecondary">#ffffff</color>
 
     <color name="fab_yellow">#eeaf4b</color>
     <color name="fab_yellow_dark">#d68f1d</color>
@@ -11,3 +15,4 @@
     <color name="fab_purple">#9777a8</color>
     <color name="fab_purple_dark">#8b6d9b</color>
 </resources>
+

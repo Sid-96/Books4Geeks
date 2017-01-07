@@ -1,4 +1,4 @@
-<android.support.design.widget.CoordinatorLayout
+    <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -11,16 +11,18 @@
         android:layout_height="?attr/actionBarSize"
         android:theme="@style/AppTheme.AppBarOverlay">
         
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:theme="@style/AppTheme.PopupOverlay">
 
-            <include layout="@layout/layout_toolbar_subtitle"/>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_scrollFlags="scroll|enterAlways"
+                android:background="@color/colorPrimary"
+                android:theme="@style/AppTheme.PopupOverlay">
 
-        </android.support.v7.widget.Toolbar>
+                <include layout="@layout/layout_toolbar_subtitle"/>
+
+            </android.support.v7.widget.Toolbar>
 
 
     </android.support.design.widget.AppBarLayout>
@@ -45,9 +47,6 @@
 
                 <include layout="@layout/layout_detail_description"/>
 
-                <include layout="@layout/layout_category_msg"/>
-
-                <include layout="@layout/layout_fab" />
 
                 <com.google.android.gms.ads.AdView
                     android:layout_width="wrap_content"
@@ -62,8 +61,12 @@
 
             </LinearLayout>
 
+
         </android.support.v4.widget.NestedScrollView>
 
+        <include layout="@layout/layout_category_msg"/>
+
+        <include layout="@layout/layout_fab" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+    </android.support.design.widget.CoordinatorLayout>
