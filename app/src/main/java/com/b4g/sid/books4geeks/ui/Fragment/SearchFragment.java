@@ -168,7 +168,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             runnable = new Runnable() {
                 @Override
                 public void run() {
-                    AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.ad_test_device_id)).build();
+                    AdRequest adRequest = new AdRequest.Builder().build();
                     adView.loadAd(adRequest);
                 }
             };
@@ -213,22 +213,23 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                     public void onResponse(JSONObject response) {
                         try {
                             if(response.has("items")){
-                                JSONArray object = response.getJSONArray("items");
+                                JSONArray objectArray = response.getJSONArray("items");
                                 totalItems = response.getInt("totalItems");
-                                for(int i=0 ; i<object.length() ; i++){
-                                    JSONObject bookObject = object.getJSONObject(i);
+                                for(int i=0 ; i<objectArray.length() ; i++){
+                                    JSONObject bookObject = objectArray.getJSONObject(i);
                                     JSONObject volumeInfo = bookObject.getJSONObject("volumeInfo");
-                                    String title = volumeInfo.getString("title");
-                                    String subtitle="";
-                                    if(volumeInfo.has("subtitle"))
-                                        subtitle = volumeInfo.getString("subtitle");
-                                    JSONArray authors = volumeInfo.getJSONArray("authors");
-                                    StringBuilder sb = new StringBuilder();
-                                    for(int j=0 ; j<authors.length() ; j++){
-                                        sb.append(authors.getString(j)).append(", ");
+                                    String title = getJsonObject(volumeInfo,"title");
+                                    String subtitle = getJsonObject(volumeInfo,"subtitle");
+                                    String authorsName = "";
+                                    if(volumeInfo.has("authors")){
+                                        JSONArray authors = volumeInfo.getJSONArray("authors");
+                                        StringBuilder sb = new StringBuilder();
+                                        for(int j=0 ; j<authors.length() ; j++){
+                                            sb.append(authors.getString(j)).append(", ");
+                                        }
+                                        sb.delete(sb.length()-2,sb.length());
+                                        authorsName = sb.toString();
                                     }
-                                    sb.delete(sb.length()-2,sb.length());
-                                    String authorsName = sb.toString();
                                     String imgUrl = "",isbn10="",isbn13="";
 
                                     if(volumeInfo.has("industryIdentifiers")){
@@ -252,25 +253,16 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
 
                                     }
 
-                                    String description = "";
-                                    if(volumeInfo.has("description"))
-                                        volumeInfo.getString("description");
-                                    String infoLink="",publisher="";
-                                    publisher = volumeInfo.getString("publisher");
-                                    String publishDate = "",avgRating = "", pageCount = "", ratingsCount = "", uniqueId = "";
-                                    if(volumeInfo.has("publishedDate"))
-                                        publishDate = volumeInfo.getString("publishedDate");
-                                    if(volumeInfo.has("averageRating"))
-                                        avgRating = volumeInfo.getString("averageRating");
-                                    if(volumeInfo.has("infoLink"))
-                                        infoLink= volumeInfo.getString("infoLink");
-                                    if(volumeInfo.has("pageCount"))
-                                        pageCount = volumeInfo.getString("pageCount");
-                                    if(volumeInfo.has("ratingsCount"))
-                                        ratingsCount = volumeInfo.getString("ratingsCount");
-                                    uniqueId = "gbid_"+bookObject.getString("id");
+                                    String description = getJsonObject(volumeInfo,"description");
+                                    String publisher = getJsonObject(volumeInfo,"publisher");
+                                    String publishedDate = getJsonObject(volumeInfo,"publishedDate");
+                                    String avgRating = getJsonObject(volumeInfo,"averageRating");
+                                    String infoLink = getJsonObject(volumeInfo,"infoLink");
+                                    String pageCount = getJsonObject(volumeInfo,"pageCount");
+                                    String ratingsCount = getJsonObject(volumeInfo,"ratingsCount");
+                                    String uniqueId = "gbid_"+bookObject.getString("id");
                                     bookDetail = new BookDetail(title, subtitle, authorsName,description,publisher, isbn10, isbn13, imgUrl,
-                                            infoLink, publishDate, pageCount, ratingsCount, uniqueId, avgRating);
+                                            infoLink, publishedDate, pageCount, ratingsCount, uniqueId, avgRating);
                                     adapter.addToList(bookDetail);
                                 }
 
@@ -295,6 +287,13 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
         currentState = B4GAppClass.CURRENT_STATE_LOADING;
     }
 
+    private String getJsonObject(JSONObject object, String key){
+        try{
+            return object.getString(key);
+        }catch (Exception e){
+            return "";
+        }
+    }
 
     private void onDownloadFailed(){
         progressCircle.setVisibility(View.GONE);
