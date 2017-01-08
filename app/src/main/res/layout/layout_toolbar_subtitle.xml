@@ -15,6 +15,7 @@
         android:id="@+id/toolbar_title"
         android:maxLines="1"
         android:textSize="@dimen/text_xlarge"
+        android:textColor="@color/colorTextSecondary"
         tools:text="Book Title"/>
 
     <com.b4g.sid.books4geeks.CustomViews.sspRegular
@@ -22,6 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/toolbar_subtitle"
         android:maxLines="1"
+        android:textColor="@color/colorTextSecondary"
         android:textSize="@dimen/text_medium"
         tools:text="Book Subtitle"/>
 

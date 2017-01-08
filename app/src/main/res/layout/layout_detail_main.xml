@@ -28,12 +28,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_xxlarge"
+            android:textColor="@color/colorTextPrimary"
             tools:text="Book Title"/>
 
         <com.b4g.sid.books4geeks.CustomViews.sspLight
             android:id="@+id/detail_book_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/colorTextPrimary"
             android:layout_marginTop="@dimen/dist_small"
             tools:text="Author"/>
 
@@ -41,6 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
+            android:textSize="@dimen/text_medium"
+            android:textColor="@color/colorTextPrimary"
             android:maxLines="1"
             tools:text="Page count"/>
 
@@ -63,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dist_medium"
                 android:layout_marginStart="@dimen/dist_medium"
+                android:textColor="@color/colorTextPrimary"
                 android:gravity="center_vertical"
                 android:includeFontPadding="false"
                 android:drawableLeft="@drawable/ic_vote_count"

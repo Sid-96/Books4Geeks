@@ -63,6 +63,9 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     @BindView(R.id.detail_book_publisher_name)  TextView detailBookPublisherName;
     @BindView(R.id.detail_book_publication_date)    TextView detailBookPublicationDate;
     @BindView(R.id.detail_book_publication_isbn)    TextView detailBookPublicationIsbn;
+    @BindView(R.id.book_ranking_holder)     View bookRankingHolder;
+    @BindView(R.id.book_current_rank)       TextView bookCurrentRank;
+    @BindView(R.id.book_weeks_list)         TextView bookWeeksOnList;
     @BindView(R.id.fragment_detail_book_view)   NestedScrollView fragmentDetailBookView;
     @BindView(R.id.category_msg_holder)     View categoryMsgHolder;
     @BindView(R.id.fab_menu)                FloatingActionMenu fabMenu;
@@ -110,6 +113,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         });
         if (bookDetail.getSubtitle().length() == 0) {
             toolbarLayoutHolder.setVisibility(View.GONE);
+            toolbar.setTitleTextColor(getResources().getColor(R.color.colorTextSecondary));
             toolbar.setTitle(bookDetail.getTitle());
         } else {
             toolbarTitle.setText(bookDetail.getTitle());
@@ -190,6 +194,17 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         else {
             detailBookRating.setText(bookDetail.getRating());
             detailBookVoteCount.setText(getString(R.string.detail_book_ratings, bookDetail.getRating()));
+        }
+
+        if (bookDetail.getCurrentRank().length() == 0 || bookDetail.getWeeksOnList().length() == 0) {
+            bookRankingHolder.setVisibility(View.GONE);
+        } else {
+            bookCurrentRank.setText(getString(R.string.detail_ranking_current, bookDetail.getCurrentRank()));
+            if (bookDetail.getWeeksOnList().equals("0")) {
+                bookWeeksOnList.setVisibility(View.GONE);
+            } else {
+                bookWeeksOnList.setText(getString(R.string.detail_ranking_weeks, bookDetail.getWeeksOnList()));
+            }
         }
 
         String publisher = bookDetail.getPublisher();

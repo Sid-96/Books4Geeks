@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dist_medium"
             android:text="Publication"
-            android:textSize="@dimen/text_medium"/>
+            android:textSize="@dimen/text_large"
+            android:textColor="@color/colorTextPrimary"/>
 
 
     </LinearLayout>
