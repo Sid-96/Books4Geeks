@@ -68,6 +68,12 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         categoryList.setHasFixedSize(true);
         categoryList.setLayoutManager(linearLayoutManager);
         categoryList.setAdapter(categoryAdapter);
+        if(getArguments()!=null){
+            int widgetCategoryPosition = getArguments().getInt(B4GAppClass.WIDGET_CATEGORY_POSITION,-1);
+            if(widgetCategoryPosition!=-1){
+                onCategoryItemClicked(widgetCategoryPosition);
+            }
+        }
 
         if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.CURRENT_STATE)){
             currentState = savedInstanceState.getInt(B4GAppClass.CURRENT_STATE);
@@ -108,7 +114,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
 
     @Override
     public void onDestroyView() {
-        super.onDestroy();
+        super.onDestroyView();
         VolleySingleton.getInstance().requestQueue.cancelAll(this.getClass().getName());
         unbinder.unbind();
     }

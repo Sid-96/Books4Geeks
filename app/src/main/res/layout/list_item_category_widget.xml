@@ -15,6 +15,7 @@
         android:layout_gravity="center_vertical"
         tools:text="Category Name"
         android:textSize="@dimen/text_large"
+        android:textColor="@android:color/black"
         android:layout_marginStart="@dimen/dist_large"
         android:layout_marginLeft="@dimen/dist_large"/>
 

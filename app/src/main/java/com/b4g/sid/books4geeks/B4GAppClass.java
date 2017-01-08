@@ -34,6 +34,9 @@ public class B4GAppClass extends Application {
     public static final String SORT = "sort";
     public static final int SORT_TITLE = 1;
     public static final int SORT_AUTHOR = 2;
+    public static final String WIDGET_CATEGORY_ACTION = "Category";
+    public static final String WIDGET_CATEGORY_POSITION = "Position";
+
 
     private static Context mContext;
 

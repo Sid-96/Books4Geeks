@@ -21,6 +21,7 @@ public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFac
     public BookWidgetListProvider(Context context, Intent intent){
         this.context = context;
         appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,AppWidgetManager.INVALID_APPWIDGET_ID);
+
     }
 
 
@@ -49,7 +50,15 @@ public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFac
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.list_item_category_widget);
         Category category = Category.getCategoryList().get(i);
         remoteViews.setTextViewText(R.id.category_name_widget,category.getDisplayName());
-        return remoteViews;
+
+
+        /*Bundle extras = new Bundle();
+        extras.putInt(B4GAppClass.WIDGET_CATEGORY_POSITION,i);
+        Intent fillIntent = new Intent();
+        fillIntent.putExtras(extras);
+
+        remoteViews.setOnClickFillInIntent(R.id.category_name_widget,fillIntent);
+        */return remoteViews;
     }
 
     @Override

@@ -20,7 +20,20 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState==null && DimensionUtil.isTablet()){
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
+        if(savedInstanceState==null){
+            if(getIntent()!=null){
+                int position = getIntent().getIntExtra(B4GAppClass.WIDGET_CATEGORY_POSITION,-1);
+                if(position!=-1){
+                    BestSellerFragment bestSellerFragment = new BestSellerFragment();
+                    Bundle extras = new Bundle();
+                    extras.putInt(B4GAppClass.WIDGET_CATEGORY_POSITION,position);
+                    bestSellerFragment.setArguments(extras);
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_main,bestSellerFragment).commit();
+                }
+            }
+        }
     }
+
 
     @Override
     public void onBackPressed() {
