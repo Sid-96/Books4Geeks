@@ -53,8 +53,22 @@
             android:authorities="com.b4g.sid.books4geeks.data.BookProvider"
             android:exported="false" />
 
-        <activity android:name=".ui.activity.SettingsActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.activity.SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <receiver android:name=".Widget.BookSearchWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/book_search_widget_info" />
+        </receiver>
+        
+        <service android:name=".Widget.BookWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

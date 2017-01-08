@@ -75,5 +75,9 @@
     <string name="ad_test_device_id">0CC5E42D8645FF9F085776DEA85D5281</string>
     <string name="search_ad_unit_id">ca-app-pub-4231449519885336/9278501807</string>
     <string name="detail_description">Description</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="widget_empty_text">Please Wait ...</string>
+    <string name="widget_bar">BestSeller Categories</string>
 
 </resources>
