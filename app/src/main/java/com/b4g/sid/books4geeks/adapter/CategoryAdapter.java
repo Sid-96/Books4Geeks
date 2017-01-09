@@ -1,6 +1,7 @@
 package com.b4g.sid.books4geeks.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     @Override
     public void onBindViewHolder(CategoryAdapter.CategoryViewHolder holder, int position) {
         holder.categoryName.setText(Category.getCategoryList().get(position).getDisplayName());
-        holder.categoryIcon.setImageResource(R.drawable.category_temp);
+        holder.categoryIcon.setImageResource(Category.getCategoryList().get(position).getImageDrawable());
 
     }
 
@@ -55,6 +56,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             categoryItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("Sid","Category Clicked");
                     onCategoryItemClickListener.onCategoryItemClicked(getAdapterPosition());
                 }
             });

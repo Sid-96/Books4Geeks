@@ -1,30 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal"
-    android:id="@+id/category_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/list_item_category_padding"
     android:clickable="true"
-    android:background="?attr/selectableItemBackground">
-    
-    <ImageView
-        android:id="@+id/category_icon"
-        android:layout_width="@dimen/list_item_category_icon_size"
-        android:layout_height="@dimen/list_item_category_icon_size"
-        android:layout_gravity="center_vertical"
-        android:src="@drawable/category_temp"
-        tools:ignore="ContentDescription"/>
+    android:paddingBottom="@dimen/dist_large"
+    android:paddingTop="@dimen/dist_large"
+    android:foreground="?attr/selectableItemBackground"
+    cardview:cardUseCompatPadding="true"
+    cardview:cardPreventCornerOverlap="false">
 
-    <com.b4g.sid.books4geeks.CustomViews.sspRegular
-        android:id="@+id/category_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        tools:text="Category Name"
-        android:textSize="@dimen/text_large"
-        android:layout_marginStart="@dimen/dist_large"
-        android:layout_marginLeft="@dimen/dist_large"/>
+        android:id="@+id/category_item"
+        android:padding="@dimen/dist_small"
+        android:orientation="horizontal"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true">
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/category_icon"
+            android:layout_width="@dimen/list_item_category_icon_size"
+            android:layout_height="@dimen/list_item_category_icon_size"
+            android:scaleType="centerCrop"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/dist_medium"
+            android:contentDescription="@string/book_cover_desc" />
+
+        <com.b4g.sid.books4geeks.CustomViews.sspRegular
+            android:id="@+id/category_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Book Title"
+            android:textSize="@dimen/text_xxlarge"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorTextPrimary"
+            android:maxLines="1"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:layout_marginTop="@dimen/dist_medium"
+            android:layout_marginLeft="@dimen/dist_small"
+            android:layout_marginStart="@dimen/dist_small"
+            android:layout_marginRight="@dimen/dist_large"
+            android:layout_marginEnd="@dimen/dist_large"
+            android:contentDescription="@string/book_name"
+            tools:ignore="RelativeOverlap"/>
+
+
+    </LinearLayout>
+
+
+
+</android.support.v7.widget.CardView>

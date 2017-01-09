@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.b4g.sid.books4geeks.B4GAppClass;
+import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
 import com.b4g.sid.books4geeks.Model.BestSeller;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.Model.Category;
@@ -24,11 +24,10 @@ import com.b4g.sid.books4geeks.Util.ApiUtil;
 import com.b4g.sid.books4geeks.Util.DBUtil;
 import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
-import com.b4g.sid.books4geeks.CustomViews.ItemDecorationView;
-import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
-import com.b4g.sid.books4geeks.ui.activity.MainActivity;
 import com.b4g.sid.books4geeks.adapter.BestSellerAdapter;
 import com.b4g.sid.books4geeks.adapter.CategoryAdapter;
+import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
+import com.b4g.sid.books4geeks.ui.activity.MainActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -63,10 +62,12 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         // Inflate the layout for this fragment
         View v =  inflater.inflate(R.layout.fragment_best_seller, container, false);
         unbinder = ButterKnife.bind(this,v);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),DimensionUtil.getNumberOfColumns(R.dimen.book_list_card_width,1));
         CategoryAdapter categoryAdapter = new CategoryAdapter(this);
         categoryList.setHasFixedSize(true);
-        categoryList.setLayoutManager(linearLayoutManager);
+        categoryList.setLayoutManager(gridLayoutManager);
+        categoryList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
+
         categoryList.setAdapter(categoryAdapter);
         if(getArguments()!=null){
             int widgetCategoryPosition = getArguments().getInt(B4GAppClass.WIDGET_CATEGORY_POSITION,-1);
@@ -126,7 +127,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         bestSellerList.setVisibility(View.GONE);
         errorMessage.setVisibility(View.GONE);
         progressCircle.setVisibility(View.VISIBLE);
-        layoutManager = new GridLayoutManager(getContext(), DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,1));
+        layoutManager = new GridLayoutManager(getContext(), DimensionUtil.getNumberOfColumns(R.dimen.book_card_width,2));
         bestSellerAdapter = new BestSellerAdapter(this);
         bestSellerList.setHasFixedSize(true);
         bestSellerList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
