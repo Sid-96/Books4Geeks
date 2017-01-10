@@ -117,8 +117,6 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         drawerLayout.closeDrawers();
-        toolbar.setTitle(item.getTitle());
-        item.setChecked(true);
         if(item.getItemId()==R.id.item_bestsellers){
             toolbar.setTitle(R.string.drawer_bestsellers);
             toolbar.getMenu().findItem(R.id.item_sort).setVisible(false);
@@ -133,7 +131,6 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         }
         else if(item.getItemId()==R.id.item_search){
             startActivity(new Intent(getContext(), SearchActivity.class));
-            return true;
         }
 
         else if(item.getItemId()==R.id.item_barcode){
@@ -143,7 +140,6 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             else{
                 startActivity(new Intent(getContext(), BarCodeScannerActivity.class));
             }
-            return true;
         }
         else if(item.getItemId()==R.id.item_to_read){
             toolbar.setTitle(R.string.drawer_to_read);
@@ -180,12 +176,10 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setView(getActivity().getLayoutInflater().inflate(R.layout.layout_about,null));
             builder.show();
-            return true;
         }
         else if(item.getItemId()==R.id.item_settings){
             Intent intent = new Intent(getContext(), SettingsActivity.class);
             startActivity(intent);
-            return true;
         }
         return false;
     }
