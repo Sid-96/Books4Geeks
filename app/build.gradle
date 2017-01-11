@@ -35,6 +35,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.nononsenseapps:filepicker:3.1.0'
     compile 'com.google.firebase:firebase-ads:10.0.1'
+    compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'net.simonvt.schematic:schematic:0.7.0'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'me.dm7.barcodescanner:zbar:1.9'
