@@ -12,7 +12,7 @@ import com.b4g.sid.books4geeks.ui.Fragment.BestSellerFragment;
 import com.b4g.sid.books4geeks.ui.Fragment.DetailFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

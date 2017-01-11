@@ -28,6 +28,7 @@ import com.b4g.sid.books4geeks.adapter.BestSellerAdapter;
 import com.b4g.sid.books4geeks.adapter.CategoryAdapter;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
 import com.b4g.sid.books4geeks.ui.activity.MainActivity;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -237,6 +238,15 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         Intent intent = new Intent(getContext(),DetailBookActivity.class);
         intent.putExtra(B4GAppClass.BOOK_DETAIL,new BookDetail(bestSellerAdapter.getBestSellersList().get(position)));
         startActivity(intent);
+        BookDetail bookDetail = new BookDetail(bestSellerAdapter.getBestSellersList().get(position));
+        String book_name = bookDetail.getTitle();
+        String book_id = bookDetail.getUniqueId();
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID,book_id);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME,book_name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE,"image");
+        B4GAppClass.getFirebaseAnalyticsInstance().logEvent(FirebaseAnalytics.Event.SELECT_CONTENT,bundle);
     }
 
     @Override

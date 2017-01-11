@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.google.android.gms.ads.MobileAds;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * Created by Sid on 22-Dec-16.
@@ -37,15 +38,23 @@ public class B4GAppClass extends Application {
 
 
     private static Context mContext;
+    private static  FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
         mContext = this;
         MobileAds.initialize(mContext,getString(R.string.ad_app_id));
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
     }
 
     public static Context getAppContext() {
         return mContext;
+    }
+
+    public static FirebaseAnalytics getFirebaseAnalyticsInstance(){
+        return  mFirebaseAnalytics;
     }
 }

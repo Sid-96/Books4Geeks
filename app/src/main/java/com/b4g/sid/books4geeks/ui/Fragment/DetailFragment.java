@@ -244,6 +244,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     public boolean onMenuItemClick(MenuItem item) {
         int id = item.getItemId();
         if(id==R.id.item_share){
+            String name = bookDetail.getTitle();
             String shareSubject = getString(R.string.action_share_subject,bookDetail.getTitle());
             String shareText = getString(R.string.action_share_text,bookDetail.getTitle(),bookDetail.getAuthors(),bookDetail.getInfoLink());
             Intent sharingIntent = new Intent(Intent.ACTION_SEND);
@@ -251,6 +252,11 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             sharingIntent.putExtra(Intent.EXTRA_SUBJECT, shareSubject);
             sharingIntent.putExtra(Intent.EXTRA_TEXT, shareText);
             startActivity(Intent.createChooser(sharingIntent, getString(R.string.action_share_title)));
+
+            Bundle params = new Bundle();
+            params.putString("book_name",name);
+            params.putString("share_text",shareText);
+            B4GAppClass.getFirebaseAnalyticsInstance().logEvent("share_image",params);
             return true;
         }
         return false;
