@@ -15,7 +15,7 @@ import com.b4g.sid.books4geeks.R;
 /**
  * Implementation of App com.b4g.sid.books4geeks.Widget functionality.
  */
-public class BookSearchWidget extends AppWidgetProvider {
+public class ToReadWidget extends AppWidgetProvider {
 
 
     public static final String WIDGET_IDS = "bookWidgetIds";
@@ -28,11 +28,11 @@ public class BookSearchWidget extends AppWidgetProvider {
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
 
-        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.books_to_read);
+        RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.layout_widget);
         rv.setRemoteAdapter(appWidgetId,R.id.book_list_widget,intent);
         rv.setEmptyView(R.id.book_list_widget,R.id.empty_view);
 
-        Intent updateIntent = new Intent(context,BookSearchWidget.class);
+        Intent updateIntent = new Intent(context,ToReadWidget.class);
         updateIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
         updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,appWidgetId);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(

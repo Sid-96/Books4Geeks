@@ -58,7 +58,7 @@
             android:name=".ui.activity.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <receiver android:name=".Widget.BookSearchWidget">
+        <receiver android:name=".Widget.ToReadWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

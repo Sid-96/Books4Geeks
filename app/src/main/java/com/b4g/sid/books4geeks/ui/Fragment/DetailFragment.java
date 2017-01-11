@@ -135,7 +135,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         runnable = new Runnable() {
             @Override
             public void run() {
-                AdRequest adRequest = new AdRequest.Builder().addTestDevice(getString(R.string.ad_test_device_id)).build();
+                AdRequest adRequest = new AdRequest.Builder().build();
                 adView.loadAd(adRequest);
             }
         };
