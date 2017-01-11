@@ -3,11 +3,15 @@ package com.b4g.sid.books4geeks.Widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.os.Binder;
+import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
-import com.b4g.sid.books4geeks.Model.Category;
 import com.b4g.sid.books4geeks.R;
+import com.b4g.sid.books4geeks.data.BookColumns;
+import com.b4g.sid.books4geeks.data.BookProvider;
 
 /**
  * Created by Sid on 08-Jan-17.
@@ -15,8 +19,9 @@ import com.b4g.sid.books4geeks.R;
 
 public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFactory {
 
-    private Context context = null;
+    private Context context;
     private int appWidgetId;
+    private Cursor data;
 
     public BookWidgetListProvider(Context context, Intent intent){
         this.context = context;
@@ -33,6 +38,12 @@ public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFac
     @Override
     public void onDataSetChanged() {
 
+        if(data!=null)  data.close();
+
+        final long dataIdentityToken = Binder.clearCallingIdentity();
+        String selectionquery = BookColumns.SHELF + "= " + BookColumns.SHELF_TO_READ;
+        data = context.getContentResolver().query(BookProvider.Books.CONTENT_URI,new String[]{BookColumns.TITLE,BookColumns.AUTHORS,BookColumns.IMAGE_URL},selectionquery,null,null);
+        Binder.restoreCallingIdentity(dataIdentityToken);
     }
 
     @Override
@@ -42,23 +53,27 @@ public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFac
 
     @Override
     public int getCount() {
-        return Category.getCategoryList().size();
+        return data==null?0:data.getCount();
     }
 
     @Override
     public RemoteViews getViewAt(int i) {
+
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.list_item_category_widget);
-        Category category = Category.getCategoryList().get(i);
-        remoteViews.setTextViewText(R.id.category_name_widget,category.getDisplayName());
 
+        if(i== AdapterView.INVALID_POSITION || data==null || !data.moveToPosition(i)){
+            return null;
+        }
 
-        /*Bundle extras = new Bundle();
-        extras.putInt(B4GAppClass.WIDGET_CATEGORY_POSITION,i);
-        Intent fillIntent = new Intent();
-        fillIntent.putExtras(extras);
+        //Category category = Category.getCategoryList().get(i);
+        //remoteViews.setTextViewText(R.id.category_name_widget,category.getDisplayName());
+        remoteViews.setTextViewText(R.id.book_author,data.getString(data.getColumnIndex(BookColumns.AUTHORS)));
+        remoteViews.setTextViewText(R.id.book_title,data.getString(data.getColumnIndex(BookColumns.TITLE)));
+        remoteViews.setImageViewResource(R.id.book_cover,R.drawable.icon_category_love);
 
-        remoteViews.setOnClickFillInIntent(R.id.category_name_widget,fillIntent);
-        */return remoteViews;
+       final Intent fillIntent = new Intent();
+        remoteViews.setOnClickFillInIntent(R.id.item_widget,fillIntent);
+        return remoteViews;
     }
 
     @Override
@@ -80,4 +95,6 @@ public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFac
     public boolean hasStableIds() {
         return true;
     }
+
+
 }

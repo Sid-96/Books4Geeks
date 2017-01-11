@@ -1,0 +1,49 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_margin"
+    android:id="@+id/widget_container">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F44336"
+        android:gravity="center"
+        android:padding="@dimen/dist_large"
+        android:text="@string/widget_bar"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_xlarge" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+
+
+        <ListView
+            android:id="@+id/book_list_widget"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:loopViews="true">
+
+        </ListView>
+
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/empty_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/category_temp"
+            android:gravity="center"
+            android:text="@string/empty_view_text_widget"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+
+</LinearLayout>
+
+
+

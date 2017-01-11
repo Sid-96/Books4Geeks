@@ -69,12 +69,6 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         categoryList.addItemDecoration(new ItemDecorationView(getContext(),R.dimen.recycler_item_padding));
 
         categoryList.setAdapter(categoryAdapter);
-        if(getArguments()!=null){
-            int widgetCategoryPosition = getArguments().getInt(B4GAppClass.WIDGET_CATEGORY_POSITION,-1);
-            if(widgetCategoryPosition!=-1){
-                onCategoryItemClicked(widgetCategoryPosition);
-            }
-        }
 
         if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.CURRENT_STATE)){
             currentState = savedInstanceState.getInt(B4GAppClass.CURRENT_STATE);
