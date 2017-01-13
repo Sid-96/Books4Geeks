@@ -33,7 +33,7 @@
             android:layout_width="@dimen/about_icon_size"
             android:layout_height="@dimen/about_icon_size"
             android:layout_margin="@dimen/dist_medium"
-            android:src="@drawable/category_temp"
+            android:src="@drawable/ic_icon"
             tools:ignore="ContentDescription"
             android:layout_gravity="center" />
 

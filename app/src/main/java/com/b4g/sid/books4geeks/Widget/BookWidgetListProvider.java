@@ -59,7 +59,7 @@ public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFac
     @Override
     public RemoteViews getViewAt(int i) {
 
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.list_item_category_widget);
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.list_item_widget);
 
         if(i== AdapterView.INVALID_POSITION || data==null || !data.moveToPosition(i)){
             return null;
@@ -69,7 +69,7 @@ public class BookWidgetListProvider implements RemoteViewsService.RemoteViewsFac
         //remoteViews.setTextViewText(R.id.category_name_widget,category.getDisplayName());
         remoteViews.setTextViewText(R.id.book_author,data.getString(data.getColumnIndex(BookColumns.AUTHORS)));
         remoteViews.setTextViewText(R.id.book_title,data.getString(data.getColumnIndex(BookColumns.TITLE)));
-        remoteViews.setImageViewResource(R.id.book_cover,R.drawable.icon_category_love);
+        remoteViews.setImageViewResource(R.id.book_cover,R.drawable.ic_icon);
 
        final Intent fillIntent = new Intent();
         remoteViews.setOnClickFillInIntent(R.id.item_widget,fillIntent);

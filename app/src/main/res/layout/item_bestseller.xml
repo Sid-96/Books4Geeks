@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/book_card_height"
             android:scaleType="centerCrop"
-            android:src="@drawable/category_temp"
+            android:src="@drawable/ic_icon"
             android:layout_margin="@dimen/dist_small"
             android:contentDescription="@string/book_cover_desc" />
 

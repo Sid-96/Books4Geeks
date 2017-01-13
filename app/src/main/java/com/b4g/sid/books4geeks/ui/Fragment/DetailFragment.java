@@ -173,7 +173,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
             ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
         }
         else {
-            detailBookCover.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
+            detailBookCover.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.ic_icon));
         }
         if(bookDetail.getAuthors().length()!=0 && bookDetail.getPageCount().length()!=0){
             detailBookSubtitle.setText(getString(R.string.detail_book_subtitle,bookDetail.getAuthors(),bookDetail.getPageCount()));
