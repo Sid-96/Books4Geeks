@@ -25,7 +25,6 @@ import com.b4g.sid.books4geeks.adapter.BookCursorAdapter;
 import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.data.BookProvider;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
-import com.b4g.sid.books4geeks.ui.activity.MainActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,13 +76,10 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
     @Override
     public void onBookClicked(int position) {
         BookDetail bookDetail = cursorAdapter.getItem(position);
-        if(DimensionUtil.isTablet())
-            ((MainActivity)getActivity()).loadDetailFragmentforTablet(bookDetail,false);
-        else{
             Intent intent = new Intent(getContext(), DetailBookActivity.class);
             intent.putExtra(B4GAppClass.BOOK_DETAIL,bookDetail);
             startActivity(intent);
-        }
+
 
     }
 
@@ -125,14 +121,7 @@ public class CatalogFragment extends Fragment implements BookCursorAdapter.OnBoo
             catalogHolder.setVisibility(View.VISIBLE);
         }
 
-        if(DimensionUtil.isTablet()){
-            view.post(new Runnable() {
-                @Override
-                public void run() {
-                    ((MainActivity)getActivity()).loadDetailFragmentforTablet(cursorAdapter.getItem(0),false);
-                }
-            });
-        }
+       
     }
 
     @Override

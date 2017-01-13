@@ -27,7 +27,6 @@ import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.adapter.BestSellerAdapter;
 import com.b4g.sid.books4geeks.adapter.CategoryAdapter;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
-import com.b4g.sid.books4geeks.ui.activity.MainActivity;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import org.json.JSONArray;
@@ -129,9 +128,7 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         bestSellerList.setAdapter(bestSellerAdapter);
         bestSellerList.setLayoutManager(layoutManager);
         downloadBestSellerList();
-        if(DimensionUtil.isTablet()){
-            ((MainActivity)getActivity()).loadDetailFragmentforTablet(null,false);
-        }
+
     }
 
     public void navigateToCategories(){
@@ -203,10 +200,6 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
         progressCircle.setVisibility(View.GONE);
         bestSellerList.setVisibility(View.VISIBLE);
         bestSellerAdapter.notifyDataSetChanged();
-        if(DimensionUtil.isTablet()){
-            BookDetail bookDetail = new BookDetail(bestSellerAdapter.getBestSellersList().get(0));
-            ((MainActivity)getActivity()).loadDetailFragmentforTablet(bookDetail,false);
-        }
         currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
 
@@ -230,10 +223,6 @@ public class BestSellerFragment extends Fragment implements BestSellerAdapter.On
     @Override
     public void onBestSellerClicked(int position) {
 
-        if(DimensionUtil.isTablet()){
-            BookDetail bookDetail = new BookDetail(bestSellerAdapter.getBestSellersList().get(position));
-            ((MainActivity)getActivity()).loadDetailFragmentforTablet(bookDetail,false);
-        }
 
         Intent intent = new Intent(getContext(),DetailBookActivity.class);
         intent.putExtra(B4GAppClass.BOOK_DETAIL,new BookDetail(bestSellerAdapter.getBestSellersList().get(position)));

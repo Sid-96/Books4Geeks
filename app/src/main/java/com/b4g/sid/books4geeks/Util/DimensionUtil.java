@@ -25,9 +25,6 @@ public class DimensionUtil {
 
         float widthPx = displayMetrics.widthPixels;
 
-        if(isTablet()){
-            widthPx = widthPx/3;
-        }
 
         float desiredPx = B4GAppClass.getAppContext().getResources().getDimensionPixelSize(dimenId);
 

@@ -31,7 +31,6 @@ import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.adapter.SearchAdapter;
 import com.b4g.sid.books4geeks.ui.activity.DetailBookActivity;
-import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -163,7 +162,7 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
                 onDownloadFailed();
             }
         }
-        if (!DimensionUtil.isTablet()) {
+
 
             runnable = new Runnable() {
                 @Override
@@ -174,10 +173,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             };
             handler = new Handler();
             handler.postDelayed(runnable,1000);
-        }
-        else {
-            adView.setVisibility(View.GONE);
-        }
         return v;
     }
 
@@ -326,9 +321,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
             searchNoResults.setVisibility(View.VISIBLE);
             bookDetail = null;
         }
-        if(DimensionUtil.isTablet()&&startIndex==11){
-            ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
-        }
         currentState = B4GAppClass.CURRENT_STATE_LOADED;
     }
 
@@ -357,10 +349,6 @@ public class SearchFragment extends Fragment implements SearchAdapter.OnSearchBo
 
     @Override
     public void onBookClicked(int position) {
-        if(DimensionUtil.isTablet()){
-            BookDetail bookDetail = adapter.getBestSellersList().get(position);
-            ((SearchActivity)getActivity()).loadDetailFragmentforTablet(bookDetail);
-        }
         Intent intent = new Intent(getContext(), DetailBookActivity.class);
         intent.putExtra(B4GAppClass.BOOK_DETAIL,adapter.getBestSellersList().get(position));
         startActivity(intent);

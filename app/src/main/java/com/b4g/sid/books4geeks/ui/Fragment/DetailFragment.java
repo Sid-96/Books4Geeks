@@ -21,7 +21,6 @@ import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.Model.BookDetail;
 import com.b4g.sid.books4geeks.R;
 import com.b4g.sid.books4geeks.Util.DBUtil;
-import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.ImageUtil;
 import com.b4g.sid.books4geeks.Util.VolleySingleton;
 import com.b4g.sid.books4geeks.data.BookColumns;
@@ -122,7 +121,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         toolbar.setOnMenuItemClickListener(this);
         toolbar.inflateMenu(R.menu.menu_detail);
 
-        if(!DimensionUtil.isTablet()) {
+
             toolbar.setNavigationIcon(ContextCompat.getDrawable(getActivity(), R.drawable.ic_back));
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
@@ -130,7 +129,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
                     getActivity().onBackPressed();
                 }
             });
-        }
+
         bindViews();
         runnable = new Runnable() {
             @Override

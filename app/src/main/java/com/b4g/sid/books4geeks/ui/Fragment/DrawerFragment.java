@@ -25,11 +25,9 @@ import android.widget.Toast;
 
 import com.b4g.sid.books4geeks.B4GAppClass;
 import com.b4g.sid.books4geeks.R;
-import com.b4g.sid.books4geeks.Util.DimensionUtil;
 import com.b4g.sid.books4geeks.Util.PreferenceUtil;
 import com.b4g.sid.books4geeks.data.BookColumns;
 import com.b4g.sid.books4geeks.ui.activity.BarCodeScannerActivity;
-import com.b4g.sid.books4geeks.ui.activity.MainActivity;
 import com.b4g.sid.books4geeks.ui.activity.SearchActivity;
 import com.b4g.sid.books4geeks.ui.activity.SettingsActivity;
 
@@ -82,9 +80,7 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
         if(savedInstanceState==null){
             toolbar.setTitle(R.string.drawer_bestsellers);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment,new BestSellerFragment(),B4GAppClass.TAG_BESTSELLER_FRAGMENT).commit();
-            if(DimensionUtil.isTablet()){
-                ((MainActivity)getActivity()).loadDetailFragmentforTablet(null,true);
-            }
+
         }
         else if(savedInstanceState!=null && savedInstanceState.containsKey(B4GAppClass.TOOLBAR_TITLE)){
             toolbar.setTitle(savedInstanceState.getString(B4GAppClass.TOOLBAR_TITLE));
@@ -124,9 +120,6 @@ public class DrawerFragment extends Fragment implements NavigationView.OnNavigat
             FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
             transaction.replace(R.id.content_fragment,fragment,B4GAppClass.TAG_BESTSELLER_FRAGMENT);
             transaction.commit();
-            if(DimensionUtil.isTablet()){
-                ((MainActivity)getActivity()).loadDetailFragmentforTablet(null,true);
-            }
             return true;
         }
         else if(item.getItemId()==R.id.item_search){
