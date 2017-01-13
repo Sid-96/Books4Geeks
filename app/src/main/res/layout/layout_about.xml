@@ -34,7 +34,7 @@
             android:layout_height="@dimen/about_icon_size"
             android:layout_margin="@dimen/dist_medium"
             android:src="@drawable/ic_icon"
-            tools:ignore="ContentDescription"
+            tools:contentDescription="@string/app_icon"
             android:layout_gravity="center" />
 
         <com.b4g.sid.books4geeks.CustomViews.sspLight

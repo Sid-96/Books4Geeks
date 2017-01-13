@@ -21,13 +21,15 @@
             android:layout_width="@dimen/dist_large"
             android:layout_height="@dimen/dist_large"
             android:src="@drawable/detail_ic_publication"
-            android:scaleType="fitCenter"/>
+            android:scaleType="fitCenter"
+            tools:ignore="ContentDescription"/>
         
         <com.b4g.sid.books4geeks.CustomViews.sspBoldTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dist_medium"
-            android:text="Publication"
+            android:layout_marginStart="@dimen/dist_medium"
+            android:text="@string/publication"
             android:textSize="@dimen/text_large"
             android:textColor="@color/colorTextPrimary"/>
 

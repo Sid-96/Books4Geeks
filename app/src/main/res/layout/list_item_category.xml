@@ -28,7 +28,7 @@
             android:scaleType="centerCrop"
             android:layout_gravity="center"
             android:layout_margin="@dimen/dist_medium"
-            android:contentDescription="@string/book_cover_desc" />
+            android:contentDescription="@string/category_icon" />
 
         <com.b4g.sid.books4geeks.CustomViews.sspRegular
             android:id="@+id/category_name"

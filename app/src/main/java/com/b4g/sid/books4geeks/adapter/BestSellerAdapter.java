@@ -62,7 +62,7 @@ public class BestSellerAdapter extends RecyclerView.Adapter<BestSellerAdapter.My
             Picasso.with(context).load(bestSeller.getUrlImage()).fit().centerCrop().into(holder.bookImage);
         }
         else {
-            holder.bookImage.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.category_temp));
+            holder.bookImage.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_icon));
         }
     }
 

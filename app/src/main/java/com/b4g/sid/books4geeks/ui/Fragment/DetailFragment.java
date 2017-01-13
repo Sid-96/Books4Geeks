@@ -66,7 +66,6 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
     @BindView(R.id.book_current_rank)       TextView bookCurrentRank;
     @BindView(R.id.book_weeks_list)         TextView bookWeeksOnList;
     @BindView(R.id.fragment_detail_book_view)   NestedScrollView fragmentDetailBookView;
-    @BindView(R.id.category_msg_holder)     View categoryMsgHolder;
     @BindView(R.id.fab_menu)                FloatingActionMenu fabMenu;
     @BindView(R.id.fab_to_read)             FloatingActionButton fabToRead;
     @BindView(R.id.fab_reading)             FloatingActionButton fabReading;
@@ -94,9 +93,7 @@ public class DetailFragment extends Fragment implements Toolbar.OnMenuItemClickL
         if(bookDetail==null)   {
             fabMenu.setVisibility(View.GONE);
             fragmentDetailBookView.setVisibility(View.GONE);
-            if (getArguments().getBoolean(B4GAppClass.MSG_VISIBILITY, false)) {
-                categoryMsgHolder.setVisibility(View.VISIBLE);
-            }
+
             return v;
         }
         updateFabMenu();

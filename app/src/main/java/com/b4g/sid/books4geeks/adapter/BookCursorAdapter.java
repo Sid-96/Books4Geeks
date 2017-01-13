@@ -47,7 +47,7 @@ public class BookCursorAdapter extends CursorRecyclerViewAdapter<BookCursorAdapt
             ImageUtil.saveToInternalStorage(bookDetail.getUniqueIdentifier(),bookDetail.getImageUrl());
         }
         else {
-            viewHolder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
+            viewHolder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.ic_icon));
         }
         viewHolder.bookTitle.setText(bookDetail.getTitle());
         viewHolder.bookAuthor.setText(bookDetail.getAuthors());

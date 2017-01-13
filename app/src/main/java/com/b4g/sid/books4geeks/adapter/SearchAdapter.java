@@ -52,7 +52,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
             Picasso.with(B4GAppClass.getAppContext()).load(bestSeller.getImageUrl()).fit().centerCrop().into(holder.bookImage);
         }
         else {
-            holder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.category_temp));
+            holder.bookImage.setImageDrawable(ContextCompat.getDrawable(B4GAppClass.getAppContext(),R.drawable.ic_icon));
         }
         holder.bookTitle.setText(bestSeller.getTitle());
         if(bestSeller.getAuthors().length()==0){

@@ -8,8 +8,6 @@
     <string name="drawer_reading">Reading</string>
     <string name="drawer_completed">Completed</string>
     <string name="drawer_about">About</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="book_cover_desc">Book Cover</string>
     <string name="book_author">Book Author</string>
@@ -31,11 +29,9 @@
     <string name="detail_fab_reading_remove">Remove from \"Reading\"</string>
     <string name="detail_fab_finished">Mark as Finished</string>
     <string name="detail_fab_finished_remove">Remove from \"Finished\"</string>
-
     <string name="share">Share</string>
     <string name="search_books">Search books&#8230;</string>
     <string name="desc_no_result">No results found</string>
-
     <string name="action_share_subject">Check out %1$s</string>
     <string name="action_share_text">%1$s by %2$s\n%3$s</string>
     <string name="action_share_title">Share book&#8230;</string>
@@ -61,7 +57,6 @@
     <string name="pref_key_restore">restore_data</string>
     <string name="pref_title_restore">Restore Data</string>
     <string name="pref_sum_restore">Import from Storage</string>
-
     <string name="backup_select">Select location&#8230;</string>
     <string name="backup_complete">Backup completed successfully</string>
     <string name="backup_failed">Error! Unable to save backup</string>
@@ -69,7 +64,6 @@
     <string name="restore_complete">Restore completed successfully</string>
     <string name="restore_failed">Error! Unable to restore backup</string>
     <string name="restore_invalid">The file you selected is invalid</string>
-
     <string name="banner_ad_unit_id">ca-app-pub-4231449519885336/4621303001</string>
     <string name="ad_app_id">ca-app-pub-4231449519885336~9191103404</string>
     <string name="ad_test_device_id">0CC5E42D8645FF9F085776DEA85D5281</string>
@@ -77,11 +71,16 @@
     <string name="detail_description">Description</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
-    <string name="widget_empty_text">Please Wait ...</string>
+    <string name="widget_empty_text">Please Wait &#8230;</string>
     <string name="widget_bar">Books \"To Read\"</string>
     <string name="detail_ranking">Ranking</string>
     <string name="detail_ranking_current">Current Rank : %1$s</string>
     <string name="detail_ranking_weeks">Weeks on List : %1$s</string>
     <string name="empty_view_text_widget">No books in To Read</string>
+    <string name="app_icon">App Icon</string>
+    <string name="publication">Publication</string>
+    <string name="catalog_menu">Catalog menu</string>
+    <string name="category_icon">Category Icon</string>
+    <string name="widget_category_type">Widget Category type</string>
 
 </resources>
